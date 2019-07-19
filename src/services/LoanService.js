@@ -1,0 +1,94 @@
+import axios from 'axios';
+require('dotenv').config();
+
+class LoanService {
+  constructor() {
+    this.service = axios.create({
+      baseURL: `${process.env.REACT_APP_API_URL}/api/test/loan`,
+      withCredentials: true,
+    });
+  }
+
+
+  getLoanDetails = () => {
+    return this.service.get('/')
+      .then(response => response.data)
+  }
+
+  getLoanCompleteDetails = (id) => {
+    return this.service.get(`/complete-details/${id}`)
+      .then(response => response.data)
+  }
+
+  getPeriodSchedule = (startDate, endDate, location) => {
+    return this.service.get(`/schedule/${startDate}/${endDate}/${location}`)
+      .then(response => response.data)
+  }
+
+  getPortfolioStatus = (location, fromDate, toDate) => {
+    return this.service.get(`/portfolio-status/${location}/${fromDate}/${toDate}`)
+      .then(response => response.data)
+  }
+
+  getOpenLoanDetails = () => {
+    return this.service.get('/open')
+      .then(response => response.data)
+  }
+
+  getLoanSchedule = (loanId) => {
+    return this.service.get(`/loanschedule/${loanId}`, {
+      loanId
+    })
+      .then(response => response.data)
+  }
+
+  getWeekSchedule = () => {
+    return this.service.get('/current-week')
+      .then(response => response.data)
+  }
+
+
+  createLoan = (_borrower, collateralType, collateralValue, collateralDescription, loanDetails, useOfFunds, toInvest, currency) => {
+
+    return this.service.post('/create',
+      {
+        _borrower,
+        collateralType,
+        collateralValue,
+        collateralDescription,
+        loanDetails,
+        useOfFunds,
+        toInvest,
+        currency
+      })
+      .then(response => {
+        return response.data
+      })
+      .catch(error => {
+        return error
+      })
+
+  }
+
+
+  makePayment = (payment) => {
+    return this.service.patch(`/installmentpmt/${payment.paymentId}`,
+      {
+        payment
+      }
+    ).then(response => response.data)
+  }
+
+  deletePayment = (id) => {
+    return this.service.delete(`/deletepmt/${id}`)
+      .then(response => response.data)
+  }
+
+  deleteLoan = (id) => {
+    return this.service.delete(`/${id}`)
+      .then(response => response.data)
+  }
+
+}
+
+export default LoanService;

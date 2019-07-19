@@ -1,0 +1,23 @@
+.graph-holder {
+  display: flex;
+  flex-wrap: wrap;
+}
+.graph-portfolio {
+  height: 350px;
+  width: 500px;
+}
+
+@media all and (max-width: 767px) {
+  .graph-holder {
+    padding-top: 20px;
+    width: 400px;
+
+  }
+  .graph-portfolio {
+    width: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+  
+  }
+
+}

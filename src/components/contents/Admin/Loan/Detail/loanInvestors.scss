@@ -1,0 +1,87 @@
+.loan-investor-holder {
+    width: 1000px;
+    min-width: 289px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: rgba(17, 23, 53, 0.87);
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-left: 25px;
+    padding-bottom: 20px;
+    p {
+        margin: 0;
+        padding: 0;
+    }
+    .title-main {
+        font-weight: 600;
+        letter-spacing: 0.1rem;
+        color: rgba(162, 228, 248, 1);
+    }
+    .title {
+        font-weight: 600;
+        letter-spacing: 0.1rem;
+        color: rgba(162, 228, 248, 1);
+        text-align: right;
+    }
+    .total {
+        font-size: 2rem;
+        font-weight: 300;
+        color: rgba(254, 254, 254, 1)
+    }
+    .acc-title{
+        margin-top: 5px;
+        font-weight: 600;
+        letter-spacing: 0.1rem;
+        color: rgba(162, 228, 248, 1)
+    }
+    .acc-total{
+        margin-bottom: 2.5;
+        font-size: 1rem;
+        font-weight: 400;
+        color: rgba(254, 254, 254, 1)
+    }
+    .acc-inv-main {
+        margin-bottom: 2.5;
+        font-size: 0.8rem;
+        font-weight: 400;
+        color: rgba(254, 254, 254, 1);
+    }
+    .acc-inv {
+        margin-bottom: 2.5;
+        font-size: 0.8rem;
+        font-weight: 400;
+        color: rgba(254, 254, 254, 1);
+        text-align: right;
+    }
+    .investor-head {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        border-radius: 10px 10px 0 0;
+        .detail-summary-left{
+            min-width: 230px;
+            width: 230px;
+       
+        }
+        .detail-summary{
+            min-width: 145px;   
+        }
+    }
+    .investor {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+   
+        .detail-summary-left{
+            margin-top:5px;
+            min-width: 230px;
+            width: 230px;
+            text-overflow: clip; 
+            overflow: hidden;
+        }
+        .detail-summary{
+            margin-top:5px;
+            min-width: 145px;
+        }
+    }
+}

@@ -1,0 +1,88 @@
+.one-loan-details-summary {
+    width: 1000px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: rgba(17, 23, 53, 0.87);
+    border-radius: 0 px;
+    p {
+        margin: 0;
+        padding: 0;
+    }
+    .title {
+        font-weight: 600;
+        letter-spacing: 0.1rem;
+        color: rgba(162, 228, 248, 1)
+    }
+    .link {
+        color: rgba(162, 228, 248, 1)
+    }
+    .total {
+        font-size: 1.5rem;
+        font-weight: 300;
+        color: rgba(254, 254, 254, 1)
+    }
+    .acc-title{
+        margin-top: 5px;
+        font-weight: 600;
+        letter-spacing: 0.1rem;
+        color: rgba(162, 228, 248, 1)
+    }
+    .acc-total{
+        margin-bottom: 2.5;
+        font-size: 1rem;
+        font-weight: 300;
+        color: rgba(254, 254, 254, 1)
+    }
+    .loan-detail-summary {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 20px;
+        padding-left: 25px;
+        min-width: 230px;
+    }
+    .loan-detail-left {
+        min-width: 280px;
+    }
+    .loan-detail-content {
+        min-width: 230px; 
+    }
+    .center {
+        border-right: 1px solid;
+        border-left: 1px solid;
+        border-color: rgba(190, 190, 190, 0.322);
+    }
+
+}
+
+@media all and (max-width: 767px) {
+
+    .loan-detail-summary {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 10px;
+        padding-left: 20px;
+        width: 100%;
+    }
+
+    .loan-detail-content {
+        padding: 10px;
+        padding-left: 20px;
+    }
+
+    .loan-detail-left {
+        padding: 10px;
+        padding-left: 20px;
+    }
+
+    .one-loan-details-summary {
+        width: 330px;
+        margin-top: 20px;
+        margin-left: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+}

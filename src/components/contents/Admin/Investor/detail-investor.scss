@@ -1,0 +1,62 @@
+
+.investment-acc-summary {
+    width: 1000px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 250px;
+    background-color: rgba(17, 23, 53, 0.87);
+    p {
+        margin: 0;
+        padding: 0;
+    }
+    .title {
+        font-weight: 400;
+        letter-spacing: 0.1rem;
+        color: rgb(159, 241, 252)
+    }
+    .total {
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: rgb(255, 255, 255)
+    }
+    .acc-title{
+        margin-top: 5px;
+        font-weight: 400;
+        letter-spacing: 0.1rem;
+        color: rgb(159, 241, 252)
+    }
+    .acc-total{
+        margin-bottom: 2.5;
+        font-size: 1rem;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 1)
+    }
+    .detail-summary {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 20px;
+        width: 25%;
+    }
+    .center {
+        border-right: 1px solid;
+        border-left: 1px solid;
+        border-color: rgba(128, 128, 128, 0.322);
+    }
+}
+
+.form-row {
+    width: 1000px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0;
+    .inv-select {
+        width: 780px;
+    }
+    .inv-search {
+        width: 200px;
+        margin: 0;
+    }
+}

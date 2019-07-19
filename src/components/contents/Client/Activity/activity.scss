@@ -1,0 +1,163 @@
+.account-cards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1020px;
+    margin-bottom: 20px;
+}
+
+.summary-card {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 100px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+    border-radius: 3px;
+    padding: 15px 20px;
+}
+
+@media all and (max-width: 767px) {
+    .account-cards {
+      width: 100%;
+      padding-right: 20px;
+      padding-left: 20px;
+      
+      
+    }
+    .summary-card {
+        padding-top: 5px;
+        width: 100%;
+        margin-bottom: 10px;
+        height: 70px;
+    
+    
+        
+    }
+}
+
+.testing {
+    max-width: 1020px;
+    padding-left: 24px;
+    padding-top: 24px;
+    // border: 1px solid red;
+}
+
+.subheading {
+    font-weight: 500;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+.heading {
+    font-weight: 600;
+    font-size: 15px;
+    color: rgba(100, 102, 102, 0.822);
+    margin: 0;
+    padding: 0;
+}
+
+.heading-content {
+  font-weight: 700;
+  font-size: 18px;
+  color: rgb(161, 161, 161);
+  margin: 0;
+  padding: 0;
+}
+
+.heading-activity {  
+    border-bottom: 3px solid rgba(100, 102, 102, 0.507);
+    margin-bottom: 20px;
+}
+
+.subheading-activity{
+    margin-top: 20px;    
+    border-bottom: 1px solid rgba(95, 95, 95, 0.616);
+    display: flex;
+    justify-content: space-between;
+}
+
+
+  .table-container {
+    max-width: 1020px;
+  }
+  
+  h2 {
+    font-size: 26px;
+    margin: 20px 0;
+    text-align: center;
+    small {
+      font-size: 0.5em;
+    }
+  }
+  
+  .responsive-table {
+    padding: 0;
+    li {
+      border-radius: 3px;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    .table-header {
+      background-color: #2C4369;
+      color: #ffffff;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .table-row {
+      background-color: #ffffff;
+      box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+    }
+    .table-col-1 {
+      flex-basis: 15%;
+    }
+    .table-col-2 {
+      flex-basis: 21.25%;
+      text-align: right;
+    }
+    .table-col-3 {
+      flex-basis: 21.25%;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .table-col-4 {
+      flex-basis: 21.25%;
+      text-align: right;
+    }
+    .table-col-5 {
+        flex-basis: 21.25%;
+        text-align: right;
+    }
+
+    
+    @media all and (max-width: 767px) {
+
+      .table-header {
+        display: none;
+      }
+
+      li {
+        display: block;
+      }
+      .table-col {
+        
+        flex-basis: 100%;
+        
+      }
+      .table-col {
+        display: flex;
+        padding: 10px 0;
+        &:before {
+          color: #6C7A89;
+          padding-right: 10px;
+          content: attr(data-label);
+          flex-basis: 50%;
+          text-align: right;
+        }
+      }
+    }
+  }

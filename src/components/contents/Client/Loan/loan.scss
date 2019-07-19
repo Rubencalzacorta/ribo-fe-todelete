@@ -1,0 +1,194 @@
+.account-cards {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1020px;
+  margin-bottom: 20px;
+}
+
+.account-card {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 100px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+  border-radius: 3px;
+  padding: 15px 20px;
+}
+
+.loan-details-card {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1020px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.loan-detail-card {
+  display: flex;
+  flex-direction: column;
+  width: 215px;
+  height: 100px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+  border-radius: 3px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+}
+
+.testing {
+  max-width: 1020px;
+  padding-left: 24px;
+  padding-top: 24px;
+}
+
+.subheading {
+  font-weight: 500;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.heading {
+  font-weight: 600;
+  font-size: 15px;
+  color: rgba(100, 102, 102, 0.822);
+  margin: 0;
+  padding: 0;
+}
+
+.heading-activity {  
+  border-bottom: 3px solid rgba(100, 102, 102, 0.507);
+  margin-bottom: 20px;
+}
+
+.subheading-activity{
+  margin-top: 20px;    
+  border-bottom: 1px solid rgba(95, 95, 95, 0.616);
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-container {
+  max-width: 1020px;
+  padding: 20px;
+}
+
+h2 {
+  font-size: 26px;
+  margin: 20px 0;
+  text-align: center;
+  small {
+    font-size: 0.5em;
+  }
+}
+
+.responsive-table {
+  li {
+    border-radius: 3px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  .table-header {
+    background-color: #2C4369;
+    color: #ffffff;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .table-row {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+  }
+  .table-col-1 {
+    flex-basis: 10%;
+  }
+  .table-col-2 {
+    flex-basis: 13%;
+    text-align: right;
+  }
+  .table-col-3 {
+    flex-basis: 10%;
+    text-align: right;
+  }
+  .table-col-4 {
+    flex-basis: 13%;
+    text-align: right;
+  }
+  .table-col-5 {
+      flex-basis: 13%;
+      text-align: right;
+  }
+  .table-col-6 {
+    flex-basis: 13%;
+    text-align: right;
+  }
+  .table-col-7 {
+    flex-basis: 13%;
+    text-align: right;
+  }
+  .table-col-8 {
+    flex-basis: 5%;
+    text-align: right;
+  }
+
+  .table-details-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0
+  }
+
+
+
+  
+  @media all and (max-width: 767px) {
+
+    .loan-detail-card {
+      min-width: 300px;
+      
+    }
+    
+    .account-card {
+      width: 350px;
+      margin-bottom: 10px;
+      margin: 0 auto;
+    }
+    
+    .table-header {
+      display: none;
+    }
+  
+    li {
+      display: block;
+    }
+    .table-col {
+      
+      flex-basis: 100%;
+      
+    }
+    .table-details-container {
+      padding: 0
+    }
+    .table-col {
+      width: 100%;
+      display: flex;
+      padding: 10px 0;
+      &:before {
+        color: #6C7A89;
+        padding-right: 10px;
+        content: attr(data-label);
+        flex-basis: 50%;
+        text-align: right;
+      }
+    }
+  }
+}

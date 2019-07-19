@@ -1,0 +1,109 @@
+$summaryWidth: 1000px;
+
+.loans-summary {
+    max-width: $summaryWidth;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: rgb(76, 120, 161);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    p {
+        margin: 0;
+        padding: 0;
+    }
+    .title {
+        font-weight: 600;
+        letter-spacing: 0.1rem;
+        color: rgba(162, 228, 248, 1)
+    }
+    .total {
+        font-size: 1.2rem;
+        font-weight: 400;
+        color: rgb(255, 255, 255)
+    }
+    .acc-title{
+        margin-top: 5px;
+        font-weight: 600;
+        letter-spacing: 0.1rem;
+        color: rgba(162, 228, 248, 1)
+    }
+    .acc-total{
+        margin-bottom: 2.5;
+        font-size: 0.8rem;
+        font-weight: 400;
+        color: rgb(255, 255, 255)
+    }
+    .detail-summary {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 20px;
+        padding-left: 25px;;
+        min-width: ($summaryWidth)/4.2;
+    }
+    .detail-summary-notes {
+      height: 100%;
+      padding: 0 20px 20px 20px;
+      min-width: 100%;
+  }
+  .notes {
+    margin-bottom: 2.5;
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: rgb(255, 255, 255)
+}
+    .center {
+        border-right: 1px solid;
+        border-left: 1px solid;
+        border-color: rgba(190, 190, 190, 0.322);
+    }
+
+}
+@media all and (max-width: 767px) {
+
+    .content {
+        width: 100%;
+    }
+    .loans-summary {
+      display:flex;
+      flex-direction: column;
+      width: 330px;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+    
+    .account-card {
+      width: 350px;
+      margin-bottom: 10px;
+      margin: 0 auto;
+    }
+    
+    .table-header {
+      display: none;
+    }
+  
+    li {
+      display: block;
+    }
+    .table-col {
+      
+      flex-basis: 100%;
+      
+    }
+    .table-details-container {
+      padding: 0
+    }
+    .table-col {
+      width: 100%;
+      display: flex;
+      padding: 10px 0;
+      &:before {
+        color: #6C7A89;
+        padding-right: 10px;
+        content: attr(data-label);
+        flex-basis: 50%;
+        text-align: right;
+      }
+    }
+  }
