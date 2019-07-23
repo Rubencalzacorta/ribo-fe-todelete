@@ -35,7 +35,7 @@ function AccInvestmentsTable(props) {
               </div>
               <div className="detail-schedule details-name">
                 <p className="acc-date">
-                  {row._loan ? row._loan._borrower.fullName : ""}
+                  {row._loan ? row._loan._borrower.firstName + " " + row._loan._borrower.lastName : ""}
                 </p>
               </div>
               <div className="detail-schedule details-concept">
