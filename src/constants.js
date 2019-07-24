@@ -253,7 +253,8 @@ const loanInitialState = {
     cashAccount: '',
     useOfFunds: "",
     investmentAmount: 0,
-    investors: []
+    investors: [],
+    autoInvest: true
 };
 
 const initialClientState = {

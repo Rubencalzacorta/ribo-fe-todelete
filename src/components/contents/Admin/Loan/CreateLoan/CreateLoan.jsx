@@ -5,9 +5,10 @@ import TransactionService from "../../../../../services/TransactionService";
 import LoanService from "../../../../../services/LoanService";
 import Colateral from './Colateral'
 import LoanDetails from './LoanDetails'
-
 import { loanSelector } from "../helpers/scheduleCalc";
 import { loanInitialState } from '../../../../../constants'
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 class CreateLoan extends Component {
   constructor(props) {
@@ -48,26 +49,48 @@ class CreateLoan extends Component {
     const loanDetails = this.state.loanDetails;
     const useOfFunds = this.state.useOfFunds;
     const toInvest = this.state.investors;
+    const country = this.state.country;
+    const autoInvest = this.state.autoInvest;
 
-    this.LoanService.createLoan(
-      _borrower,
-      collateralType,
-      collateralValue,
-      collateralDescription,
-      loanDetails,
-      useOfFunds,
-      toInvest,
-      currency
-    )
-      .then(response => {
-        this.props.history.push(`/admin/loan/${response._id}`);
-      })
-      .catch(error => {
-        this.setState({
-          error: true,
-          message: error.response.data.message
-        });
-      });
+    (!autoInvest) ?
+      this.LoanService.createLoan(
+        _borrower,
+        collateralType,
+        collateralValue,
+        collateralDescription,
+        loanDetails,
+        useOfFunds,
+        toInvest,
+        currency
+      )
+        .then(response => {
+          this.props.history.push(`/admin/loan/${response._id}`);
+        })
+        .catch(error => {
+          this.setState({
+            error: true,
+            message: error.response.data.message
+          });
+        }) :
+      this.LoanService.createLoanAllActive(
+        _borrower,
+        collateralType,
+        collateralValue,
+        collateralDescription,
+        loanDetails,
+        useOfFunds,
+        currency,
+        country
+      )
+        .then(response => {
+          this.props.history.push(`/admin/loan/${response._id}`);
+        })
+        .catch(error => {
+          this.setState({
+            error: true,
+            message: error.response.data.message
+          });
+        })
   };
 
   fetchAccountsTotals(country) {
@@ -126,6 +149,10 @@ class CreateLoan extends Component {
     this.setState({ [name]: value });
 
   };
+
+  handleAutoInvest = () => {
+    this.setState({ autoInvest: !this.state.autoInvest })
+  }
 
   handleOpen = () => {
     this.setState({ open: true });
@@ -224,37 +251,47 @@ class CreateLoan extends Component {
             <div className="card col-md-12">
               <div className="card-body">
                 <h5 className="card-title">Inversionista</h5>
-                <div className="form-row col-md-12 " id="participants">
-                  <div className="form-group col-md-6" id="investor-0">
-                    <label>Cuenta Inversionista:</label>
-                    <select
-                      className="form-control"
-                      name="investor"
-                      value={this.state.investor}
-                      onChange={e => this.handleSelectedInvestor(e)}
-                    >
-                      <option>Seleccionar Cuenta</option>
-                      {this.state.accounts
-                        ? this.state.accounts.map((e, i) => (
-                          <option key={i} value={[e.investor[0]._id, e.cashAccount]}>
-                            {e.cashAccount + " - " + e.investor[0].firstName + " " + e.investor[0].lastName}
-                          </option>
-                        ))
-                        : ""}
-                    </select>
+                <FormControlLabel
+                  control={
+                    <Switch checked={this.state.autoInvest} onChange={() => this.handleAutoInvest()} value="checkedA" />
+                  }
+                  label="AutoInvest"
+                />
+                {(this.state.autoInvest) ?
+                  <p>Los inversionistas se selecctionarán de acuerdo a su disponibilidad</p>
+                  :
+                  <div className="form-row col-md-12 " id="participants">
+                    <div className="form-group col-md-6" id="investor-0">
+                      <label>Cuenta Inversionista:</label>
+                      <select
+                        className="form-control"
+                        name="investor"
+                        value={this.state.investor}
+                        onChange={e => this.handleSelectedInvestor(e)}
+                      >
+                        <option>Seleccionar Cuenta</option>
+                        {this.state.accounts
+                          ? this.state.accounts.map((e, i) => (
+                            <option key={i} value={[e.investor[0]._id, e.cashAccount]}>
+                              {e.cashAccount + " - " + e.investor[0].firstName + " " + e.investor[0].lastName}
+                            </option>
+                          ))
+                          : ""}
+                      </select>
+                    </div>
+                    <div className="form-group col-md-6" id="investor-0">
+                      <label>Cuenta de efectivo:</label>
+                      <input
+                        disabled
+                        className="form-control"
+                        type="text"
+                        step="any"
+                        name="cashAccount"
+                        value={this.state.cashAccount || undefined}
+                      />
+                    </div>
                   </div>
-                  <div className="form-group col-md-6" id="investor-0">
-                    <label>Cuenta de efectivo:</label>
-                    <input
-                      disabled
-                      className="form-control"
-                      type="text"
-                      step="any"
-                      name="cashAccount"
-                      value={this.state.cashAccount || undefined}
-                    />
-                  </div>
-                </div>
+                }
                 {this.state.openInvestmentOption ?
                   <>
                     <div className="form-row col-md-12 " id="participants">
@@ -316,47 +353,47 @@ class CreateLoan extends Component {
                   </>
                   : ''}
 
-
-                <div className="card-body table-holder">
-                  <table className="table investors">
-                    <thead>
-                      <tr>
-                        <th scope="col">Inversionista</th>
-                        <th scope="col">Efectivo</th>
-                        <th scope="col">Monto</th>
-                        <th scope="col">Porcentaje</th>
-                        <th scope="col">Acción</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {this.state.investors.length > 0 ? (
-                        this.state.investors.map((e, i) => {
-                          return (
-                            <tr key={i}>
-                              <td>{e.investorFullName}</td>
-                              <td>{e.cashAccount}</td>
-                              <td>{e.amount}</td>
-                              <td>{e.pct}</td>
-                              <td>
-                                <button
-                                  type="button"
-                                  className="btn btn-warning"
-                                  onClick={i => this.deleteInvestor(i)}
-                                >
-                                  X
-                        </button>
-                              </td>
+                {(this.state.investors >= 1) ?
+                  <div className="card-body table-holder">
+                    <table className="table investors">
+                      <thead>
+                        <tr>
+                          <th scope="col">Inversionista</th>
+                          <th scope="col">Efectivo</th>
+                          <th scope="col">Monto</th>
+                          <th scope="col">Porcentaje</th>
+                          <th scope="col">Acción</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {this.state.investors.length > 0 ? (
+                          this.state.investors.map((e, i) => {
+                            return (
+                              <tr key={i}>
+                                <td>{e.investorFullName}</td>
+                                <td>{e.cashAccount}</td>
+                                <td>{e.amount}</td>
+                                <td>{e.pct}</td>
+                                <td>
+                                  <button
+                                    type="button"
+                                    className="btn btn-warning"
+                                    onClick={i => this.deleteInvestor(i)}
+                                  >
+                                    X
+                                    </button>
+                                </td>
+                              </tr>
+                            );
+                          })
+                        ) : (
+                            <tr>
+                              <td>Agregue Inversionista</td>
                             </tr>
-                          );
-                        })
-                      ) : (
-                          <tr>
-                            <td>Agregue Inversionista</td>
-                          </tr>
-                        )}
-                    </tbody>
-                  </table>
-                </div>
+                          )}
+                      </tbody>
+                    </table>
+                  </div> : ""}
               </div>
             </div>
           </div>
@@ -366,7 +403,7 @@ class CreateLoan extends Component {
                 <div>
                   <button type="submit" className="btn btn-info" id="submit_button">
                     Crear
-            </button>
+                  </button>
                 </div>
               </div>
             </div>

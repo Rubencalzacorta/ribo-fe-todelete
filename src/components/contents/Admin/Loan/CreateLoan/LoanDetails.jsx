@@ -22,42 +22,28 @@ function LoanDetails(props) {
               >
                 <option value="linear">
                   Pagos Iguales
-          </option>
+                </option>
                 <option value="linearIntFirst">
                   Interest + Pagos Iguales
-          </option>
+                </option>
                 <option value="monday">
                   Dia de pago lunes
-          </option>
+                </option>
                 <option value="payDay">
                   Dia de pago
-          </option>
+                </option>
                 <option value="lumpSum">
                   Final PMTs + Interest + No Amort
-          </option>
+                </option>
                 <option value="factoring">
                   Factoring
-          </option>
+                </option>
                 <option value="amort">
                   Amortizado
-          </option>
+                </option>
               </select>
             </div>
-            {loanDetails.loanType !== 'factoring' || 'monday' ? <div className="form-group col-md-6 col-sm-6">
-              <label>Frequencia:</label>
-              <select
-                id="loan_type"
-                className="form-control"
-                name="period"
-                value={loanDetails.period}
-                onChange={e => props.handleLoanDetailsChange(e)}
-                required
-              >
-                <option defaultValue="monthly">Mensual</option>
-                <option value="biWeekly">Quincenal</option>
-                <option value="payDay">Dia de pago</option>
-              </select>
-            </div> :
+            {loanDetails.loanType === 'factoring' ?
               <div className="form-group col-md-6 col-sm-6">
                 <label>Días</label>
                 <input
@@ -69,7 +55,23 @@ function LoanDetails(props) {
                   onChange={e => props.handleLoanDetailsChange(e)}
                   required
                 />
+              </div> :
+              <div className="form-group col-md-6 col-sm-6">
+                <label>Frequencia:</label>
+                <select
+                  id="loan_type"
+                  className="form-control"
+                  name="period"
+                  value={loanDetails.period}
+                  onChange={e => props.handleLoanDetailsChange(e)}
+                  required
+                >
+                  <option defaultValue="monthly">Mensual</option>
+                  <option value="biWeekly">Quincenal</option>
+                  <option value="payDay">Dia de pago</option>
+                </select>
               </div>
+
             }
           </div>
           <div className="form-row col-md-12">
@@ -117,19 +119,20 @@ function LoanDetails(props) {
             </div>
           </div>
           <div className="form-row col-md-12 col-sm-6">
-            {loanDetails.loanType !== 'factoring' ? <div className="form-group col-md-6 col-sm-6">
-              <label>Duracion:</label>
-              <input
-                className="form-control"
-                type="number"
-                step="any"
-                id="duration"
-                name="duration"
-                value={loanDetails.duration}
-                onChange={e => props.handleLoanDetailsChange(e)}
-                required
-              />
-            </div> : ''}
+            {loanDetails.loanType !== 'factoring' ?
+              <div className="form-group col-md-6 col-sm-6">
+                <label>Duracion:</label>
+                <input
+                  className="form-control"
+                  type="number"
+                  step="any"
+                  id="duration"
+                  name="duration"
+                  value={loanDetails.duration}
+                  onChange={e => props.handleLoanDetailsChange(e)}
+                  required
+                />
+              </div> : ''}
             <div className="form-group col-md-6 col-sm-6">
               <label>Tasa de Interes (M):</label>
               <input

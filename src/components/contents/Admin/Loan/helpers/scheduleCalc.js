@@ -455,6 +455,7 @@ const factoring = (loan, startDate, days, interest, capital, currency) => {
     currency: currency
   }
   schedule.push(disburstment)
+
   let amortization_pmt = {
     _loan: loan,
     date: moment(startDate).add(days, 'days').format('YYYY-MM-DD'),
@@ -465,6 +466,7 @@ const factoring = (loan, startDate, days, interest, capital, currency) => {
     status: days > 31 ? 'PENDING' : 'DUE',
     currency: currency
   }
+
   schedule.push(amortization_pmt)
 
   return schedule

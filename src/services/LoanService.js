@@ -37,8 +37,8 @@ class LoanService {
 
   getLoanSchedule = (loanId) => {
     return this.service.get(`/loanschedule/${loanId}`, {
-      loanId
-    })
+        loanId
+      })
       .then(response => response.data)
   }
 
@@ -50,8 +50,7 @@ class LoanService {
 
   createLoan = (_borrower, collateralType, collateralValue, collateralDescription, loanDetails, useOfFunds, toInvest, currency) => {
 
-    return this.service.post('/create',
-      {
+    return this.service.post('/create', {
         _borrower,
         collateralType,
         collateralValue,
@@ -70,13 +69,30 @@ class LoanService {
 
   }
 
+  createLoanAllActive = (_borrower, collateralType, collateralValue, collateralDescription, loanDetails, useOfFunds, currency, country) => {
+
+    return this.service.post('/create/all-active-invest', {
+        _borrower,
+        collateralType,
+        collateralValue,
+        collateralDescription,
+        loanDetails,
+        useOfFunds,
+        currency,
+        country
+      })
+      .then(response => {
+        return response.data
+      })
+      .catch(error => {
+        return error
+      })
+  }
 
   makePayment = (payment) => {
-    return this.service.patch(`/installmentpmt/${payment.paymentId}`,
-      {
-        payment
-      }
-    ).then(response => response.data)
+    return this.service.patch(`/installmentpmt/${payment.paymentId}`, {
+      payment
+    }).then(response => response.data)
   }
 
   deletePayment = (id) => {
