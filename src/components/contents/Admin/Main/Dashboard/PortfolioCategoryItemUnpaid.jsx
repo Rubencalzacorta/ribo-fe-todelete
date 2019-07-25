@@ -71,7 +71,7 @@ export default class PortfolioDueCategoryUnpaid extends Component {
                     </div>
                     <div className="item-content-unpaid">
                         <div className="item-holder">
-                            <p className="content"><Link to={`/admin/loan/${data._loan}`}>Detalle</Link> | <p className="payment-option" onClick={() => this.openPaymentOption(data)}>Pagar</p></p>
+                            <p className="content"><Link to={`/admin/loan/${data._loan}`}>Detalle</Link> | <span className="payment-option" onClick={() => this.openPaymentOption(data)}>Pagar</span></p>
                         </div>
                     </div>
                 </div>

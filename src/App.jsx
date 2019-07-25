@@ -17,6 +17,7 @@ import CreateInvestor from './components/contents/Admin/Investor/CreateInvestor'
 import NewTransaction from './components/contents/Admin/Investor/NewTransaction'
 import DetailInvestor from './components/contents/Admin/Investor/DetailInvestor.jsx'
 import CreateLoan from './components/contents/Admin/Loan/CreateLoan/CreateLoan.jsx'
+import FinDashboard from './components/contents/Admin/Financial/FinDashboard.jsx'
 import LoanList from './components/contents/Admin/Loan/LoanList'
 import LoanWeekList from './components/contents/Admin/Loan/LoanWeekList'
 import PeriodSchedule from './components/contents/Admin/Loan/PeriodSchedule'
@@ -80,6 +81,7 @@ class App extends Component {
               <Route exact path='/admin/investor/create' render={() => <CreateInvestor getUser={this.getTheUser} location={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/investor/transaction' render={() => <NewTransaction getUser={this.getTheUser} location={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/investor/details' render={() => <DetailInvestor getUser={this.getTheUser} location={this.state.loggedInUser.location} />} />
+              <Route exact path='/admin/financials' render={() => <FinDashboard getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/loan/list' render={() => <LoanList getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/loan/period' render={() => <PeriodSchedule getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/activity' render={() => <Dashboard getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />

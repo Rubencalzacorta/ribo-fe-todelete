@@ -37,6 +37,14 @@ const adminUrls = [{
     },
     {
         link: false,
+        text: '- Finanzas'
+    }, {
+        link: true,
+        url: 'financials',
+        text: 'Indicadores'
+    },
+    {
+        link: false,
         text: '- Cliente'
     },
     {
