@@ -9,7 +9,6 @@ class FinancialService {
         });
     }
 
-
     getCashAccountTotals = (country) => {
         return this.service.get(`/cash-available/accounts/${country}`, )
             .then(response => response.data)
