@@ -1,16 +1,10 @@
 import React from 'react'
 import numbro from 'numbro'
 import moment from 'moment'
-const ktransform = (n, d) => {
-    let x = ('' + n).length
-    let p = Math.pow
-    d = p(10, d)
-    x -= x % 3
-    return Math.round(n * d / p(10, x)) / d + " kMGTPE"[x / 3]
-}
 
 const Cashflow = (props) => {
     let { cashflow } = props
+    console.log(cashflow)
     return (
         <div className="sectionHolder">
             <h2 className="title">Flujo de efectivo - 12 meses</h2>
