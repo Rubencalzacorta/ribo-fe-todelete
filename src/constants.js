@@ -1,26 +1,9 @@
 const fees = [{
-        text: "Patricia 45%, Miguel 10%",
+        text: "Ribo",
         fee: [{
-                "admin": "5c8103c1cf81366c6c0f1337",
-                "fee": 0.45
-            },
-            {
-                "admin": "5c8103d8cf81366c6c0f1339",
-                "fee": 0.1
-            }
-        ]
-    },
-    {
-        text: "Patricia 30%, Miguel 10%",
-        fee: [{
-                "admin": "5c8103c1cf81366c6c0f1337",
-                "fee": 0.3
-            },
-            {
-                "admin": "5c8103d8cf81366c6c0f1339",
-                "fee": 0.1
-            }
-        ]
+            "admin": "5d3b2da39657b30017a9ed0c",
+            "fee": 0.70
+        }]
     },
     {
         text: "Miguel 10%",
