@@ -20,13 +20,15 @@ export default class LoanList extends Component {
         if (this.state.getSummary) {
             let { userLocation } = this.props
             let cashAccountsTotals = await this.FinancialService.getCashAccountTotals(userLocation)
+            let cashflow = await this.FinancialService.getCashflow(userLocation)
 
-            Promise.all([cashAccountsTotals])
+            Promise.all([cashAccountsTotals, cashflow])
                 // this.summaryService.totals(userLocation)
                 .then(response => {
                     this.setState({
                         getSummary: false,
-                        cashAccounts: response[0]
+                        cashAccounts: response[0],
+                        cashflow: response[1]
                     })
                 })
                 .catch(err => {
@@ -40,11 +42,11 @@ export default class LoanList extends Component {
 
 
     render() {
-        const { cashAccounts } = this.state
+        const { cashAccounts, cashflow } = this.state
         return (
             <div className="content">
                 <CashAvailability cashAccounts={cashAccounts} />
-                <Cashflow />
+                <Cashflow cashflow={cashflow} />
             </div>
         )
     }

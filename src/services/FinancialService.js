@@ -14,6 +14,11 @@ class FinancialService {
             .then(response => response.data)
     }
 
+    getCashflow = (country) => {
+        return this.service.get(`/cashflow/${country}`, )
+            .then(response => response.data)
+    }
+
 }
 
 export default FinancialService;

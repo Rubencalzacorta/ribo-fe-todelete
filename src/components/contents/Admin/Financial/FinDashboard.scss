@@ -15,7 +15,6 @@
     }
 
     .cashAccountsHolder {
-        border-top: 1px solid #57575731;
         padding-top: 20px;
         width: 100%;
         display: flex;
@@ -36,6 +35,56 @@
                 color: #575757;
                 font-weight: 600;
                 font-size: 1.30em;
+                margin-bottom: 5px;
+
+            }
+
+            .accountName {
+                color: #818181;
+                font-weight: 600;
+                font-size: 1em;
+                margin-bottom: 0px;
+            }
+        }
+    }
+
+    .cashflowHolder {
+        padding-top: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        flex-direction: row;
+
+        .countryCashflow {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            margin-bottom: 20px;
+        }
+
+        .countryTitle {
+            margin-left: 10px;
+            width: 100%;
+            color: #575757;
+            font-weight: 600;
+            font-size: 1.2em;
+        }
+
+        .cashHolder {
+            margin-top: 10px;
+            width: 75px;
+            height: 100px;
+            background-color: #ffffff;
+            padding: 10px;
+            box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.1);
+            border-radius: 3px;
+
+            .accountTotal {
+                color: #575757;
+                font-weight: 600;
+                font-size: 0.9em;
                 margin-bottom: 5px;
 
             }
