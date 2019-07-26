@@ -7,7 +7,7 @@ const Cashflow = (props) => {
     console.log(cashflow)
     return (
         <div className="sectionHolder">
-            <h2 className="title">Flujo de efectivo - 12 meses</h2>
+            <h2 className="titleFin">Flujo de efectivo - 12 meses</h2>
             <div className="cashflowHolder">
                 {cashflow ? cashflow.map((e, i) => {
                     let key = Object.keys(e)

@@ -5,7 +5,7 @@ const CashAvailability = (props) => {
     let { cashAccounts } = props
     return (
         <div className="sectionHolder">
-            <h2 className="title">Disponibilidad de efectivo</h2>
+            <h2 className="titleFin">Disponibilidad de efectivo</h2>
             <div className="cashAccountsHolder">
                 {cashAccounts ? cashAccounts.map((e, i) => {
                     return <div className="cashHolder" key={i}>
