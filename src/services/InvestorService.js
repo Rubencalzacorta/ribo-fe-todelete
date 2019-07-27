@@ -8,26 +8,33 @@ class InvestorService {
       withCredentials: true,
     });
   }
-  
+
   createInvestor = (firstName, lastName, location, investor) => {
-    return this.service.post('/', 
-      {
+    return this.service.post('/', {
         firstName,
         lastName,
         location,
         investor
       })
-    .then(response => response.data)
+      .then(response => response.data)
   }
 
   getInvestors = () => {
-    return this.service.get('/investor/list',)
-    .then(response => response.data)
+    return this.service.get('/investor/list', )
+      .then(response => response.data)
   }
 
   getInvestorInvestments = (investor) => {
-    return this.service.get(`/investments/${investor}`,)
-    .then(response => response.data)
+    return this.service.get(`/investments/${investor}`, )
+      .then(response => response.data)
+  }
+  getInvestorAutoInvest = (investor) => {
+    return this.service.get(`/detail/investmentStatus/${investor}`, )
+      .then(response => response.data)
+  }
+  toggleInvestorAutoInvest = (investor) => {
+    return this.service.post(`/detail/investmentStatus/${investor}`, )
+      .then(response => response.data)
   }
 }
 

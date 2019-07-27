@@ -12,6 +12,8 @@ import './detail-investor.scss'
 import AccTransactionsTable from './AccTransactionsTable';
 import AccInvestmentsTable from './AccInvestmentsTable';
 import AccLoanSummaryTable from './AccLoanSummaryTable';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 const styles = theme => ({
   root: {
@@ -83,14 +85,16 @@ class DetailInvestor extends Component {
     let transactions = await this.TransactionService.getInvestorTransactions(_investor)
     let investments = await this.InvestorService.getInvestorInvestments(_investor)
     let loanDetails = await this.TransactionService.getLoanInvestorDetails(_investor)
+    let autoInvest = await this.InvestorService.getInvestorAutoInvest(_investor)
 
-    return Promise.all([transactions, investments, loanDetails])
+    return Promise.all([transactions, investments, loanDetails, autoInvest])
       .then(response => {
         this.setState({
           display: true,
           transactions: response[0],
           investments: response[1],
-          loanDetails: response[2]
+          loanDetails: response[2],
+          isAutoInvesting: response[3].isAutoInvesting
         });
         return response
       })
@@ -128,6 +132,19 @@ class DetailInvestor extends Component {
           })
         })
     }
+  }
+
+  toggleAutoInvest = () => {
+    const _investor = this.state._investor
+    this.InvestorService.toggleInvestorAutoInvest(_investor)
+      .then(response => {
+        console.log(response)
+        if (response.updated) {
+          this.setState({ isAutoInvesting: response.isAutoInvesting })
+        } else {
+          this.setState({ isAutoInvesting: this.state.isAutoInvesting })
+        }
+      })
   }
 
   investorDetails(transactions) {
@@ -195,6 +212,8 @@ class DetailInvestor extends Component {
       })
       return totals
     }
+
+
 
     // const feesReducer = (transactions) => {
     //   let accountList = []
@@ -275,6 +294,12 @@ class DetailInvestor extends Component {
         </div>
         {display &&
           (<div>
+            <FormControlLabel
+              control={
+                <Switch checked={this.state.isAutoInvesting} onChange={() => this.toggleAutoInvest()} value="checkedA" />
+              }
+              label="Reinvertir"
+            />
             <div className="investment-acc-summary">
               <div className="detail-summary">
                 <p className='title'>DISPONIBLE</p>
