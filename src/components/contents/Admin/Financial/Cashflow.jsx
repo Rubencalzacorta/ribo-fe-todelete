@@ -4,7 +4,6 @@ import moment from 'moment'
 
 const Cashflow = (props) => {
     let { cashflow } = props
-    console.log(cashflow)
     return (
         <div className="sectionHolder">
             <h2 className="titleFin">Flujo de efectivo - 12 meses</h2>
@@ -12,17 +11,17 @@ const Cashflow = (props) => {
                 {cashflow ? cashflow.map((e, i) => {
                     let key = Object.keys(e)
                     return (
-                        <div className="countryCashflow">
+                        <div className="countryCashflow" key={i}>
                             <div className="countryTitle">{key[0] + " - " + cashflow[i][key][0].currency}</div>
-                            < div className="cashHolder" key={i} >
+                            < div className="cashHolder" >
                                 <p className="accountTotal">Fecha</p>
                                 <p className="accountTotal">Interes</p>
                                 <p className="accountTotal">Capital</p>
                                 <p className="accountTotal">Total</p>
                             </div>
-                            {cashflow[i][key].map(e => {
+                            {cashflow[i][key].map((e, j) => {
                                 return (
-                                    < div className="cashHolder" key={i} >
+                                    < div className="cashHolder" key={j} >
                                         <p className="accountTotal">{
                                             moment(`${e.year}/${e.month}/01`).format('MMM-YY')}
                                         </p>
