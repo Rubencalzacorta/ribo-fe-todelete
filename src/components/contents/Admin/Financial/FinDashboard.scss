@@ -65,6 +65,10 @@
             flex-wrap: wrap;
             flex-direction: row;
             margin-bottom: 20px;
+            padding: 15px;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+            border-radius: 3px;
         }
 
         .countryTitle {
@@ -75,14 +79,12 @@
             font-size: 1.2em;
         }
 
+
         .cashHolder {
             margin-top: 10px;
-            width: 75px;
+            width: 74px;
             height: 100px;
-            background-color: #ffffff;
             padding: 10px;
-            box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.1);
-            border-radius: 3px;
 
             .accountTotal {
                 color: #575757;
