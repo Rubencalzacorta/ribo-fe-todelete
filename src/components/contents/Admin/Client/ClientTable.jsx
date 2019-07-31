@@ -2,22 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
-import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import moment from 'moment'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
 import './results-table.scss'
 
-const CustomTableCell = withStyles(theme => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
 
 const styles = theme => ({
   root: {
@@ -71,7 +61,7 @@ function LoanTable(props) {
               <>
                 <div className="ser-item-holder">
                   <div className="ser-name-country">
-                    <span role="img" aria-lable='country-flag'>
+                    <span role="img" aria-label='country-flag'>
                       {(row.country === 'DOMINICAN_REPUBLIC')
                         ? <i class="em em-flag-do"></i> : (row.country === 'VENEZUELA')
                           ? <i class="em em-flag-ve"></i> : (row.country === 'PERU')
