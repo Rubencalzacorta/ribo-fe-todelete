@@ -1,5 +1,6 @@
 import React from 'react'
 import numbro from 'numbro'
+import CountryFlag from '../../../helpers/CountryFlag'
 
 const Stats = (props) => {
     let { stats } = props
@@ -11,7 +12,7 @@ const Stats = (props) => {
                 {stats ? stats.map((e, i) => {
                     return (
                         <div className="countryStats" key={i}>
-                            <div className="countryTitle">{e.country}</div>
+                            <div className="countryTitle"><CountryFlag country={e.country} /></div>
                             < div className="statHolder"  >
                                 <p className="accountTotalTitle">Capital Inicial:</p>
                                 <p className="accountTotal">{numbro(e.totalInitialCapital).format({

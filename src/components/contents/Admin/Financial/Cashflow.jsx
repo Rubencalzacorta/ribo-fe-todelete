@@ -1,6 +1,7 @@
 import React from 'react'
 import numbro from 'numbro'
 import moment from 'moment'
+import CountryFlag from '../../../helpers/CountryFlag'
 
 const Cashflow = (props) => {
     let { cashflow } = props
@@ -12,7 +13,7 @@ const Cashflow = (props) => {
                     let key = Object.keys(e)
                     return (
                         <div className="countryCashflow" key={i}>
-                            <div className="countryTitle">{key[0] + " - " + cashflow[i][key][0].currency}</div>
+                            <div className="countryTitle"><CountryFlag country={key[0]} />{"  " + cashflow[i][key][0].currency}</div>
                             < div className="cashHolder" >
                                 <p className="accountTotal">Fecha</p>
                                 <p className="accountTotal">Interes</p>

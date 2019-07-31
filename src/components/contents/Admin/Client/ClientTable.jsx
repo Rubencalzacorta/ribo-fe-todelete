@@ -7,6 +7,7 @@ import moment from 'moment'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
 import './results-table.scss'
+import CountryFlag from '../../../helpers/CountryFlag.jsx'
 
 
 const styles = theme => ({
@@ -61,13 +62,7 @@ function LoanTable(props) {
               <>
                 <div className="ser-item-holder">
                   <div className="ser-name-country">
-                    <span role="img" aria-label='country-flag'>
-                      {(row.country === 'DOMINICAN_REPUBLIC')
-                        ? <i class="em em-flag-do"></i> : (row.country === 'VENEZUELA')
-                          ? <i class="em em-flag-ve"></i> : (row.country === 'PERU')
-                            ? <i class="em em-flag-pe"></i> : ''
-                      }
-                    </span>
+                    <CountryFlag country={row.country} />
                     <h4 className="ser-client">
                       <Link to={`/admin/client/${row._id}`}>{row.firstName + " " + row.lastName}</Link>
                     </h4>
