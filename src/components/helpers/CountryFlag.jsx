@@ -5,9 +5,9 @@ function CountryFlag(props) {
     return (
         <span role="img" aria-label='country-flag'>
             {(country === 'DOMINICAN_REPUBLIC')
-                ? <i class="em em-flag-do"></i> : (country === 'VENEZUELA')
-                    ? <i class="em em-flag-ve"></i> : (country === 'PERU')
-                        ? <i class="em em-flag-pe"></i> : ''
+                ? <i className="em em-flag-do"></i> : (country === 'VENEZUELA')
+                    ? <i className="em em-flag-ve"></i> : (country === 'PERU')
+                        ? <i className="em em-flag-pe"></i> : ''
             }
         </span>
     )

@@ -40,40 +40,39 @@ function LoanTable(props) {
       <Paper className={classes.root}>
         <table className={classes.table} id="table-to-xls">
           <thead className="table-header">
-            <th className="header header-name">
-              CLIENTE
-          </th>
-            <th className="header header-company">
-              COMPAÑÍA
-          </th>
-            <th className="header header-loan-number">
-              #
-          </th>
-            <th className="header header-capital">
-              PRESTAMO
-          </th>
-            <th className="header header-remaining">
-              X REPAGAR
-          </th>
-            <th className="header header-payment">
-              CUOTA
-          </th>
-            <th className="header header-date">
-              FECHA
-          </th>
+            <tr>
+              <th className="header header-name">
+                CLIENTE
+            </th>
+              <th className="header header-company">
+                COMPAÑÍA
+            </th>
+              <th className="header header-loan-number">
+                #
+            </th>
+              <th className="header header-capital">
+                PRESTAMO
+            </th>
+              <th className="header header-remaining">
+                X REPAGAR
+            </th>
+              <th className="header header-payment">
+                CUOTA
+            </th>
+              <th className="header header-date">
+                FECHA
+            </th>
+            </tr>
           </thead>
           <tbody className='table-body'>
             {data.length > 0 ? data.map((row, i) => {
               let loanAmount = _(row.loans).groupBy('_id').size()
               let array = [...Array(loanAmount).keys()]
-              console.log(array)
-              console.log(loanAmount)
-
               return (
                 (loanAmount > 1) ?
                   array.map((e, j) => {
                     return (j === 0) ?
-                      <tr className='ser-item-holder'>
+                      <tr className='ser-item-holder' key={i}>
                         <td className="ser-name-country">
                           <CountryFlag country={row.country} />
                           <h4 className="ser-client">
@@ -119,7 +118,7 @@ function LoanTable(props) {
                         <td className="ser-loan-detail">{moment(row.loans[j].nextPayment.date).format('YYYY-MM-DD')}</td>
                       </tr>
                   }) :
-                  <tr className='ser-item-holder'>
+                  <tr className='ser-item-holder' key={i}>
                     <td className="ser-name-country">
                       <CountryFlag country={row.country} />
                       <h4 className="ser-client">
