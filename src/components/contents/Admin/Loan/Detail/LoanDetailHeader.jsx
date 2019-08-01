@@ -16,7 +16,7 @@ function LoanDetailHeader(props) {
             <div className="loan-detail-summary loan-detail-content">
                 <div>
                     <p className='title'>INT & TME</p>
-                    <p className='total'>{parseFloat(details.interest)}% | {parseFloat(details.IRR)}% </p>
+                    <p className='total'>{parseFloat(details.interest)}% | {parseFloat(details.IRR) ? parseFloat(details.IRR) : ""}% </p>
                 </div>
             </div>
             <div className="loan-detail-summary loan-detail-content">
@@ -41,7 +41,7 @@ function LoanDetailHeader(props) {
             <div className="loan-detail-summary loan-detail-content">
                 <div>
                     <p className='title'>PLAZO & PR</p>
-                    <p className='total'>{details.duration} m | {(details.PaybackPeriod).toLocaleString(undefined, { maximumFractionDigits: 2 })} m</p>
+                    <p className='total'>{details.duration} m | {details.PaybackPeriod ? (details.PaybackPeriod).toLocaleString(undefined, { maximumFractionDigits: 2 }) : ""} m</p>
                 </div>
             </div>
             <div className="loan-detail-summary loan-detail-content">
