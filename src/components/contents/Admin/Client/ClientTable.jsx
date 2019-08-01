@@ -30,75 +30,126 @@ const styles = theme => ({
 function LoanTable(props) {
   const { classes, data } = props;
   return (
-    <Paper className={classes.root}>
+    <>
       <ReactHTMLTableToExcel
         id="test-table-xls-button"
         className="download-table-xls-button"
         table="table-to-xls"
         filename="tablexls"
         sheet="tablexls"
-        buttonText="Download as XLS" />
-      <table className={classes.table} id="table-to-xls">
-        <thead className="table-header">
-          <th className="header header-name">
-            CLIENTE
+        buttonText="Descargar Excel" />
+      <Paper className={classes.root}>
+        <table className={classes.table} id="table-to-xls">
+          <thead className="table-header">
+            <th className="header header-name">
+              CLIENTE
           </th>
-          <th className="header header-company">
-            COMPAÑÍA
+            <th className="header header-company">
+              COMPAÑÍA
           </th>
-          <th className="header header-loan-number">
-            #
+            <th className="header header-loan-number">
+              #
           </th>
-          <th className="header header-capital">
-            PRESTAMO
+            <th className="header header-capital">
+              PRESTAMO
           </th>
-          <th className="header header-remaining">
-            X REPAGAR
+            <th className="header header-remaining">
+              X REPAGAR
           </th>
-          <th className="header header-payment">
-            CUOTA
+            <th className="header header-payment">
+              CUOTA
           </th>
-          <th className="header header-date">
-            FECHA
+            <th className="header header-date">
+              FECHA
           </th>
-        </thead>
-        <tbody className='table-body'>
-          {data.length > 0 ? data.map((row, i) => {
-            console.log([_.countBy(row.loans, '_id')].length)
-            return (
+          </thead>
+          <tbody className='table-body'>
+            {data.length > 0 ? data.map((row, i) => {
+              let loanAmount = _(row.loans).groupBy('_id').size()
+              let array = [...Array(loanAmount).keys()]
+              console.log(array)
+              console.log(loanAmount)
 
-              <tr className="ser-item-holder">
-                <td rowspan={_(row.loans).groupBy('_id').size()} className="ser-name-country">
-                  <CountryFlag country={row.country} />
-                  <h4 className="ser-client">
-                    <Link to={`/admin/client/${row._id}`}>{row.firstName + " " + row.lastName}</Link>
-                  </h4>
-                </td>
-                <td rowspan={_(row.loans).groupBy('_id').size()} className="ser-businessName">
-                  <p>{row.businessName ? row.businessName : ""}</p>
-                </td>
-                <td rowspan={_(row.loans).groupBy('_id').size()} className="ser-loanAmount">
-                  <p>{_(row.loans).groupBy('_id').size()}</p>
-                </td>
-                <tr className="ser-loan">
-                  {row.loans.map(e => {
-                    return (
-                      <td colspan='4' className="ser-loan-details">
-                        <tr className="ser-loan-detail loan-amount"><Link to={`/admin/loan/${e._id}`}>{(e.capital).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</Link></tr>
-                        <tr className="ser-loan-detail">{(e.capitalRemaining).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</tr>
-                        <tr className="ser-loan-detail">{(e.nextPayment.interest + e.nextPayment.principal).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</tr>
-                        <tr className="ser-loan-detail">{moment(e.nextPayment.date).format('YYYY-MM-DD')}</tr>
-                      </td>
-                    )
-                  })}
-                </tr>
-              </tr>
-
-            )
-          }) : ""}
-        </tbody>
-      </table>
-    </Paper>
+              return (
+                (loanAmount > 1) ?
+                  array.map((e, j) => {
+                    return (j === 0) ?
+                      <tr className='ser-item-holder'>
+                        <td className="ser-name-country">
+                          <CountryFlag country={row.country} />
+                          <h4 className="ser-client">
+                            <Link to={`/admin/client/${row._id}`}>{row.firstName + " " + row.lastName}</Link>
+                          </h4>
+                        </td>
+                        <td className="ser-businessName">
+                          <p>{row.businessName ? row.businessName : ""}</p>
+                        </td>
+                        <td className="ser-loanAmount">
+                          <p>{loanAmount}</p>
+                        </td>
+                        <td className="ser-loan-detail loan-amount">
+                          <Link to={`/admin/loan/${row.loans[j]._id}`}>{(row.loans[j].capital).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</Link>
+                        </td>
+                        <td className="ser-loan-detail">
+                          {(row.loans[j].capitalRemaining).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </td>
+                        <td className="ser-loan-detail">
+                          {(row.loans[j].nextPayment.interest + row.loans[j].nextPayment.principal).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </td>
+                        <td className="ser-loan-detail">{moment(row.loans[j].nextPayment.date).format('YYYY-MM-DD')}</td>
+                      </tr> :
+                      <tr className='ser-item-holder'>
+                        <td className="ser-name-country">
+                          {""}
+                        </td>
+                        <td className="ser-businessName">
+                          {""}
+                        </td>
+                        <td className="ser-loanAmount">
+                          {""}
+                        </td>
+                        <td className="ser-loan-detail loan-amount">
+                          <Link to={`/admin/loan/${row.loans[j]._id}`}>{(row.loans[j].capital).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</Link>
+                        </td>
+                        <td className="ser-loan-detail">
+                          {(row.loans[j].capitalRemaining).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </td>
+                        <td className="ser-loan-detail">
+                          {(row.loans[j].nextPayment.interest + row.loans[j].nextPayment.principal).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </td>
+                        <td className="ser-loan-detail">{moment(row.loans[j].nextPayment.date).format('YYYY-MM-DD')}</td>
+                      </tr>
+                  }) :
+                  <tr className='ser-item-holder'>
+                    <td className="ser-name-country">
+                      <CountryFlag country={row.country} />
+                      <h4 className="ser-client">
+                        <Link to={`/admin/client/${row._id}`}>{row.firstName + " " + row.lastName}</Link>
+                      </h4>
+                    </td>
+                    <td className="ser-businessName">
+                      <p>{row.businessName ? row.businessName : ""}</p>
+                    </td>
+                    <td className="ser-loanAmount">
+                      <p>{loanAmount}</p>
+                    </td>
+                    <td className="ser-loan-detail loan-amount">
+                      <Link to={`/admin/loan/${row.loans[0]._id}`}>{(row.loans[0].capital).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</Link>
+                    </td>
+                    <td className="ser-loan-detail">
+                      {(row.loans[0].capitalRemaining).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </td>
+                    <td className="ser-loan-detail">
+                      {(row.loans[0].nextPayment.interest + row.loans[0].nextPayment.principal).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </td>
+                    <td className="ser-loan-detail">{moment(row.loans[0].nextPayment.date).format('YYYY-MM-DD')}</td>
+                  </tr>
+              )
+            }) : ""}
+          </tbody>
+        </table>
+      </Paper>
+    </>
   );
 }
 
