@@ -28,6 +28,7 @@ const styles = theme => ({
 
 function LoanTable(props) {
   const { classes, data } = props;
+  console.log(data)
   return (
     <>
       <ReactHTMLTableToExcel
@@ -86,13 +87,13 @@ function LoanTable(props) {
                           <p>{loanAmount}</p>
                         </td>
                         <td className="ser-loan-detail loan-amount">
-                          <Link to={`/admin/loan/${row.loans[j]._id}`}>{(row.loans[j].capital).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</Link>
+                          {row.loans[j] ? <Link to={`/admin/loan/${row.loans[j]._id}`}>{(row.loans[j].capital).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</Link> : ""}
                         </td>
                         <td className="ser-loan-detail">
-                          {(row.loans[j].capitalRemaining).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                          {row.loans[j] ? (row.loans[j].capitalRemaining).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : ""}
                         </td>
                         <td className="ser-loan-detail">
-                          {(row.loans[j].nextPayment.interest + row.loans[j].nextPayment.principal).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                          {row.loans[j] ? (row.loans[j].nextPayment.interest + row.loans[j].nextPayment.principal).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : ""}
                         </td>
                         <td className="ser-loan-detail">{moment(row.loans[j].nextPayment.date).format('YYYY-MM-DD')}</td>
                       </tr> :
@@ -110,12 +111,12 @@ function LoanTable(props) {
                           <Link to={`/admin/loan/${row.loans[j]._id}`}>{(row.loans[j].capital).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</Link>
                         </td>
                         <td className="ser-loan-detail">
-                          {(row.loans[j].capitalRemaining).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                          {row.loans[j] ? (row.loans[j].capitalRemaining).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : ""}
                         </td>
                         <td className="ser-loan-detail">
-                          {(row.loans[j].nextPayment.interest + row.loans[j].nextPayment.principal).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                          {row.loans[j] ? (row.loans[j].nextPayment.interest + row.loans[j].nextPayment.principal).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : ""}
                         </td>
-                        <td className="ser-loan-detail">{moment(row.loans[j].nextPayment.date).format('YYYY-MM-DD')}</td>
+                        <td className="ser-loan-detail">{row.loans[j] ? moment(row.loans[j].nextPayment.date).format('YYYY-MM-DD') : ""}</td>
                       </tr>
                   }) :
                   <tr className='ser-item-holder' key={i}>
@@ -132,15 +133,15 @@ function LoanTable(props) {
                       <p>{loanAmount}</p>
                     </td>
                     <td className="ser-loan-detail loan-amount">
-                      <Link to={`/admin/loan/${row.loans[0]._id}`}>{(row.loans[0].capital).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</Link>
+                      {row.loans[0] ? <Link to={`/admin/loan/${row.loans[0]._id}`}>{(row.loans[0].capital).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</Link> : ""}
                     </td>
                     <td className="ser-loan-detail">
-                      {(row.loans[0].capitalRemaining).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      {row.loans[0] ? (row.loans[0].capitalRemaining).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : ""}
                     </td>
                     <td className="ser-loan-detail">
-                      {(row.loans[0].nextPayment.interest + row.loans[0].nextPayment.principal).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      {row.loans[0] ? (row.loans[0].nextPayment.interest + row.loans[0].nextPayment.principal).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : ""}
                     </td>
-                    <td className="ser-loan-detail">{moment(row.loans[0].nextPayment.date).format('YYYY-MM-DD')}</td>
+                    <td className="ser-loan-detail">{row.loans[0] ? moment(row.loans[0].nextPayment.date).format('YYYY-MM-DD') : ""}</td>
                   </tr>
               )
             }) : ""}
