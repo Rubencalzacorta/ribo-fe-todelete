@@ -64,6 +64,7 @@ class App extends Component {
           this.setState({
             loggedInUser: false
           })
+          this.props.history.push('/')
         })
     }
   }
@@ -76,7 +77,7 @@ class App extends Component {
         <div className="App">
           <Layout userInSession={this.state.loggedInUser} logout={this.logout} >
             <Switch>
-              <Route exact path='/' render={() => <Dashboard getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
+              {/* <Route exact path='/admin/dashboard' render={() => <Dashboard getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} /> */}
               <Route exact path='/admin/client/create' render={() => <CreateClientForm getUser={this.getTheUser} location={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/investor/create' render={() => <CreateInvestor getUser={this.getTheUser} location={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/investor/transaction' render={() => <NewTransaction getUser={this.getTheUser} location={this.state.loggedInUser.location} />} />
