@@ -179,7 +179,7 @@ class CreateLoan extends Component {
 
   handleInvestment = event => {
     let { name } = event.target;
-    let value = parseInt(event.target.value);
+    let value = parseFloat(event.target.value);
     let newValue = (isNaN(value) ? 0 : value);
     let index = this.state.investorIndex
     let investorCashAvailable = parseFloat(this.state.accounts[index].accumTotal);
@@ -353,7 +353,7 @@ class CreateLoan extends Component {
                   </>
                   : ''}
 
-                {(this.state.investors >= 1) ?
+                {(this.state.investors.length >= 1) ?
                   <div className="card-body table-holder">
                     <table className="table investors">
                       <thead>
