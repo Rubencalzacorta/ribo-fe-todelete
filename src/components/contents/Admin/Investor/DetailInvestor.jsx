@@ -10,10 +10,10 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import './detail-investor.scss'
 import AccTransactionsTable from './AccTransactionsTable';
+import AccOptions from './AccOptions';
 import AccInvestmentsTable from './AccInvestmentsTable';
 import AccLoanSummaryTable from './AccLoanSummaryTable';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+
 
 const styles = theme => ({
   root: {
@@ -67,6 +67,7 @@ class DetailInvestor extends Component {
       transactions: [],
       cashAccounts: [],
       display: false,
+      newManager: "",
       value: 0
     };
     this.TransactionService = new TransactionService();
@@ -85,16 +86,19 @@ class DetailInvestor extends Component {
     let transactions = await this.TransactionService.getInvestorTransactions(_investor)
     let investments = await this.InvestorService.getInvestorInvestments(_investor)
     let loanDetails = await this.TransactionService.getLoanInvestorDetails(_investor)
-    let autoInvest = await this.InvestorService.getInvestorAutoInvest(_investor)
+    let autoInvest = await this.InvestorService.getInvestorOptions(_investor)
+    let investorFees = await this.InvestorService.getInvestorFees(_investor)
 
-    return Promise.all([transactions, investments, loanDetails, autoInvest])
+    return Promise.all([transactions, investments, loanDetails, autoInvest, investorFees])
       .then(response => {
         this.setState({
           display: true,
           transactions: response[0],
           investments: response[1],
           loanDetails: response[2],
-          isAutoInvesting: response[3].isAutoInvesting
+          isAutoInvesting: response[3].isAutoInvesting,
+          investorType: response[3].investorType,
+          investorFees: response[4].data
         });
         return response
       })
@@ -134,12 +138,37 @@ class DetailInvestor extends Component {
     }
   }
 
+  changeInvestorType = (event) => {
+
+    const { name, value } = event.target;
+
+
+    let investorType = value
+    let investorId = this.state._investor
+    let investorDetails = {
+      investorId,
+      investorType
+    }
+    this.InvestorService.changeInvestorType(investorDetails)
+      .then(response => {
+        console.log(response)
+        if (response.status === "success") {
+          this.setState({ investorType: response.data.investorType })
+
+        } else {
+          this.setState({ investorType: this.state.investorType })
+        }
+      })
+  }
+
+
+
   toggleAutoInvest = () => {
     const _investor = this.state._investor
     this.InvestorService.toggleInvestorAutoInvest(_investor)
       .then(response => {
         console.log(response)
-        if (response.updated) {
+        if (response.status === 'success') {
           this.setState({ isAutoInvesting: response.isAutoInvesting })
         } else {
           this.setState({ isAutoInvesting: this.state.isAutoInvesting })
@@ -269,15 +298,81 @@ class DetailInvestor extends Component {
     this.setState({ [name]: value });
   }
 
+  handleNewFee = (event) => {
+    const { name, value } = event.target;
+    if (name === 'newPct') {
+      console.log(value)
+      if (value > 100) {
+        this.setState({ newPct: 100 })
+      } else if (value < 0) {
+        this.setState({ newPct: 0 })
+      } else {
+        this.setState({ newPct: value })
+      }
+    } else {
+      this.setState({ [name]: value })
+    }
+  }
+
+  saveNewFee = () => {
+    let { newPct, newManager, _investor } = this.state
+    newPct = newPct / 100
+    let investorFee = {
+      investorId: _investor,
+      managementAccountId: newManager,
+      pct: newPct
+    }
+
+    return this.InvestorService.addInvestorFees(investorFee)
+      .then(async response => {
+        if (response.status === "success") {
+          let investorFees = await this.InvestorService.getInvestorFees(_investor)
+          this.setState({ investorFees: investorFees.data })
+        } else {
+
+        }
+      })
+  }
+
+  deleteFee = (managementFeeId) => {
+    let { _investor } = this.state
+    this.InvestorService.deleteInvestorFees(managementFeeId)
+      .then(async response => {
+        if (response.status === "success") {
+          let investorFees = await this.InvestorService.getInvestorFees(_investor)
+          this.setState({ investorFees: investorFees.data })
+        } else {
+
+        }
+      })
+  }
 
 
 
   render() {
     this.fetchInvestors()
     const { classes } = this.props
-    const { cashAvailable, totalDeposits, totalInvestments,
-      totalCosts, paidBackCapital, interestReceived, feeExpenses, feeIncome,
-      totalWithdrawals, cashAccounts, transactions, investments, loanDetails, display, value } = this.state
+    const { cashAvailable,
+      totalDeposits,
+      totalInvestments,
+      totalCosts,
+      paidBackCapital,
+      interestReceived,
+      feeExpenses,
+      feeIncome,
+      totalWithdrawals,
+      cashAccounts,
+      transactions,
+      investments,
+      loanDetails,
+      display,
+      value,
+      isAutoInvesting,
+      investorFees,
+      investorType,
+      newPct,
+      newManager
+    } = this.state
 
     return (
       <div className="content">
@@ -294,12 +389,7 @@ class DetailInvestor extends Component {
         </div>
         {display &&
           (<div>
-            <FormControlLabel
-              control={
-                <Switch checked={this.state.isAutoInvesting} onChange={() => this.toggleAutoInvest()} value="checkedA" />
-              }
-              label="Reinvertir"
-            />
+
             <div className="investment-acc-summary">
               <div className="detail-summary">
                 <p className='title'>DISPONIBLE</p>
@@ -358,11 +448,29 @@ class DetailInvestor extends Component {
                       classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
                       label="TRANSACCIONES"
                     />
+                    <Tab
+                      disableRipple
+                      classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
+                      label="OPCIONES"
+                    />
                   </Tabs>
                 </div>
                 {value === 0 && <AccLoanSummaryTable loanDetails={loanDetails} />}
                 {value === 1 && <AccInvestmentsTable investments={investments} />}
                 {value === 2 && <AccTransactionsTable data={transactions} />}
+                {value === 3 && <AccOptions
+                  feeReceivers={this.state.investors}
+                  changeInvestorType={this.changeInvestorType}
+                  toggleAutoInvest={this.toggleAutoInvest}
+                  investorFees={investorFees}
+                  investorType={investorType}
+                  isAutoInvesting={isAutoInvesting}
+                  handleNewFee={this.handleNewFee}
+                  newPct={newPct}
+                  newManager={newManager}
+                  saveNewFee={this.saveNewFee}
+                  deleteFee={this.deleteFee}
+                />}
               </div>
             </div>
           </div>
