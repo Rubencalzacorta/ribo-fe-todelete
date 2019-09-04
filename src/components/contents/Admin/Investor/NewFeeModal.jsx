@@ -12,7 +12,7 @@ const NewFee = (props) => {
 
     return (
         <div className="modal-fee">
-            <h1>AGREGAR NUEVO GESTOR</h1>
+            <h1 className="modal-title">AGREGAR NUEVO GESTOR</h1>
             <FormControl className="fee-input-form">
                 <div>
                     <TextField
