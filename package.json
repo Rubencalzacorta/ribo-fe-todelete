@@ -28,7 +28,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build-stage": "ENVFILE=.env.staging react-scripts build",
+    "build:staging": "env-cmd -f .env.staging react-scripts build",
     "build-dev": "dotenv -e .env.development react-scripts build",
     "build-prod": "dotenv -e .env.production react-scripts build",
     "build-staging": "dotenv -e .env.staging react-scripts build",
