@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import AuthService from "./AuthService";
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
 import "./auth.scss";
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   main: {

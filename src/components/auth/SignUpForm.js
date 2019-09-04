@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
 import {
     Avatar,
     Button,
@@ -12,7 +11,8 @@ import {
     Paper,
     Typography
   } from "@material-ui/core";
-  import { red } from "@material-ui/core/colors";
+import { red } from "@material-ui/core/colors";
+  import { withStyles } from '@material-ui/core/styles';
 
 
 const styles = theme => ({
