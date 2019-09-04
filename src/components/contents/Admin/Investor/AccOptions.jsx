@@ -39,11 +39,14 @@ const AccOptions = (props) => {
                         <FormLabel component="legend">Auto Invertir Fondos</FormLabel>
                         <div className="toggle-holder">
                             <p className="detail-on">Off</p>
-                            <FormControlLabel className="toggle"
-                                control={
-                                    <Switch className="toggle" checked={isAutoInvesting} onChange={() => toggleAutoInvest()} value="checkedA" />
-                                }
-                            />
+
+                            <Switch
+                                className="toggle"
+                                checked={isAutoInvesting}
+                                inputProps={{ 'aria-label': 'secondary checkbox' }}
+                                onChange={() => toggleAutoInvest()}
+                                value="checkedA" />
+
                             <p className="detail-off">On</p>
                         </div>
                     </FormControl>
