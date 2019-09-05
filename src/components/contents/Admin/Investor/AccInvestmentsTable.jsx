@@ -5,6 +5,7 @@ import "./acc-investments.scss";
 
 function AccInvestmentsTable(props) {
   const { investments } = props;
+console.log(investments)
   return (
     <>
       <div className="personal-inv-summary-holder">
@@ -25,7 +26,7 @@ function AccInvestmentsTable(props) {
             <p className="title">TOTAL INVERTIDO</p>
           </div>
         </div>
-        {investments.map((row, i) => {
+        {Array.isArray(investments) ? investments.map((row, i) => {
           return (
             <div key={i} className="loan-schedule-content">
               <div className="detail-schedule details-date">
@@ -51,7 +52,7 @@ function AccInvestmentsTable(props) {
               </div>
             </div>
           );
-        })}
+        }) : ''}
       </div>
     </>
   );

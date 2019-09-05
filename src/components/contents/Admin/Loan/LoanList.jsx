@@ -13,7 +13,7 @@ export default class LoanList extends Component {
     loanService = new LoanService();
     summaryService = new summaryService();
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.fetchLoans()
         this.fetchSummary()
     }

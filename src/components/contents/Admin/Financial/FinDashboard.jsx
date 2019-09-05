@@ -11,7 +11,7 @@ export default class LoanList extends Component {
     }
     FinancialService = new FinancialService();
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
 
         this.fetchSummary()
     }

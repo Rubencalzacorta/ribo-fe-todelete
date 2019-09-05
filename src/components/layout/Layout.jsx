@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Bar from "./Bar";
-import NavBar from "./NavBar";
+import Bar from "./Bar.jsx";
+import NavBar from "./NavBar.jsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import './layout.scss'
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
-  
+
   root: {
     display: "flex"
   },
@@ -25,7 +25,7 @@ class Layout extends Component {
   };
 
   handleBarTitle = (name) => {
-      this.setState({name})
+    this.setState({ name })
   }
   handleDrawerToggle = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
@@ -45,7 +45,7 @@ class Layout extends Component {
         />
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          {(userInSession.status !== 'VERIFIED' && !userInSession.admin  && <div className="account-status-notify"><p>Completa tu perfil para disfrutar de nuestro servicios</p></div> )}
+          {(userInSession.status !== 'VERIFIED' && !userInSession.admin && <div className="account-status-notify"><p>Completa tu perfil para disfrutar de nuestro servicios</p></div>)}
           {children}
         </main>
       </div>

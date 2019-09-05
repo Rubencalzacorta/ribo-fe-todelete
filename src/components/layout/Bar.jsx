@@ -1,21 +1,24 @@
 import React, { Component } from 'react'
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
+import { withRouter } from 'react-router'
 import MenuIcon from '@material-ui/icons/Menu';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import {ButtonBase, Popover } from '@material-ui/core';
-import { withRouter} from 'react-router'
-import ProfilePop from './ProfilePop'
-import Avatar from '@material-ui/core/Avatar';
+import {
+  ButtonBase,
+  Popover,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Avatar
+} from '@material-ui/core';
+import ProfilePop from './ProfilePop.jsx'
 
 
 
 const drawerWidth = 240;
 
 const styles = theme => ({
-  
+
   navList: {
     margin: 0,
     padding: 0,
@@ -87,61 +90,61 @@ class Bar extends Component {
     });
   };
 
-  render(){
-  let { classes, handleDrawerToggle, BarTitle, firstName, lastName, id,logout } = this.props
+  render() {
+    let { classes, handleDrawerToggle, BarTitle, firstName, lastName, id, logout } = this.props
 
-  const { anchorEl } = this.state;
-  const open = Boolean(anchorEl);
+    const { anchorEl } = this.state;
+    const open = Boolean(anchorEl);
 
-  return (
-    <AppBar position="fixed" className={classes.appBar}>
+    return (
+      <AppBar position="fixed" className={classes.appBar}>
         <div className={classes.main}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="Open drawer"
-            onClick={() => handleDrawerToggle()}
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
-            <ul className={classes.navList} role="Navigation">
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={() => handleDrawerToggle()}
+              className={classes.menuButton}
+            >
+              <MenuIcon />
+            </IconButton>
+            <ul className={classes.navList}>
               <div>
                 <li className={classes.titleAppBar} >{BarTitle}</li>
               </div>
               <div>
                 <ButtonBase className={classes.userList} aria-haspopup="true" variant="contained" onClick={this.handleClick}>
-                  <li className={classes.userListElement}><Avatar className={classes.orangeAvatar}>{firstName.slice(0,1)}</Avatar></li>
-                  <li className={classes.userListElement}>{firstName+" "+lastName}</li>
+                  <li className={classes.userListElement}><Avatar className={classes.orangeAvatar}>{firstName.slice(0, 1)}</Avatar></li>
+                  <li className={classes.userListElement}>{firstName + " " + lastName}</li>
                   <li className={classes.userListElement}><i className="material-icons bar-dropdown">keyboard_arrow_down</i></li>
                 </ButtonBase>
               </div>
               <Popover
-                  id="simple-popper"
-                  open={open}
-                  anchorEl={anchorEl}
-                  onClose={this.handleClose}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                >
-                  <ProfilePop name={firstName+" "+lastName} membership={id} logout={logout}/>
-                </Popover>  
+                id="simple-popper"
+                open={open}
+                anchorEl={anchorEl}
+                onClose={this.handleClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center',
+                }}
+              >
+                <ProfilePop name={firstName + " " + lastName} membership={id} logout={logout} />
+              </Popover>
             </ul>
-        </Toolbar> 
+          </Toolbar>
         </div>
       </AppBar>
     )
   }
-} 
+}
 
 Bar.propTypes = {
-    classes: PropTypes.object.isRequired,
-  };
+  classes: PropTypes.object.isRequired,
+};
 
 export default withRouter(withStyles(styles)(Bar));
