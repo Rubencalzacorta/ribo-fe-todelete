@@ -181,7 +181,7 @@ class LoanDetails extends Component {
                                     <Tab
                                         disableRipple
                                         classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-                                        label="TRANSACCIONES"
+                                        label="MOVIMIENTOS"
                                     />
                                     <Tab
                                         disableRipple
