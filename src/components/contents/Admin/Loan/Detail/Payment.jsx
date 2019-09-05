@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { accounts, fees } from "../../../../../constants.js";
+import { accounts } from "../../../../../constants.js";
 import "./loan-tx-pmt.scss";
 
 class Payment extends Component {
@@ -12,7 +12,6 @@ class Payment extends Component {
       paymentId: undefined,
       cashAccount: undefined,
       currency: undefined,
-      fee: []
     };
   }
 
@@ -42,11 +41,6 @@ class Payment extends Component {
     });
   };
 
-  handleChangeFees = event => {
-    const { value } = event.target;
-    let fee = fees[value].fee;
-    this.setState({ fee: fee });
-  };
 
   render() {
     let { receivePayment, closePaymentOption } = this.props;
@@ -102,25 +96,6 @@ class Payment extends Component {
                   {e}
                 </option>
               ))}
-            </select>
-          </div>
-          <div className="detail-schedule acc-fees">
-            <label className="acc-title">FEE</label>
-            <select
-              className="form-control input-sm"
-              name="feeIndex"
-              id="feeIndex"
-              value={this.state.feeIndex}
-              onChange={e => this.handleChangeFees(e)}
-            >
-              <option />
-              {fees.map((e, i) => {
-                return (
-                  <option key={i} value={i} onChange={this.handleChangeFees}>
-                    {e.text}
-                  </option>
-                );
-              })}
             </select>
           </div>
           <div className="detail-schedule">
