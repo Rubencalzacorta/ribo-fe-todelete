@@ -4,7 +4,6 @@ import InvestorService from '../../../../services/InvestorService'
 import { Tabs, Tab, } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import _ from 'lodash'
 import AccTransactionsTable from './AccTransactionsTable';
 import AccOptions from './AccOptions';
 import AccInvestmentsTable from './AccInvestmentsTable';
@@ -131,7 +130,7 @@ class DetailInvestor extends Component {
 
   changeInvestorType = (event) => {
 
-    const { name, value } = event.target;
+    const { value } = event.target;
     let investorType = value
     let investorId = this.state._investor
     let investorDetails = {
