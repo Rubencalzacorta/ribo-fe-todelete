@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import TransactionService from '../../../../services/TransactionService'
 import InvestorService from '../../../../services/InvestorService'
-// import AccDetailHolder from './AccDetailHolder';
-// import AccTabsHolder from './AccTabsHolder';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import _ from 'lodash'
-import PropTypes from 'prop-types';
+import { Tabs, Tab, } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import './detail-investor.scss'
+import PropTypes from 'prop-types';
+import _ from 'lodash'
 import AccTransactionsTable from './AccTransactionsTable';
 import AccOptions from './AccOptions';
 import AccInvestmentsTable from './AccInvestmentsTable';
 import AccLoanSummaryTable from './AccLoanSummaryTable';
+import './detail-investor.scss'
 
 
 const styles = theme => ({
@@ -93,7 +90,7 @@ class DetailInvestor extends Component {
       .then(response => {
         this.setState({
           display: true,
-          transactions: response[0],
+          ...transactions,
           investments: response[1],
           loanDetails: response[2],
           isAutoInvesting: response[3].isAutoInvesting,
@@ -101,12 +98,6 @@ class DetailInvestor extends Component {
           investorFees: response[4].data
         });
         return response
-      })
-      .then(response => {
-        this.investorDetails(response[0])
-      })
-      .then(response => {
-
       })
       .catch(error => {
         this.setState({
@@ -141,8 +132,6 @@ class DetailInvestor extends Component {
   changeInvestorType = (event) => {
 
     const { name, value } = event.target;
-
-
     let investorType = value
     let investorId = this.state._investor
     let investorDetails = {
@@ -174,122 +163,6 @@ class DetailInvestor extends Component {
           this.setState({ isAutoInvesting: this.state.isAutoInvesting })
         }
       })
-  }
-
-  investorDetails(transactions) {
-
-    let paidBackCapital = transactions.filter((e) => {
-      return (e.concept === 'CAPITAL')
-    }).reduce((acc, e) => {
-      return acc + e.debit
-    }, 0)
-
-    let interestReceived = transactions.filter((e) => {
-      return (e.concept === 'INTEREST')
-    }).reduce((acc, e) => {
-      return acc + e.debit
-    }, 0)
-
-    let feeExpenses = transactions.filter((e) => {
-      return (e.concept === 'FEE')
-    }).reduce((acc, e) => {
-      return acc + e.credit
-    }, 0)
-
-    let feeIncome = transactions.filter((e) => {
-      return (e.concept === 'FEE')
-    }).reduce((acc, e) => {
-      return acc + e.debit
-    }, 0)
-
-    let totalDeposits = transactions.filter((e) => {
-      return (e.concept === 'DEPOSIT')
-    }).reduce((acc, e) => {
-      return acc + e.debit
-    }, 0)
-
-    let totalWithdrawals = transactions.filter((e) => {
-      return (e.concept === 'WITHDRAWAL')
-    }).reduce((acc, e) => {
-      return acc + e.credit
-    }, 0)
-
-    let totalCosts = transactions.filter((e) => {
-      return (e.concept === 'COST')
-    }).reduce((acc, e) => {
-      return acc + e.credit
-    }, 0)
-
-    let totalInvestments = transactions.filter((e) => {
-      return (e.concept === 'INVESTMENT')
-    }).reduce((acc, e) => {
-      return acc + e.credit
-    }, 0)
-
-    const cashAccountReducer = (transactions) => {
-      let accountList = []
-      let totals = []
-
-      _.map(_.uniqBy(transactions, 'cashAccount'), _.partial(_.pick, _, ['cashAccount'])).forEach(e => { accountList.push(e.cashAccount) })
-
-      accountList.forEach(e => {
-        let total = transactions.filter((j) => { return (j.cashAccount === e) })
-          .reduce((acc, k) => { return acc + k.debit - k.credit }, 0)
-
-        let cashAccountTotal = { cashAccount: e, total: total }
-        totals.push(cashAccountTotal)
-      })
-      return totals
-    }
-
-
-
-    // const feesReducer = (transactions) => {
-    //   let accountList = []
-    //   let totals = []
-
-    //   let fees = transactions.filter((e) => {
-    //     return (e.concept === 'FEE')
-    //   })
-
-
-
-    //   _.map(_.uniqBy(fees, '_investor'), _.partial(_.pick, _, ['_investor'])).forEach(e => { accountList.push(e._investor.firstName) })
-
-
-    //   accountList.forEach(e => {
-    //     let total = fees.filter((j) => { return (j._investor.firstName === e) })
-    //       .reduce((acc, k) => { return acc + k.debit - k.credit }, 0)
-
-    //     let cashAccountTotal = { cashAccount: e, total: total }
-    //     totals.push(cashAccountTotal)
-    //   })
-    //   return totals
-    // }
-
-    let totals = cashAccountReducer(transactions)
-
-    let debitTotal = transactions.reduce((acc, e) => {
-      return acc + e.debit
-    }, 0)
-    let creditTotal = transactions.reduce((acc, e) => {
-      return acc + e.credit
-    }, 0)
-
-    this.setState({
-      paidBackCapital: paidBackCapital,
-      interestReceived: interestReceived,
-      totalInvestments: totalInvestments,
-      totalCosts: totalCosts,
-      feeExpenses: feeExpenses,
-      feeIncome: feeIncome,
-      totalDeposits: totalDeposits,
-      totalWithdrawals: totalWithdrawals,
-      debitTotal: debitTotal,
-      creditTotal: creditTotal,
-      cashAvailable: debitTotal - creditTotal,
-      cashAccounts: totals
-    })
   }
 
 
@@ -327,7 +200,11 @@ class DetailInvestor extends Component {
       .then(async response => {
         if (response.status === "success") {
           let investorFees = await this.InvestorService.getInvestorFees(_investor)
-          this.setState({ investorFees: investorFees.data })
+          this.setState({
+            investorFees: investorFees.data,
+            newPct: 0,
+            newManager: null
+          })
         } else {
 
         }
