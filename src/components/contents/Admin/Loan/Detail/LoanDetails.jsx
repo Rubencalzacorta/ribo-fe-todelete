@@ -6,6 +6,7 @@ import InvestorList from './InvestorList'
 import LoanSchedule from './LoanSchedule'
 import LoanTransactions from './LoanTransactions'
 import LoanDetailHeader from './LoanDetailHeader'
+import Commissions from './Commissions'
 import LoanDocuments from './LoanDocuments'
 import Payment from './Payment';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -74,7 +75,14 @@ class LoanDetails extends Component {
     loader = async () => {
         const { loanId } = this.props
         let loan = await this.loanService.getLoanCompleteDetails(loanId)
-        this.setState({ loan })
+        let commissions = await this.loanService.getLoanCommissions(loanId)
+        let salesmen = await this.loanService.getSalesmen()
+
+        this.setState({
+            loan,
+            commissions: commissions.data,
+            salesmen: salesmen.data
+        })
         this.detailsCalc()
     }
 
@@ -93,6 +101,61 @@ class LoanDetails extends Component {
             interestIncome,
             interestProjected
         })
+    }
+
+    handleNewCommission = (event) => {
+        const { name, value } = event.target;
+        console.log(name, value)
+        if (name === 'newPct') {
+            console.log(value)
+            if (value > 100) {
+                this.setState({ newPct: 100 })
+            } else if (value < 0) {
+                this.setState({ newPct: 0 })
+            } else {
+                this.setState({ newPct: value })
+            }
+        } else {
+            this.setState({ [name]: value })
+        }
+    }
+
+    saveNewCommission = () => {
+        const { loanId } = this.props
+        let { newPct, newSalesman } = this.state
+        newPct = newPct / 100
+        let salesmanCommission = {
+            _loan: loanId,
+            _salesmen: newSalesman,
+            pct: newPct
+        }
+
+        return this.loanService.addCommission(salesmanCommission)
+            .then(async response => {
+                if (response.status === "success") {
+                    let commissions = await this.loanService.getLoanCommissions(loanId)
+                    this.setState({
+                        commissions: commissions.data
+                    })
+                } else {
+
+                }
+            })
+    }
+
+    deleteCommission = (id) => {
+        let { loanId } = this.props
+        this.loanService.deleteCommission(id)
+            .then(async response => {
+                if (response.status === "success") {
+                    let commissions = await this.loanService.getLoanCommissions(loanId)
+                    this.setState({
+                        commissions: commissions.data
+                    })
+                } else {
+
+                }
+            })
     }
 
     compare = (a, b) => {
@@ -153,7 +216,14 @@ class LoanDetails extends Component {
     }
 
     render() {
-        let { interestIncome, interestProjected, installment, value } = this.state
+        let { interestIncome,
+            interestProjected,
+            installment,
+            value,
+            commissions,
+            salesmen,
+            newPct,
+            newSalesman } = this.state
         const { classes } = this.props;
         let { details, investors, transactions } = this.state.loan
         return (
@@ -186,6 +256,11 @@ class LoanDetails extends Component {
                                     <Tab
                                         disableRipple
                                         classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
+                                        label="COMISIONES"
+                                    />
+                                    <Tab
+                                        disableRipple
+                                        classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
                                         label="DOCUMENTOS"
                                     />
                                 </Tabs>
@@ -204,7 +279,15 @@ class LoanDetails extends Component {
                             }
                             {value === 1 && <InvestorList investors={investors} />}
                             {value === 2 && <LoanTransactions transactions={transactions} />}
-                            {value === 3 && <LoanDocuments />}
+                            {value === 3 && <Commissions
+                                commissions={commissions}
+                                salesmen={salesmen}
+                                handleNewCommission={this.handleNewCommission}
+                                newPct={newPct}
+                                newSalesman={newSalesman}
+                                saveNewCommission={this.saveNewCommission}
+                                deleteCommission={this.deleteCommission} />}
+                            {value === 4 && <LoanDocuments />}
                         </div>
                     </div>
                 ) :

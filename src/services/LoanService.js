@@ -9,6 +9,30 @@ class LoanService {
     });
   }
 
+  getLoanCommissions = (loanId) => {
+    return this.service.get(`/commission/${loanId}`)
+      .then(response => response.data)
+  }
+
+  getSalesmen = () => {
+    return this.service.get('/commission/salesmen')
+      .then(response => response.data)
+  }
+
+  addCommission = (salesmanCommission) => {
+    return this.service.post('commission', {
+      ...salesmanCommission
+    }).then(response => {
+      return response.data
+    })
+  }
+
+  deleteCommission = (id) => {
+    return this.service.delete(`commission/${id}`)
+      .then(response => {
+        return response.data
+      })
+  }
 
   getLoanDetails = () => {
     return this.service.get('/')
