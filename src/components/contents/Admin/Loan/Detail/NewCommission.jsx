@@ -14,7 +14,6 @@ const NewCommission = (props) => {
     } = props
 
 
-
     return (
         <div className="modal-fee">
             <h1 className="modal-title">AGREGAR NUEVA COMISIÓN</h1>
@@ -22,7 +21,7 @@ const NewCommission = (props) => {
                 <div>
                     <TextField
                         select
-                        label="Comisionista"
+                        label="Vendedor"
                         className="management"
                         name="newSalesman"
                         value={newSalesman}
