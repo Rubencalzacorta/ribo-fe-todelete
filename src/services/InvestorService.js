@@ -32,6 +32,26 @@ class InvestorService {
       .then(response => response.data)
   }
 
+  getCashDetails = (investor) => {
+    return this.service.get(`/cash-details/${investor}`, )
+      .then(response => response.data)
+  }
+
+  getInvestmentDetails = (investor) => {
+    return this.service.get(`/investment-details/${investor}`, )
+      .then(response => response.data)
+  }
+
+  getPLDetails = (investor) => {
+    return this.service.get(`/pl/${investor}`, )
+      .then(response => response.data)
+  }
+
+  getCashMovements = (investor) => {
+    return this.service.get(`/cash-movements/${investor}`, )
+      .then(response => response.data)
+  }
+
   getInvestorOptions = (investor) => {
     return this.service.get(`/detail/investmentStatus/${investor}`, )
       .then(response => response.data)
