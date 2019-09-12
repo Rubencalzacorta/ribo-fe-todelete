@@ -79,30 +79,32 @@ class DetailInvestor extends Component {
     event.preventDefault();
 
     const _investor = this.state._investor
-    let transactions = await this.TransactionService.getInvestorTransactions(_investor)
-    let investments = await this.InvestorService.getInvestorInvestments(_investor)
-    let loanDetails = await this.TransactionService.getLoanInvestorDetails(_investor)
-    let autoInvest = await this.InvestorService.getInvestorOptions(_investor)
-    let investorFees = await this.InvestorService.getInvestorFees(_investor)
 
-    return Promise.all([transactions, investments, loanDetails, autoInvest, investorFees])
-      .then(response => {
-        this.setState({
-          display: true,
-          ...transactions,
-          investments: response[1],
-          loanDetails: response[2],
-          isAutoInvesting: response[3].isAutoInvesting,
-          investorType: response[3].investorType,
-          investorFees: response[4].data
-        });
-        return response
-      })
-      .catch(error => {
-        this.setState({
-          error: error
-        });
-      })
+    this.fetchInvestor(_investor)
+    // let transactions = await this.TransactionService.getInvestorTransactions(_investor)
+    // let investments = await this.InvestorService.getInvestorInvestments(_investor)
+    // let loanDetails = await this.TransactionService.getLoanInvestorDetails(_investor)
+    // let autoInvest = await this.InvestorService.getInvestorOptions(_investor)
+    // let investorFees = await this.InvestorService.getInvestorFees(_investor)
+
+    // return Promise.all([transactions, investments, loanDetails, autoInvest, investorFees])
+    //   .then(response => {
+    //     this.setState({
+    //       display: true,
+    //       ...transactions,
+    //       investments: response[1],
+    //       loanDetails: response[2],
+    //       isAutoInvesting: response[3].isAutoInvesting,
+    //       investorType: response[3].investorType,
+    //       investorFees: response[4].data
+    //     });
+    //     return response
+    //   })
+    //   .catch(error => {
+    //     this.setState({
+    //       error: error
+    //     });
+    //   })
   }
 
   fetchInvestors() {
@@ -123,6 +125,50 @@ class DetailInvestor extends Component {
         .catch(err => {
           this.setState({
             error: err
+          })
+        })
+    }
+  }
+
+  fetchInvestor = (id) => {
+
+    this.setState({ display: true })
+    if (!this.state.getCashDetails) {
+      this.InvestorService.getCashDetails(id)
+        .then(response => {
+          this.setState({
+            ...response,
+            getCashDetails: false
+          })
+        })
+    }
+
+    if (!this.state.getInvestmentDetails) {
+      this.InvestorService.getInvestmentDetails(id)
+        .then(response => {
+          this.setState({
+            ...response,
+            getInvestmentDetails: false
+          })
+        })
+    }
+
+    if (!this.state.getPLDetails) {
+      this.InvestorService.getPLDetails(id)
+        .then(response => {
+          this.setState({
+            ...response,
+            getPLDetails: false
+          })
+        })
+    }
+
+    if (!this.state.getCashMovements) {
+      this.InvestorService.getCashMovements(id)
+        .then(response => {
+          this.setState({
+            ...response,
+            getCashMovements: false
           })
         })
     }
@@ -227,6 +273,7 @@ class DetailInvestor extends Component {
 
   render() {
     this.fetchInvestors()
+
     const { classes } = this.props
     const { cashAvailable,
       totalDeposits,
@@ -278,26 +325,27 @@ class DetailInvestor extends Component {
               <div className="detail-summary center">
                 <p className='title'>INVERSIONES</p>
                 <p className='total'>${(totalInvestments - paidBackCapital - divestments).toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-                <p className='acc-title'>INTERESES</p>
-                <p className='acc-total'>${interestReceived.toLocaleString(undefined, { maximumFractionDigits: 2 })}+</p>
+
                 <p className='acc-title'>REPAGADO</p>
                 <p className='acc-total'>${paidBackCapital.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
                 <p className='acc-title'>HISTORICO INVERTIDO</p>
                 <p className='acc-total'>${totalInvestments.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                <p className='acc-title'>HISTORICO INVERTIDO</p>
+                <p className='acc-total'>${totalInvestments.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
               </div>
               <div className="detail-summary center">
-                <p className='title'>COMISIONES</p>
-                <p className='total'>${(feeIncome - feeExpenses).toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-                <p className='acc-title'>INGRESO</p>
-                <p className='acc-total'>${feeIncome.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-                <p className='acc-title'>EGRESO</p>
-                <p className='acc-total'>${feeExpenses.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                <p className='title'>UTILIDAD</p>
+                <p className='total'>${(interestReceived - feeIncome - feeExpenses - totalCosts).toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                <p className='acc-title'>INTERESES</p>
+                <p className='acc-total'>$+{interestReceived.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                <p className='acc-title'>FEE NETO</p>
+                <p className='acc-total'>${(feeIncome - feeExpenses).toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                <p className='acc-title'>COST</p>
+                <p className='acc-total'>$-{totalCosts.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
               </div>
               <div className="detail-summary">
                 <p className='title'>DEPOSITOS</p>
                 <p className='total'>${totalDeposits.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-                <p className='acc-title'>COST</p>
-                <p className='acc-total'>${totalCosts.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
                 <p className='acc-title'>RETIROS</p>
                 <p className='acc-total'>${totalWithdrawals.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
               </div>
@@ -332,7 +380,7 @@ class DetailInvestor extends Component {
                     />
                   </Tabs>
                 </div>
-                {value === 0 && <AccLoanSummaryTable loanDetails={loanDetails} />}
+                {/* {value === 0 && <AccLoanSummaryTable loanDetails={loanDetails} />}
                 {value === 1 && <AccInvestmentsTable investments={investments} />}
                 {value === 2 && <AccTransactionsTable data={transactions} />}
                 {value === 3 && <AccOptions
@@ -347,7 +395,7 @@ class DetailInvestor extends Component {
                   newManager={newManager}
                   saveNewFee={this.saveNewFee}
                   deleteFee={this.deleteFee}
-                />}
+                />} */}
               </div>
             </div>
           </div>
