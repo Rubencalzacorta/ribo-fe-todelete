@@ -247,7 +247,8 @@ class DetailInvestor extends Component {
       investorFees,
       investorType,
       newPct,
-      newManager
+      newManager,
+      divestments
     } = this.state
 
     return (
@@ -276,7 +277,7 @@ class DetailInvestor extends Component {
               </div>
               <div className="detail-summary center">
                 <p className='title'>INVERSIONES</p>
-                <p className='total'>${(totalInvestments - paidBackCapital).toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                <p className='total'>${(totalInvestments - paidBackCapital - divestments).toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
                 <p className='acc-title'>INTERESES</p>
                 <p className='acc-total'>${interestReceived.toLocaleString(undefined, { maximumFractionDigits: 2 })}+</p>
                 <p className='acc-title'>REPAGADO</p>
