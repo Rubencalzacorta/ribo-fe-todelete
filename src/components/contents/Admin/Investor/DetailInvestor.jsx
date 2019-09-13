@@ -51,6 +51,7 @@ class DetailInvestor extends Component {
       totalWithdrawals: 0,
       totalCosts: 0,
       cashAvailable: 0,
+      divestments: 0,
       debitTotal: 0,
       totalInvestments: 0,
       creditTotal: 0,
@@ -330,8 +331,8 @@ class DetailInvestor extends Component {
                 <p className='acc-total'>${paidBackCapital.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
                 <p className='acc-title'>HISTORICO INVERTIDO</p>
                 <p className='acc-total'>${totalInvestments.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-                <p className='acc-title'>HISTORICO INVERTIDO</p>
-                <p className='acc-total'>${totalInvestments.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                <p className='acc-title'>VENTAS</p>
+                <p className='acc-total'>${divestments.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
               </div>
               <div className="detail-summary center">
                 <p className='title'>UTILIDAD</p>
