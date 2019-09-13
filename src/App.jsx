@@ -24,7 +24,7 @@ import PeriodSchedule from './components/contents/Admin/Loan/PeriodSchedule'
 import LoanDetails from './components/contents/Admin/Loan/Detail/LoanDetails'
 import Activity from './components/contents/Client/Activity/Activity'
 import Loan from './components/contents/Client/Loan/Loan'
-import Profile from './components/contents/Client/Profile/Profile'
+import Profile from './components/contents/Client/Profile/Profile.jsx'
 import Layout from './components/layout/Layout.jsx'
 
 class App extends Component {
