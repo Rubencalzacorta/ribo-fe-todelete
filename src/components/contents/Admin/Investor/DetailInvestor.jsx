@@ -86,7 +86,9 @@ class DetailInvestor extends Component {
 
     const _investor = this.state._investor
 
+    this.setState({ ...investorInitialState })
     this.fetchInvestor(_investor)
+
     let transactions = await this.TransactionService.getTransactions(_investor)
     let investments = await this.InvestorService.getInvestorInvestments(_investor)
     let loanDetails = await this.TransactionService.getLoanInvestorDetails(_investor)
