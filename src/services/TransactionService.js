@@ -11,35 +11,39 @@ class TransactionService {
 
 
   transactionInvestor = (_investor, cashAccount, concept, debit, credit, date, comment) => {
-    return this.service.post('/', 
-    {
-      _investor,
-      cashAccount,
-      concept,
-      debit,
-      credit,
-      date,
-      comment
-    })
-  .then(response => response.data)
+    return this.service.post('/', {
+        _investor,
+        cashAccount,
+        concept,
+        debit,
+        credit,
+        date,
+        comment
+      })
+      .then(response => response.data)
   }
 
   getLoanInvestorDetails = (_investor) => {
     return this.service.get(`/loaninvestordetails/${_investor}`)
-  .then(response => response.data)
+      .then(response => response.data)
   }
 
   getInvestorTransactions = (_investor) => {
     return this.service.get(`/list/${_investor}`)
-  .then(response => response.data)
+      .then(response => response.data)
+  }
+
+  getTransactions = (_investor) => {
+    return this.service.get(`/transaction-list/${_investor}`)
+      .then(response => response.data)
   }
 
   getInvestorsAvailability = (country) => {
-    return this.service.get(`/totals/${country}`,)
-  .then(response => response.data)
+    return this.service.get(`/totals/${country}`, )
+      .then(response => response.data)
   }
 
-  
+
 
 }
 
