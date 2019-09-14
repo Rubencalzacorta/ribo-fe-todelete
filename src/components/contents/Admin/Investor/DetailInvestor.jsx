@@ -9,7 +9,6 @@ import AccOptions from './AccOptions';
 import InvestorSummary from './InvestorSummary'
 import AccInvestmentsTable from './AccInvestmentsTable';
 import AccLoanSummaryTable from './AccLoanSummaryTable';
-import { investorInitialState } from '../../../../constants'
 import './detail-investor.scss'
 
 
@@ -44,6 +43,30 @@ const styles = theme => ({
   tabSelected: {},
 });
 
+
+const investorInitialState = {
+  summary: {
+    totalDeposits: 0,
+    totalWithdrawals: 0,
+    cashAvailable: 0,
+    debitTotal: 0,
+    totalInvestments: 0,
+    divestments: 0,
+    creditTotal: 0,
+    cashAccounts: [],
+    paidBackCapital: 0,
+    interestReceived: 0,
+    feeExpenses: 0,
+    totalCosts: 0,
+    feeIncome: 0,
+  },
+  _investor: "",
+  loanDetails: null,
+  transactions: [],
+  display: false,
+  newManager: "",
+  value: 0
+};
 
 class DetailInvestor extends Component {
   constructor(props) {

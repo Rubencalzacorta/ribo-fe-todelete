@@ -31,7 +31,7 @@ function AccLoanSummaryTable(props) {
           <p className="title">INGRESO </p>
         </div>
       </div>
-      {loanDetails.map((row, i) => {
+      {loanDetails ? loanDetails.map((row, i) => {
         return (
           <div key={i} className="loan-schedule-content">
             <div className="detail-schedule details-name">
@@ -92,7 +92,7 @@ function AccLoanSummaryTable(props) {
             </div>
           </div>
         );
-      })}
+      }) : ""}
     </div>
   );
 }
