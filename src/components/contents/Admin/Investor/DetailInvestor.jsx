@@ -6,9 +6,12 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import AccTransactionsTable from './AccTransactionsTable';
 import AccOptions from './AccOptions';
+import InvestorSummary from './InvestorSummary'
 import AccInvestmentsTable from './AccInvestmentsTable';
 import AccLoanSummaryTable from './AccLoanSummaryTable';
+import { investorInitialState } from '../../../../constants'
 import './detail-investor.scss'
+
 
 
 const styles = theme => ({
@@ -45,27 +48,7 @@ const styles = theme => ({
 class DetailInvestor extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      _investor: "",
-      totalDeposits: 0,
-      totalWithdrawals: 0,
-      totalCosts: 0,
-      cashAvailable: 0,
-      debitTotal: 0,
-      totalInvestments: 0,
-      creditTotal: 0,
-      totalGCUS: 0,
-      totalGFUS: 0,
-      paidBackCapital: 0,
-      interestReceived: 0,
-      feeExpenses: 0,
-      feeIncome: 0,
-      transactions: [],
-      cashAccounts: [],
-      display: false,
-      newManager: "",
-      value: 0
-    };
+    this.state = investorInitialState
     this.TransactionService = new TransactionService();
     this.InvestorService = new InvestorService();
   }
@@ -79,22 +62,30 @@ class DetailInvestor extends Component {
     event.preventDefault();
 
     const _investor = this.state._investor
-    let transactions = await this.TransactionService.getInvestorTransactions(_investor)
+
+    this.fetchInvestor(_investor)
+    let transactions = await this.TransactionService.getTransactions(_investor)
     let investments = await this.InvestorService.getInvestorInvestments(_investor)
     let loanDetails = await this.TransactionService.getLoanInvestorDetails(_investor)
     let autoInvest = await this.InvestorService.getInvestorOptions(_investor)
     let investorFees = await this.InvestorService.getInvestorFees(_investor)
 
-    return Promise.all([transactions, investments, loanDetails, autoInvest, investorFees])
+    return Promise.all([
+      investments,
+      loanDetails,
+      autoInvest,
+      investorFees,
+      transactions
+    ])
       .then(response => {
         this.setState({
           display: true,
-          ...transactions,
-          investments: response[1],
-          loanDetails: response[2],
-          isAutoInvesting: response[3].isAutoInvesting,
-          investorType: response[3].investorType,
-          investorFees: response[4].data
+          transactions: response[4],
+          investments: response[0],
+          loanDetails: response[1],
+          isAutoInvesting: response[2].isAutoInvesting,
+          investorType: response[2].investorType,
+          investorFees: response[3].data
         });
         return response
       })
@@ -127,6 +118,66 @@ class DetailInvestor extends Component {
         })
     }
   }
+
+  fetchInvestor = (id) => {
+
+    this.setState({
+      display: true
+    })
+
+    if (!this.state.getCashDetails) {
+      this.InvestorService.getCashDetails(id)
+        .then(response => {
+          this.setState({
+            summary: {
+              ...this.state.summary,
+              ...response
+            },
+            getCashDetails: false
+          })
+        })
+    }
+
+    if (!this.state.getInvestmentDetails) {
+      this.InvestorService.getInvestmentDetails(id)
+        .then(response => {
+          this.setState({
+            summary: {
+              ...this.state.summary,
+              ...response
+            },
+            getInvestmentDetails: false
+          })
+        })
+    }
+
+    if (!this.state.getPLDetails) {
+      this.InvestorService.getPLDetails(id)
+        .then(response => {
+          this.setState({
+            summary: {
+              ...this.state.summary,
+              ...response
+            },
+            getPLDetails: false
+          })
+        })
+    }
+
+    if (!this.state.getCashMovements) {
+      this.InvestorService.getCashMovements(id)
+        .then(response => {
+          this.setState({
+            summary: {
+              ...this.state.summary,
+              ...response
+            },
+            getCashMovements: false
+          })
+        })
+    }
+  }
+
 
   changeInvestorType = (event) => {
 
@@ -227,28 +278,20 @@ class DetailInvestor extends Component {
 
   render() {
     this.fetchInvestors()
+
     const { classes } = this.props
-    const { cashAvailable,
-      totalDeposits,
-      totalInvestments,
-      totalCosts,
-      paidBackCapital,
-      interestReceived,
-      feeExpenses,
-      feeIncome,
-      totalWithdrawals,
-      cashAccounts,
+    const {
       transactions,
       investments,
       loanDetails,
       display,
       value,
+      summary,
       isAutoInvesting,
       investorFees,
       investorType,
       newPct,
       newManager,
-      divestments
     } = this.state
 
     return (
@@ -264,44 +307,9 @@ class DetailInvestor extends Component {
             <button type="submit" className="btn btn-info inv-search" onClick={e => this.handleOnClick(e)}>Buscar Inversionista</button>
           </div>
         </div>
+        <InvestorSummary summary={summary} />
         {display &&
           (<div>
-
-            <div className="investment-acc-summary">
-              <div className="detail-summary">
-                <p className='title'>DISPONIBLE</p>
-                <p className='total'>$ {cashAvailable.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-                {(cashAccounts.length > 0) ? cashAccounts.map((e, i) => {
-                  return <div key={i}><p className='acc-title'>{e.cashAccount}</p><p className='acc-total'>{e.total.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p> </div>
-                }) : ""}
-              </div>
-              <div className="detail-summary center">
-                <p className='title'>INVERSIONES</p>
-                <p className='total'>${(totalInvestments - paidBackCapital - divestments).toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-                <p className='acc-title'>INTERESES</p>
-                <p className='acc-total'>${interestReceived.toLocaleString(undefined, { maximumFractionDigits: 2 })}+</p>
-                <p className='acc-title'>REPAGADO</p>
-                <p className='acc-total'>${paidBackCapital.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-                <p className='acc-title'>HISTORICO INVERTIDO</p>
-                <p className='acc-total'>${totalInvestments.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-              </div>
-              <div className="detail-summary center">
-                <p className='title'>COMISIONES</p>
-                <p className='total'>${(feeIncome - feeExpenses).toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-                <p className='acc-title'>INGRESO</p>
-                <p className='acc-total'>${feeIncome.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-                <p className='acc-title'>EGRESO</p>
-                <p className='acc-total'>${feeExpenses.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-              </div>
-              <div className="detail-summary">
-                <p className='title'>DEPOSITOS</p>
-                <p className='total'>${totalDeposits.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-                <p className='acc-title'>COST</p>
-                <p className='acc-total'>${totalCosts.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-                <p className='acc-title'>RETIROS</p>
-                <p className='acc-total'>${totalWithdrawals.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-              </div>
-            </div>
             <div>
               <div className="loan-content-holder">
                 <div className={classes.root}>
