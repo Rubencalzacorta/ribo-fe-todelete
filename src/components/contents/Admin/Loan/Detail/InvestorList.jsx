@@ -1,5 +1,6 @@
 import React from 'react';
 import './loanInvestors.scss'
+import numbro from 'numbro'
 
 function InvestorList(props) {
     const { investors } = props;
@@ -25,28 +26,33 @@ function InvestorList(props) {
                     <p className='title'>UTILIDAD</p>
                 </div>
             </div>
-            {investors.map((e,i) => {
-            return (
-                <div key={i} className="investor">
-                    <div className="detail-summary-left acc-inv-main">
-                        {e._investor.firstName.toUpperCase() + " " + e._investor.lastName.toUpperCase()}
-                    </div>
-                    <div className="detail-summary">
-                        <p className="acc-inv">{e.amount.toLocaleString()}</p>
-                    </div>
-                    <div className="detail-summary">
-                        <p className="acc-inv">{e.pct.toFixed(2) * 100}</p>
-                    </div>
-                    <div className="detail-summary">
-                        <p className="acc-inv"></p>
-                    </div>
-                    <div className="detail-summary">
-                        <p className="acc-inv"></p>
-                    </div>
-                    <div className="detail-summary">
-                        <p className="acc-inv"></p>
-                    </div>
-                </div>)
+            {investors.map((e, i) => {
+                return (
+                    <div key={i} className="investor">
+                        <div className="detail-summary-left acc-inv-main">
+                            {e._investor.firstName.toUpperCase() + " " + e._investor.lastName.toUpperCase()}
+                        </div>
+                        <div className="detail-summary">
+                            <p className="acc-inv">{e.amount.toLocaleString()}</p>
+                        </div>
+                        <div className="detail-summary">
+                            <p className="acc-inv">
+                                {numbro(e.pct).format({
+                                    output: "percent",
+                                    mantissa: 2
+                                })}
+                            </p>
+                        </div>
+                        <div className="detail-summary">
+                            <p className="acc-inv"></p>
+                        </div>
+                        <div className="detail-summary">
+                            <p className="acc-inv"></p>
+                        </div>
+                        <div className="detail-summary">
+                            <p className="acc-inv"></p>
+                        </div>
+                    </div>)
             })}
         </div>
     );
