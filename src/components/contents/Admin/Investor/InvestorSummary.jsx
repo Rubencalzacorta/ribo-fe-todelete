@@ -37,7 +37,7 @@ const InvestorSummary = (props) => {
             </div>
             <div className="detail-summary center">
                 <p className='title'>UTILIDAD</p>
-                <p className='total'>${(interestReceived - feeIncome - feeExpenses - totalCosts).toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                <p className='total'>${(interestReceived + feeIncome - feeExpenses - totalCosts).toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
                 <p className='acc-title'>INTERESES</p>
                 <p className='acc-total'>$+{interestReceived.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
                 <p className='acc-title'>FEE NETO</p>

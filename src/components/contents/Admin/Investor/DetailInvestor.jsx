@@ -60,7 +60,7 @@ const investorInitialState = {
     totalCosts: 0,
     feeIncome: 0,
   },
-  _investor: "",
+  // _investor: "",
   loanDetails: null,
   transactions: [],
   display: false,
