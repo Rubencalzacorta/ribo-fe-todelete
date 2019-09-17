@@ -63,6 +63,7 @@ const investorInitialState = {
   // _investor: "",
   loanDetails: null,
   transactions: [],
+  investments: [],
   display: false,
   newManager: "",
   value: 0
@@ -78,6 +79,13 @@ class DetailInvestor extends Component {
 
   handleTabChange = (event, value) => {
     this.setState({ value });
+    if (value === 1) {
+      this.InvestorService.getInvestmentsSummary(this.state._investor)
+        .then(response => {
+
+          this.setState({ investments: response })
+        })
+    }
   };
 
 
@@ -90,13 +98,12 @@ class DetailInvestor extends Component {
     this.fetchInvestor(_investor)
 
     let transactions = await this.TransactionService.getTransactions(_investor)
-    let investments = await this.InvestorService.getInvestorInvestments(_investor)
+    // let investments = await this.InvestorService.getInvestorInvestments(_investor)
     let loanDetails = await this.TransactionService.getLoanInvestorDetails(_investor)
     let autoInvest = await this.InvestorService.getInvestorOptions(_investor)
     let investorFees = await this.InvestorService.getInvestorFees(_investor)
 
     return Promise.all([
-      investments,
       loanDetails,
       autoInvest,
       investorFees,
@@ -105,12 +112,11 @@ class DetailInvestor extends Component {
       .then(response => {
         this.setState({
           display: true,
-          transactions: response[4],
-          investments: response[0],
-          loanDetails: response[1],
-          isAutoInvesting: response[2].isAutoInvesting,
+          transactions: response[3],
+          loanDetails: response[0],
+          isAutoInvesting: response[1].isAutoInvesting,
           investorType: response[2].investorType,
-          investorFees: response[3].data
+          investorFees: response[2].data
         });
         return response
       })
