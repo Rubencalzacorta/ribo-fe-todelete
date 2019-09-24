@@ -64,7 +64,7 @@ class Payment extends Component {
               label="Monto"
               name="amount"
               className="form-control input-sm"
-              value={this.state.amount ? this.state.amount : 0}
+              value={this.state.amount ? this.state.amount : undefined}
               onChange={this.handleChangePayment}
               type="number"
             />
