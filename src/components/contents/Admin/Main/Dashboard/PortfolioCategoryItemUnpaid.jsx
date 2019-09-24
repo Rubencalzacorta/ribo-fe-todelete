@@ -3,14 +3,13 @@ import './portfolioCategoryItem.scss'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import Payment from '../../Loan/Detail/Payment'
-import loanService from '../../../../../services/LoanService'
-
+import PaymentService from '../../../../../services/PaymentService'
 
 export default class PortfolioDueCategoryUnpaid extends Component {
     state = {
         openPayment: false
     }
-    loanService = new loanService()
+    PaymentService = new PaymentService()
 
     openPaymentOption = (item) => {
         this.setState({
@@ -27,15 +26,14 @@ export default class PortfolioDueCategoryUnpaid extends Component {
     }
 
     paymentReceiver = (payment) => {
-        this.loanService.makePayment({ ...payment, status: 'PAID' })
+        this.PaymentService.newPayment(payment)
             .then(response => {
                 this.props.loader()
                 this.setState({ openPayment: false })
             })
             .catch(error => {
                 this.setState({ error })
-            }
-            )
+            })
     }
 
     render() {

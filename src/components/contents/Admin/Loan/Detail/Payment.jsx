@@ -7,11 +7,10 @@ class Payment extends Component {
     super(props);
     this.state = {
       date_pmt: new Date().toISOString().substring(0, 10),
-      principal_pmt: undefined,
-      interest_pmt: undefined,
-      paymentId: undefined,
+      amount: undefined,
+      _loan: undefined,
+      _loanSchedule: undefined,
       cashAccount: undefined,
-      currency: undefined,
     };
   }
 
@@ -22,7 +21,7 @@ class Payment extends Component {
 
   handleChangePayment = event => {
     let { name, value } = event.target;
-    if (name === "interest_pmt" || "principal_pmt") {
+    if (name === "amount") {
       value = parseFloat(value);
     }
     this.setState({ [name]: value });
@@ -30,14 +29,14 @@ class Payment extends Component {
 
   componentDidMount = () => {
     let { installment } = this.props;
+    console.log(installment)
+
     this.setState({
       date_pmt: installment.date,
-      principal_pmt: installment.principal.toFixed(2),
-      interest_pmt: installment.interest.toFixed(2),
-      paymentId: installment._id,
-      currency: installment.currency,
+      amount: Math.round(installment.balanceDue * 100) / 100,
+      _loan: installment._loan,
+      _loanSchedule: installment._id,
       cashAccount: undefined,
-      fee: []
     });
   };
 
@@ -60,25 +59,14 @@ class Payment extends Component {
             />
           </div>
           <div className="detail-schedule acc-fees">
-            <label className="acc-title">INTERESES</label>
+            <label className="acc-title">MONTO</label>
             <input
-              label="INTERESES"
-              name="interest_pmt"
+              label="Monto"
+              name="amount"
               className="form-control input-sm"
-              value={this.state.interest_pmt ? this.state.interest_pmt : 0}
+              value={this.state.amount ? this.state.amount : 0}
               onChange={this.handleChangePayment}
               type="number"
-            />
-          </div>
-          <div className="detail-schedule acc-fees">
-            <label className="acc-title">CAPITAL</label>
-            <input
-              label="principal"
-              name="principal_pmt"
-              type="number"
-              className="form-control input-sm"
-              value={this.state.principal_pmt ? this.state.principal_pmt : 0}
-              onChange={this.handleChangePayment}
             />
           </div>
           <div className="detail-schedule acc-fees">
