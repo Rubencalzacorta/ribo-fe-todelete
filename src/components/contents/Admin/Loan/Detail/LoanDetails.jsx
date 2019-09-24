@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import loanService from '../../../../../services/LoanService'
+import PaymentService from '../../../../../services/PaymentService'
 import InvestorList from './InvestorList'
 import LoanSchedule from './LoanSchedule'
 import LoanTransactions from './LoanTransactions'
@@ -61,6 +62,7 @@ class LoanDetails extends Component {
             value: 0
         }
         this.loanService = new loanService()
+        this.PaymentService = new PaymentService()
     }
 
     componentDidMount = async () => {
@@ -167,7 +169,18 @@ class LoanDetails extends Component {
     }
 
     reversePayment = (id) => {
-        this.loanService.deletePayment(id)
+        this.PaymentService.deletePayment(id)
+            .then(response => {
+                this.loader()
+            })
+            .catch(error => {
+                this.setState({ error })
+            }
+            )
+    }
+
+    deletePayments = (id) => {
+        this.loanService.deletePayments(id)
             .then(response => {
                 this.loader()
             })
@@ -193,7 +206,7 @@ class LoanDetails extends Component {
 
     paymentReceiver = (payment) => {
 
-        this.loanService.makePayment({ ...payment, status: 'PAID' })
+        this.PaymentService.newPayment(payment)
             .then(response => {
                 this.loader()
                 this.setState({ openPayment: false })
@@ -267,8 +280,8 @@ class LoanDetails extends Component {
                             </div>
                             {value === 0 &&
                                 <div>
-                                    {this.state.openPayment && <Payment installment={installment} receivePayment={this.paymentReceiver} closePaymentOption={this.closePaymentOption} />}
-                                    <LoanSchedule loanSchedule={details.loanSchedule.sort(this.compare)} openPaymentOption={this.openPaymentOption} reversePayment={this.reversePayment} />
+                                    {this.state.openPayment && <Payment installment={installment} loan={details} receivePayment={this.paymentReceiver} closePaymentOption={this.closePaymentOption} />}
+                                    <LoanSchedule loanSchedule={details.loanSchedule.sort(this.compare)} openPaymentOption={this.openPaymentOption} reversePayment={this.reversePayment} deletePayments={this.deletePayments} />
                                     <div className='loan-delete'>
                                         <Button variant="contained" color="secondary" className='right-button' onClick={() => this.loanRemove(details._id)}>
                                             ELIMINAR PRESTAMO

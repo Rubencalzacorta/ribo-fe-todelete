@@ -119,7 +119,7 @@ class LoanService {
     }).then(response => response.data)
   }
 
-  deletePayment = (id) => {
+  deletePayments = (id) => {
     return this.service.delete(`/deletepmt/${id}`)
       .then(response => response.data)
   }
