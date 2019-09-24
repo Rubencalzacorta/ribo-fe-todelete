@@ -61,7 +61,7 @@ const fees = [{
 
 ]
 
-const accounts = ["PLPERU", "REMPERU", "GCUS", "GFUS", "GCDR"]
+const accounts = ["RBPERU", "GCUS", "GFUS", "GCDR"]
 
 const feeDistribution = [{
         participants: "P",

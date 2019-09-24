@@ -87,7 +87,7 @@ class NewTransaction extends Component {
 
   render() {
     this.fetchInvestors()
-    let cashAccount = ['PLPERU', 'REMPERU', 'GCUS', 'GFUS', 'GCDR']
+    let cashAccount = ['RBPERU', 'GCUS', 'GFUS', 'GCDR']
     return (
       <div className="content">
         <h2 className="display-6">Nueva Transacción:</h2>

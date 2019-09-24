@@ -57,6 +57,11 @@ class InvestorService {
       .then(response => response.data)
   }
 
+  getInvestmentsSummary = (investor) => {
+    return this.service.get(`/investment-summary/${investor}`, )
+      .then(response => response.data)
+  }
+
   toggleInvestorAutoInvest = (investor) => {
     return this.service.post(`/detail/investmentStatus/${investor}`, )
       .then(response => response.data)

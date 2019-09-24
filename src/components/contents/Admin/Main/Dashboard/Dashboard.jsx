@@ -18,7 +18,7 @@ export default class Dashboard extends Component {
     countries: ['Todos', 'Venezuela', 'Peru'],
   }
   service = new LoanService();
-  transactionService = new TransactionService();
+  TransactionService = new TransactionService();
 
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -41,7 +41,7 @@ export default class Dashboard extends Component {
   fetchAccountsTotals() {
     if (!this.state.accounts) {
       let country = this.props.userLocation
-      this.transactionService.getInvestorsAvailability(country)
+      this.TransactionService.getInvestorsAvailability(country)
         .then(response => {
           let total = response.reduce((acc, e) => { return acc + e.accumTotal }, 0)
           this.setState({

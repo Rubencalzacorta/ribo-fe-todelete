@@ -64,7 +64,11 @@ class CreateLoan extends Component {
         currency
       )
         .then(response => {
-          this.props.history.push(`/admin/loan/${response._id}`);
+          if (response._id) {
+            this.props.history.push(`/admin/loan/${response._id}`);
+          } else {
+            console.log(response)
+          }
         })
         .catch(error => {
           this.setState({
@@ -83,7 +87,14 @@ class CreateLoan extends Component {
         country
       )
         .then(response => {
-          this.props.history.push(`/admin/loan/${response._id}`);
+          if (response.status === 'success') {
+            this.props.history.push(`/admin/loan/${response.message._id}`);
+          } else {
+            this.setState({
+              error: true,
+              message: response.response.data.message
+            })
+          }
         })
         .catch(error => {
           this.setState({
@@ -404,6 +415,7 @@ class CreateLoan extends Component {
                   <button type="submit" className="btn btn-info" id="submit_button">
                     Crear
                   </button>
+                  {(this.state.error) ? <div className="error">{this.state.message}</div> : ''}
                 </div>
               </div>
             </div>

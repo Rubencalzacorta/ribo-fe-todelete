@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Modal } from '@material-ui/core';
 import moment from 'moment'
-import EditProfile from './EditProfile'
+import EditProfile from './EditProfile.jsx'
 import ClientService from '../../../../services/ClientService'
 import DocIncUpload from './DocIncUpload';
 import DocIDUpload from './DocIDUpload';
