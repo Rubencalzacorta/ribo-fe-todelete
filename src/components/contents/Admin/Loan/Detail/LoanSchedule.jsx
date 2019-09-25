@@ -2,7 +2,10 @@ import React from 'react';
 import moment from 'moment'
 import './loanSchedule.scss'
 import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import FaceIcon from '@material-ui/icons/Payment';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
@@ -20,6 +23,9 @@ const useStyles = makeStyles(theme => ({
     secondaryHeading: {
         fontSize: theme.typography.pxToRem(15),
         color: theme.palette.text.secondary,
+    },
+    chip: {
+        margin: theme.spacing(1),
     },
 }));
 
@@ -157,40 +163,14 @@ function LoanSchedule(props) {
                             <ExpansionPanelDetails>
                                 {item.payments.length > 0 ? item.payments.map((e, y) => {
                                     return (
-                                        <div key={e._id} className={y === 0 ? "loan-schedule-content-payment first-pmt" :
-                                            y === item.payments.length - 1 ? "loan-schedule-content-payment last-pmt" :
-                                                "loan-schedule-content-payment"}>
-                                            <div className="detail-schedule details-date">
-                                                <p className='acc-total'></p>
-                                            </div>
-                                            <div className="detail-schedule details-content">
-                                                <p className='acc-total'></p>
-                                            </div>
-                                            <div className="detail-schedule details-content">
-                                                <p className='acc-total'></p>
-                                            </div>
-                                            <div className="detail-schedule details-content">
-                                                <p className='acc-total'></p>
-                                            </div>
-                                            <div className="detail-schedule details-content">
-                                                <p className='acc-total'></p>
-                                            </div>
-                                            <div className="detail-schedule details-date">
-                                                <p className='acc-date'>{moment(e.date_pmt).format("YY-MM-DD")}</p>
-                                            </div>
-                                            <div className="detail-schedule details-content">
-                                                <p className='itmt-options'><i className="material-icons"> payment </i></p>
-                                            </div>
-                                            <div className="detail-schedule details-content">
-                                                <p className='acc-total'>{e.amount}</p>
-                                            </div>
-                                            <div className="detail-schedule details-content">
-                                                <p className='acc-total'>{(e.cashAccount) ? e.cashAccount : ""}</p>
-                                            </div>
-                                            <div className="detail-schedule last details-content">
-                                                <p className='itmt-options'><i className="material-icons" onClick={() => reversePayment(e._id)}> delete_box </i></p>
-                                            </div>
-                                        </div>
+                                        <Chip
+                                            variant="outlined"
+                                            size="large"
+                                            icon={<Avatar><FaceIcon /></Avatar>}
+                                            label={`${moment(e.date_pmt).format("YY-MM-DD")} - ${e.cashAccount} - ${e.amount}`}
+                                            onDelete={() => reversePayment(e._id)}
+                                            className={classes.chip}
+                                        />
                                     )
                                 }) : ""}
                             </ExpansionPanelDetails>
