@@ -27,44 +27,69 @@
             padding: 5px;
             display: flex;
             flex-direction: column;
-            padding-left: 25px;
         }
 
         .head-content {
-            width: 100px;
-            min-width: 100px;
+            width: 3px;
+            min-width: 93px;
+
+            p {
+                text-align: center;
+            }
+        }
+
+        .head-content-status {
+            width: 105px;
+            min-width: 105px;
+
+            p {
+                text-align: center;
+            }
         }
 
         .head-date {
             width: 85px;
             min-width: 85px;
+            padding-left: 25px;
         }
     }
 
+
+
     .loan-schedule-content {
+
         max-height: 30px;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        border-bottom: 1px solid;
-        border-color: #EBF4FD;
-        background-color: #EBF4FD;
+        // border-bottom: 1px solid;
+        // border-color: #EBF4FD;
+        // background-color: #EBF4FD;
 
         .detail-schedule {
             padding: 5px;
             display: flex;
             flex-direction: column;
-            padding-left: 25px;
+            padding-left: 0px;
+
+        }
+
+        .details-content-status {
+            width: 105px;
+            min-width: 105px;
+            padding: 5px;
         }
 
         .details-content {
-            width: 100px;
-            min-width: 100px;
+            width: 93px;
+            min-width: 93px;
+            padding: 5px;
         }
 
         .details-date {
-            width: 85px;
-            min-width: 85px;
+            width: 60px;
+            min-width: 60px;
+
         }
 
         .acc-date {
@@ -74,20 +99,31 @@
         }
 
         .acc-total {
-            text-align: right;
+            text-align: left;
+            font-size: 0.75rem;
+            padding-left: 15px;
+            font-weight: 400;
+            color: rgba(54, 54, 54, 0.966);
+        }
+
+        .acc-total-status {
+            text-align: left;
+            padding-left: 20px;
             font-size: 0.75rem;
             font-weight: 400;
-            color: rgba(54, 54, 54, 0.966)
+            color: rgba(54, 54, 54, 0.966);
         }
+
+
     }
 
-    .loan-schedule-content:nth-child(odd) {
-        background-color: #EBF4FD;
-    }
+    // .loan-schedule-content:nth-child(odd) {
+    //     background-color: #EBF4FD;
+    // }
 
-    .loan-schedule-content:nth-child(even) {
-        background-color: rgb(214, 235, 255);
-    }
+    // .loan-schedule-content:nth-child(even) {
+    //     background-color: rgb(214, 235, 255);
+    // }
 
 
 
@@ -96,10 +132,7 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        border-left: 1.5px solid;
-        border-right: 1.5px solid;
-        border-color: rgba(135, 192, 214, 0.39);
-        background-color: rgb(230, 248, 255);
+        width: 90%;
 
         .detail-schedule {
             padding: 5px;
@@ -109,13 +142,15 @@
         }
 
         .details-content {
-            width: 100px;
-            min-width: 100px;
+            width: 80px;
+            min-width: 80px;
+            padding-left: 25px;
         }
 
         .details-date {
             width: 85px;
             min-width: 85px;
+            padding: 0px;
         }
 
         .acc-date {
@@ -132,19 +167,6 @@
         }
     }
 
-    .first-pmt {
-        border-top: 1px solid;
-        border-color: rgba(135, 192, 214, 0.39);
-        border-radius: 5px 5px 0 0;
-        margin-top: 10px;
-    }
-
-    .last-pmt {
-        border-bottom: 1px solid;
-        border-radius: 0 0 5px 5px;
-        border-color: rgba(135, 192, 214, 0.39);
-        margin-bottom: 10px;
-    }
 
     .loan-payment-content {
         margin-top: 20px;
@@ -207,7 +229,7 @@
         .acc-date {
             font-size: 0.75rem;
             font-weight: 400;
-            color: rgba(244, 254, 255, 0.966)
+            color: rgba(244, 254, 255, 0.966);
         }
 
         .acc-total {
@@ -240,7 +262,7 @@
     }
 
     .title {
-        text-align: right;
+        text-align: center;
         font-weight: 600;
         letter-spacing: 0.1rem;
         color: rgb(223, 223, 223)
@@ -264,5 +286,10 @@
         letter-spacing: 0.1rem;
         color: rgba(149, 222, 231, 0.952)
     }
+
+}
+
+.expansion {
+    padding-left: 0px;
 
 }
