@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import FaceIcon from '@material-ui/icons/Payment';
+import PaymentIcon from '@material-ui/icons/Payment';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
@@ -161,24 +161,29 @@ function LoanSchedule(props) {
                                 </div>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
-                                {item.payments.length > 0 ? item.payments.map((e, y) => {
-                                    return (
-                                        <Chip
-                                            variant="outlined"
-                                            size="large"
-                                            icon={<Avatar><FaceIcon /></Avatar>}
-                                            label={`${moment(e.date_pmt).format("YY-MM-DD")} - ${e.cashAccount} - ${e.amount}`}
-                                            onDelete={() => reversePayment(e._id)}
-                                            className={classes.chip}
-                                        />
-                                    )
-                                }) : ""}
+                                <div className='payment-summary'>
+                                    <p>PAGOS </p>
+                                    <div className='payment-holder'>
+                                        {item.payments.length > 0 ? item.payments.map((e, y) => {
+                                            return (
+                                                <Chip
+                                                    // size="small"
+                                                    variant="outlined"
+                                                    icon={<PaymentIcon />}
+                                                    label={`${moment(e.date_pmt).format("YY-MM-DD")} - ${e.cashAccount} - ${e.amount}`}
+                                                    onDelete={() => reversePayment(e._id)}
+                                                    className="chip"
+                                                />
+                                            )
+                                        }) : ""}
+                                    </div>
+                                </div>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
                     </>
                 )
             })}
-        </div>
+        </div >
     );
 }
 

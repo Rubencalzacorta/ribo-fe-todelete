@@ -293,3 +293,27 @@
     padding-left: 0px;
 
 }
+
+.payment-summary {
+    display: flex;
+    flex-direction: row;
+    max-width: 800px;
+
+    p {
+        font-weight: 600;
+    }
+
+    .payment-holder {
+        padding-left: 20px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .chip {
+            display: flex;
+            align-content: flex-start;
+            margin: 0px 5px 10px 5px;
+
+        }
+    }
+}
