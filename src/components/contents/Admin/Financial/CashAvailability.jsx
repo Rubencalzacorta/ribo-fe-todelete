@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 
 const CashAvailability = (props) => {
@@ -10,7 +11,7 @@ const CashAvailability = (props) => {
                 {cashAccounts ? cashAccounts.map((e, i) => {
                     return <div className="cashHolder" key={i}>
                         <p className="accountTotal">{e.total.toLocaleString(undefined, { minimunFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-                        <p className="accountName">{e.cashAccount}</p>
+                        <p className="accountName"><Link to={`/admin/cashAccount/${e.cashAccount}`}>{e.cashAccount}</Link></p>
                     </div>
                 }) : ""}
             </div>

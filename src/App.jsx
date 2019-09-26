@@ -9,6 +9,7 @@ import PendingConfirmation from './components/auth/PendingConfirmation';
 import Portfolio from './components/contents/Admin/Main/Portfolio/Portfolio'
 import PortfolioGraphs from './components/contents/Admin/Main/Portfolio/PortfolioGraphs'
 import Dashboard from './components/contents/Admin/Main/Dashboard/Dashboard'
+import CashAccounts from './components/contents/Admin/Financial/CashAccounts.jsx'
 import CreateClientForm from './components/contents/Admin/Client/CreateClientForm';
 import CompanyCreateForm from './components/contents/Admin/Company/CompanyCreateForm';
 import ClientList from './components/contents/Admin/Client/ClientList'
@@ -91,6 +92,7 @@ class App extends Component {
               <Route exact path='/admin/evolution' render={() => <PortfolioGraphs getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/weekly-schedule' render={() => <LoanWeekList getUser={this.getTheUser} location={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/client/list' render={() => <ClientList getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
+              <Route path='/admin/cash-account/:cashAccount' render={({ match }) => <CashAccounts getUser={this.getTheUser} cashAccount={match.params.cashAccount} />} />
               <Route path='/admin/loan/:loanId' render={({ match }) => <LoanDetails loanId={match.params.loanId} />} />
               <Route path='/admin/client/:clientId' render={({ match }) => <ClientDetails clientId={match.params.clientId} />} />
               <Route path='/admin/create-loan/:clientId' render={({ match }) => <CreateLoan clientId={match.params.clientId} userLocation={this.state.loggedInUser.location} />} />
