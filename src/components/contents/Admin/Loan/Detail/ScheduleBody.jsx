@@ -1,6 +1,7 @@
 import React from 'react';
-import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Chip } from '@material-ui/core';
+import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Chip, ListItemSecondaryAction } from '@material-ui/core';
 import PaymentIcon from '@material-ui/icons/Payment';
+import DoneIcon from '@material-ui/icons/Done';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import moment from 'moment'
 import './Schedule.scss'
@@ -109,13 +110,21 @@ function ScheduleBody(props) {
                                 <div className='payment-holder'>
                                     {item.payments.length > 0 ? item.payments.map((e, y) => {
                                         return (
-                                            <Chip
-                                                variant="outlined"
-                                                icon={<PaymentIcon />}
-                                                label={`${moment(e.date_pmt).format("YY-MM-DD")} - ${e.cashAccount} - ${e.amount}`}
-                                                onDelete={() => reversePayment(e._id)}
-                                                className="chip"
-                                            />
+                                            y === item.payments.length - 1 ?
+                                                <Chip
+                                                    variant="outlined"
+                                                    icon={<PaymentIcon />}
+                                                    label={`${moment(e.date_pmt).format("YY-MM-DD")} - ${e.cashAccount} - ${e.amount}`}
+                                                    onDelete={() => reversePayment(e._id)}
+                                                    className="chip"
+                                                /> : <Chip
+                                                    variant="outlined"
+                                                    icon={<PaymentIcon />}
+                                                    label={`${moment(e.date_pmt).format("YY-MM-DD")} - ${e.cashAccount} - ${e.amount}`}
+                                                    deleteIcon={<DoneIcon />}
+                                                    className="chip"
+                                                />
+
                                         )
                                     }) : ""}
                                 </div>
