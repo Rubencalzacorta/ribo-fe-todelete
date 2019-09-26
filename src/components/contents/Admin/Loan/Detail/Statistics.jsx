@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment'
 import { Link } from 'react-router-dom'
-import './loanDetails.scss'
+import './LoanDetails.scss'
 
 function LoanDetailHeader(props) {
     const { details, interestIncome, interestProjected } = props;

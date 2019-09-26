@@ -3,12 +3,12 @@ import { withRouter } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import loanService from '../../../../../services/LoanService'
 import PaymentService from '../../../../../services/PaymentService'
-import InvestorList from './InvestorList'
+import Investors from './Investors'
 import Schedule from './Schedule'
-import LoanTransactions from './LoanTransactions'
-import LoanDetailHeader from './LoanDetailHeader'
+import Transactions from './Transactions'
+import Statistics from './Statistics'
 import Commissions from './Commissions'
-import LoanDocuments from './LoanDocuments'
+import Documents from './Documents'
 import Payment from './Payment';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
@@ -243,7 +243,7 @@ class LoanDetails extends Component {
             (this.state.loan.details._borrower) ?
                 (
                     <div className="content">
-                        <LoanDetailHeader details={details} interestIncome={interestIncome} interestProjected={interestProjected} />
+                        <Statistics details={details} interestIncome={interestIncome} interestProjected={interestProjected} />
                         <div className="loan-content-holder">
                             <div className={classes.root}>
                                 <Tabs
@@ -290,17 +290,17 @@ class LoanDetails extends Component {
                                     </div>
                                 </div>
                             }
-                            {value === 1 && <InvestorList investors={investors} />}
-                            {value === 2 && <LoanTransactions transactions={transactions} />}
+                            {value === 1 && <Investors investors={investors} />}
+                            {value === 2 && <Transactions transactions={transactions} />}
                             {value === 3 && <Commissions
                                 commissions={commissions}
                                 salesmen={salesmen}
-                                handleNewCommission={this.handleNewCommission}
                                 newPct={newPct}
                                 newSalesman={newSalesman}
+                                handleNewCommission={this.handleNewCommission}
                                 saveNewCommission={this.saveNewCommission}
                                 deleteCommission={this.deleteCommission} />}
-                            {value === 4 && <LoanDocuments />}
+                            {value === 4 && <Documents />}
                         </div>
                     </div>
                 ) :

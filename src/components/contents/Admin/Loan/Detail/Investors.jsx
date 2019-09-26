@@ -1,5 +1,5 @@
 import React from 'react';
-import './loanInvestors.scss'
+import './Investors.scss'
 import numbro from 'numbro'
 
 function InvestorList(props) {

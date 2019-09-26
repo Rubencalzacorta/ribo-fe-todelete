@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment'
-import './loanTransactions.scss'
+import './LoanTransactions.scss'
 
 function LoanSchedule(props) {
     const { transactions } = props;
