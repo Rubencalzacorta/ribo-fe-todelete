@@ -1,36 +1,12 @@
 import React from 'react';
 import moment from 'moment'
 import './loanSchedule.scss'
-import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import Chip from '@material-ui/core/Chip';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Chip } from '@material-ui/core';
 import PaymentIcon from '@material-ui/icons/Payment';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        width: '100%',
-    },
-    heading: {
-        fontSize: theme.typography.pxToRem(15),
-        flexBasis: '33.33%',
-        flexShrink: 0,
-    },
-    secondaryHeading: {
-        fontSize: theme.typography.pxToRem(15),
-        color: theme.palette.text.secondary,
-    },
-    chip: {
-        margin: theme.spacing(1),
-    },
-}));
 
 function LoanSchedule(props) {
-    const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
 
     const handleChange = panel => (event, isExpanded) => {
@@ -76,7 +52,7 @@ function LoanSchedule(props) {
             {loanSchedule.map((item, i) => {
                 return (
                     <>
-                        <ExpansionPanel expanded={expanded === `panel${i}`} className={classes.expansion} onChange={i !== 0 ? handleChange(`panel${i}`) : null}>
+                        <ExpansionPanel expanded={expanded === `panel${i}`} className="expansion" onChange={i !== 0 ? handleChange(`panel${i}`) : null}>
                             <ExpansionPanelSummary
                                 expandIcon={i !== 0 ? <ExpandMoreIcon /> : null}
                                 aria-controls="panel1bh-content"
@@ -167,7 +143,6 @@ function LoanSchedule(props) {
                                         {item.payments.length > 0 ? item.payments.map((e, y) => {
                                             return (
                                                 <Chip
-                                                    // size="small"
                                                     variant="outlined"
                                                     icon={<PaymentIcon />}
                                                     label={`${moment(e.date_pmt).format("YY-MM-DD")} - ${e.cashAccount} - ${e.amount}`}
