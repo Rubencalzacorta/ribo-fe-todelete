@@ -23,6 +23,10 @@ class FinancialService {
         return this.service.get(`/general/stats/${country}`, )
             .then(response => response.data)
     }
+    cashAccountMovements = (account) => {
+        return this.service.get(`/cash-movements/account/${account}`, )
+            .then(response => response.data)
+    }
 
 }
 
