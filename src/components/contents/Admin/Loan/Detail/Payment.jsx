@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { accounts } from "../../../../../constants.js";
-import "./loan-tx-pmt.scss";
+import "./Payment.scss";
 
 class Payment extends Component {
   constructor(props) {
