@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { FormControl, Button, MenuItem, TextField, InputAdornment } from '@material-ui/core';
-import './commissions.scss'
+import './Commissions.scss'
 
 
 

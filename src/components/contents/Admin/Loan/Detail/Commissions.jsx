@@ -1,16 +1,12 @@
 
 import React from 'react';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Switch from '@material-ui/core/Switch';
-// import Radio from '@material-ui/core/Radio';
-// import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import './commissions.scss'
+import './Commissions.scss'
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Modal from '@material-ui/core/Modal';
-import NewCommission from './NewCommission'
+import CommissionAdd from './CommissionsAdd'
 import useModal from '../../../../../hooks/useModal'
 
 const Commissions = (props) => {
@@ -56,7 +52,7 @@ const Commissions = (props) => {
                 </FormControl>
             </div>
             <Modal open={isShowing} onClose={toggle} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <NewCommission
+                <CommissionAdd
                     salesmen={salesmen}
                     handleNewCommission={handleNewCommission}
                     newPct={newPct}

@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import loanService from '../../../../../services/LoanService'
 import PaymentService from '../../../../../services/PaymentService'
 import InvestorList from './InvestorList'
-import LoanSchedule from './LoanSchedule'
+import Schedule from './Schedule'
 import LoanTransactions from './LoanTransactions'
 import LoanDetailHeader from './LoanDetailHeader'
 import Commissions from './Commissions'
@@ -281,7 +281,7 @@ class LoanDetails extends Component {
                             {value === 0 &&
                                 <div>
                                     {this.state.openPayment && <Payment installment={installment} loan={details} receivePayment={this.paymentReceiver} closePaymentOption={this.closePaymentOption} />}
-                                    <LoanSchedule loanSchedule={details.loanSchedule.sort(this.compare)} openPaymentOption={this.openPaymentOption} reversePayment={this.reversePayment} deletePayments={this.deletePayments} />
+                                    <Schedule loanSchedule={details.loanSchedule.sort(this.compare)} openPaymentOption={this.openPaymentOption} reversePayment={this.reversePayment} deletePayments={this.deletePayments} />
                                     <div className='loan-delete'>
                                         <Button variant="contained" color="secondary" className='right-button' onClick={() => this.loanRemove(details._id)}>
                                             ELIMINAR PRESTAMO
