@@ -82,6 +82,15 @@ function ScheduleBody(props) {
                                                         <p className='itmt-options'>
                                                             <i className="material-icons" onClick={() => openPaymentOption(item)}>add_box</i>
                                                         </p> : '')
+                                            case 'OUTSTANDING':
+                                                return ((item.principal_pmt > 0) ?
+                                                    <p className='itmt-options'>
+                                                        <i className="material-icons" onClick={() => deletePayments(item._id)}>delete_box</i>
+                                                        <i className="material-icons" onClick={() => openPaymentOption(item)}>add_box</i>
+                                                    </p> : (!item.principal_pmt) ?
+                                                        <p className='itmt-options'>
+                                                            <i className="material-icons" onClick={() => openPaymentOption(item)}>add_box</i>
+                                                        </p> : '')
                                             case 'OVERDUE':
                                                 return ((item.principal_pmt > 0) ?
                                                     <p className='itmt-options'>
