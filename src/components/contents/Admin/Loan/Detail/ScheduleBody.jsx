@@ -37,7 +37,8 @@ function ScheduleBody(props) {
                                             item.status === 'PAID' ? 'PAGO' :
                                                 item.status === 'DUE' ? 'PAGADERO' :
                                                     item.status === 'OVERDUE' ? 'ATRASADO' :
-                                                        item.status === 'PENDING' ? 'PENDIENTE' : item.status}
+                                                        item.status === 'PENDING' ? 'PENDIENTE' :
+                                                            item.status === 'OUTSTANDING' ? 'INCOMPLETO' : item.status}
                                     </p>
                                 </div>
                                 <div className="detail-schedule details-content">
