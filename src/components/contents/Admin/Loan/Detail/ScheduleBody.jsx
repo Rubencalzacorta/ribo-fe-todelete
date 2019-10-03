@@ -62,9 +62,13 @@ function ScheduleBody(props) {
                                     <p className='acc-total'>{(item.cashAccount) ? item.cashAccount : ""}</p>
                                 </div>
                                 <div className="detail-schedule last details-content">
-                                    {(function () {
+                                    {(i !== 0) ? (function () {
                                         switch (item.status) {
                                             case 'PAID':
+                                                return <p className='itmt-options'>
+                                                    <i className="material-icons" onClick={() => deletePayments(item._id)}>delete_box</i>
+                                                </p>;
+                                            case 'CLOSED':
                                                 return <p className='itmt-options'>
                                                     <i className="material-icons" onClick={() => deletePayments(item._id)}>delete_box</i>
                                                 </p>;
@@ -100,7 +104,7 @@ function ScheduleBody(props) {
                                             default:
                                                 return null;
                                         }
-                                    })()}
+                                    })() : ""}
                                 </div>
                             </div>
                         </ExpansionPanelSummary>
