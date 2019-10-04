@@ -4,7 +4,7 @@ require('dotenv').config();
 class LoanService {
   constructor() {
     this.service = axios.create({
-      baseURL: `${process.env.REACT_APP_API_URL}/api/test/loan`,
+      baseURL: `${process.env.REACT_APP_API_URL}/api/loan`,
       withCredentials: true,
     });
   }

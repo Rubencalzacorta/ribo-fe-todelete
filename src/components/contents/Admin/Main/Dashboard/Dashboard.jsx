@@ -64,13 +64,14 @@ export default class Dashboard extends Component {
     this.service.getPortfolioStatus(userLocation, startDate, endDate)
       .then(async response => {
         let loans = response
-  
+
         this.setState({
           getLoan: false,
           portfolio: loans.portfolio,
           paid: loans.paid,
           due: loans.due,
           overdue: loans.overdue,
+          outstanding: loans.outstanding
         })
       })
       .catch(err => {
@@ -84,7 +85,7 @@ export default class Dashboard extends Component {
 
   render() {
 
-    const { portfolio, overdue, due, paid, total } = this.state;
+    const { portfolio, overdue, due, paid, total, outstanding } = this.state;
 
     return (
       <div className="content">
@@ -99,6 +100,11 @@ export default class Dashboard extends Component {
             <div>
               <PortfolioCategory data={due} title={'Pagos pendientes'} />
               {due.installments.map((e, i) => <PortfolioCategoryItemUnpaid key={i} data={e} loader={this.loader} />)}
+            </div>) : ""}
+          {outstanding ? (
+            <div>
+              <PortfolioCategory data={outstanding} title={'Pagos Incompletos'} />
+              {outstanding.installments.map((e, i) => <PortfolioCategoryItemUnpaid key={i} data={e} loader={this.loader} />)}
             </div>) : ""}
           {paid ? (
             <div>
