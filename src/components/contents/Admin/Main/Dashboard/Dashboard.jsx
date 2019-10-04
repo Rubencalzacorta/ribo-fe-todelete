@@ -7,6 +7,7 @@ import PortfolioCategoryPaid from './PortfolioCategoryPaid'
 import PortfolioCategoryGeneral from './PortfolioCategoryGeneral'
 import PortfolioCategoryItem from './PortfolioCategoryItem'
 import PortfolioCategoryItemUnpaid from './PortfolioCategoryItemUnpaid'
+import PortfolioCategoryItemOut from './PortfolioCategoryItemOut'
 
 export default class Dashboard extends Component {
   state = {
@@ -104,7 +105,7 @@ export default class Dashboard extends Component {
           {outstanding ? (
             <div>
               <PortfolioCategory data={outstanding} title={'Pagos Incompletos'} />
-              {outstanding.installments.map((e, i) => <PortfolioCategoryItemUnpaid key={i} data={e} loader={this.loader} />)}
+              {outstanding.installments.map((e, i) => <PortfolioCategoryItemOut key={i} data={e} loader={this.loader} />)}
             </div>) : ""}
           {paid ? (
             <div>
@@ -114,8 +115,5 @@ export default class Dashboard extends Component {
         </div>
       </div>
     )
-
   }
-
-
 } 
