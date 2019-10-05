@@ -28,7 +28,8 @@ const styles = theme => ({
 
 function LoanTable(props) {
   const { classes, data } = props;
-  console.log(data)
+  let index = 0
+  let index2 = 1
   return (
     <>
       <ReactHTMLTableToExcel
@@ -73,7 +74,7 @@ function LoanTable(props) {
                 (loanAmount > 1) ?
                   array.map((e, j) => {
                     return (j === 0) ?
-                      <tr className='ser-item-holder' key={i}>
+                      <tr className='ser-item-holder' key={row.loans[j] ? row.loans[j]._id : j}>
                         <td className="ser-name-country">
                           <CountryFlag country={row.country} />
                           <h4 className="ser-client">
@@ -119,7 +120,7 @@ function LoanTable(props) {
                         <td className="ser-loan-detail">{row.loans[j] ? moment(row.loans[j].nextPayment.date).format('YYYY-MM-DD') : ""}</td>
                       </tr>
                   }) :
-                  <tr className='ser-item-holder' key={i}>
+                  <tr className='ser-item-holder' key={row.loans[0] ? row.loans[0]._id : i}>
                     <td className="ser-name-country">
                       <CountryFlag country={row.country} />
                       <h4 className="ser-client">

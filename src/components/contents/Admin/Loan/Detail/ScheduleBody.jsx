@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Chip, ListItemSecondaryAction } from '@material-ui/core';
+import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Chip} from '@material-ui/core';
 import PaymentIcon from '@material-ui/icons/Payment';
 import DoneIcon from '@material-ui/icons/Done';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
