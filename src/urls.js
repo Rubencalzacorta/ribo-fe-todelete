@@ -49,11 +49,6 @@ const adminUrls = [{
     },
     {
         link: true,
-        url: 'client/create',
-        text: 'Crear'
-    },
-    {
-        link: true,
         url: 'client/list',
         text: 'Listado'
     },
