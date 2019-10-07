@@ -10,12 +10,15 @@ import InvestorSummary from './InvestorSummary'
 import AccInvestmentsTable from './AccInvestmentsTable';
 import AccLoanSummaryTable from './AccLoanSummaryTable';
 import './detail-investor.scss'
-
+import '../Client/ClientList.scss'
+import SelectBar from './SelectBar'
 
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
+    display: 'flex',
+    flexWrap: 'wrap',
   },
   tabsIndicator: {
     backgroundColor: '#1890ff',
@@ -24,7 +27,7 @@ const styles = theme => ({
     textTransform: 'initial',
     minWidth: 72,
     fontWeight: 500,
-    marginRight: theme.spacing.unit * 4,
+    marginRight: theme.spacing(4),
     '&:hover': {
       color: '#40a9ff',
       opacity: 1,
@@ -39,6 +42,13 @@ const styles = theme => ({
       color: '#40a9ff',
       outline: 'none'
     },
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
   },
   tabSelected: {},
 });
@@ -60,8 +70,10 @@ const investorInitialState = {
     totalCosts: 0,
     feeIncome: 0,
   },
-  // _investor: "",
+  getDetails: false,
+  getInvestor: false,
   loanDetails: null,
+  fetchInvestors: true,
   transactions: [],
   investments: [],
   display: false,
@@ -77,69 +89,41 @@ class DetailInvestor extends Component {
     this.InvestorService = new InvestorService();
   }
 
-  handleTabChange = (event, value) => {
-    this.setState({ value });
-    if (value === 1) {
-      this.InvestorService.getInvestmentsSummary(this.state._investor)
-        .then(response => {
 
-          this.setState({ investments: response })
-        })
+  componentDidUpdate() {
+    let { investorId } = this.props
+    let { getDetails, getInvestor } = this.state
+
+    if (investorId && getDetails && getInvestor) {
+      this.investorDetails(investorId)
+      this.fetchInvestor(investorId)
     }
-  };
 
-
-  handleOnClick = async (event) => {
-    event.preventDefault();
-
-    const _investor = this.state._investor
-
-    this.setState({ ...investorInitialState })
-    this.fetchInvestor(_investor)
-
-    let transactions = await this.TransactionService.getTransactions(_investor)
-    // let investments = await this.InvestorService.getInvestorInvestments(_investor)
-    let loanDetails = await this.TransactionService.getLoanInvestorDetails(_investor)
-    let autoInvest = await this.InvestorService.getInvestorOptions(_investor)
-    let investorFees = await this.InvestorService.getInvestorFees(_investor)
-
-    return Promise.all([
-      loanDetails,
-      autoInvest,
-      investorFees,
-      transactions
-    ])
-      .then(response => {
-        this.setState({
-          display: true,
-          transactions: response[3],
-          loanDetails: response[0],
-          isAutoInvesting: response[1].isAutoInvesting,
-          investorType: response[2].investorType,
-          investorFees: response[2].data
-        });
-        return response
-      })
-      .catch(error => {
-        this.setState({
-          error: error
-        });
-      })
   }
 
-  fetchInvestors() {
-    if (!this.state.investors) {
-      this.InvestorService.getInvestors()
-        .then(response => {
+  componentDidMount() {
+    let { investorId } = this.props
+    if (investorId) {
+      this.setState({
+        getDetails: true,
+        getInvestor: true,
+        _investor: investorId
+      })
+    }
 
+    if (this.state.fetchInvestors) {
+      this.InvestorService.getInvestors()
+        .then(async response => {
           if (this.props.location.toLowerCase() === "peru") {
             response = response.filter(e => {
               return e.location.toLowerCase() === "peru"
             })
           }
-          response.sort((a, b) => a.lastName.localeCompare(b.lastName));
+          let nameSort = await response.sort((a, b) => a.lastName.localeCompare(b.lastName));
+          let countrySort = await nameSort.sort((a, b) => a.location.localeCompare(b.location))
           this.setState({
-            investors: response
+            investors: countrySort,
+            fetchInvestors: false
           })
         })
         .catch(err => {
@@ -148,6 +132,54 @@ class DetailInvestor extends Component {
           })
         })
     }
+
+
+  }
+
+  handleTabChange = (event, value) => {
+    let { investorId } = this.props
+    this.setState({ value });
+    if (value === 1) {
+      this.InvestorService.getInvestmentsSummary(investorId)
+        .then(response => {
+          this.setState({ investments: response })
+        })
+    }
+  };
+
+
+  investorDetails = async (_investor) => {
+    this.setState({ ...investorInitialState, _investor: _investor })
+    this.fetchInvestor(_investor)
+
+    let transactions = await this.TransactionService.getTransactions(_investor)
+    let loanDetails = await this.TransactionService.getLoanInvestorDetails(_investor)
+    let autoInvest = await this.InvestorService.getInvestorOptions(_investor)
+    let investorFees = await this.InvestorService.getInvestorFees(_investor)
+
+    return Promise.all([
+      loanDetails,
+      autoInvest,
+      investorFees,
+      transactions,
+    ])
+      .then(response => {
+        this.setState({
+          display: true,
+          transactions: response[3],
+          loanDetails: response[0],
+          isAutoInvesting: response[1].isAutoInvesting,
+          investorType: response[2].investorType,
+          investorFees: response[2].data,
+          getDetails: false
+        });
+        return response
+      })
+      .catch(error => {
+        this.setState({
+          error: error
+        });
+      })
   }
 
   fetchInvestor = (id) => {
@@ -230,8 +262,6 @@ class DetailInvestor extends Component {
       })
   }
 
-
-
   toggleAutoInvest = () => {
     const _investor = this.state._investor
     this.InvestorService.toggleInvestorAutoInvest(_investor)
@@ -248,7 +278,7 @@ class DetailInvestor extends Component {
 
   handleChange = (event) => {
     const { name, value } = event.target;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value, getDetails: true, getInvestor: true });
   }
 
   handleNewFee = (event) => {
@@ -307,9 +337,8 @@ class DetailInvestor extends Component {
 
 
   render() {
-    this.fetchInvestors()
 
-    const { classes } = this.props
+    const { classes, investorId } = this.props
     const {
       transactions,
       investments,
@@ -322,24 +351,19 @@ class DetailInvestor extends Component {
       investorType,
       newPct,
       newManager,
+      investors,
+      // _investor
     } = this.state
 
     return (
       <div className="content">
         <div className="form-row">
-          <div className="form-group" id="account_holder">
-            <select className="form-control inv-select" name="_investor" id="investor" value={this.state._investor} onChange={e => this.handleChange(e)}>
-              <option>Seleccionar Inversionista</option>
-              {(this.state.investors) ? this.state.investors.map(e => <option key={e._id} value={e._id}>{e.lastName + ", " + e.firstName + " - " + e.location}</option>) : ""}
-            </select>
-          </div>
-          <div>
-            <button type="submit" className="btn btn-info inv-search" onClick={e => this.handleOnClick(e)}>Buscar Inversionista</button>
-          </div>
+          <SelectBar investors={investors} _investor={investorId} handleChange={this.handleChange} />
         </div>
-        <InvestorSummary summary={summary} />
+
         {display &&
           (<div>
+            <InvestorSummary summary={summary} />
             <div>
               <div className="loan-content-holder">
                 <div className={classes.root}>

@@ -28,8 +28,6 @@ const styles = theme => ({
 
 function LoanTable(props) {
   const { classes, data } = props;
-  let index = 0
-  let index2 = 1
   return (
     <>
       <ReactHTMLTableToExcel

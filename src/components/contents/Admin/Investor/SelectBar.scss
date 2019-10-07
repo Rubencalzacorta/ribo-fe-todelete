@@ -1,0 +1,25 @@
+.select-bar {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap, ;
+    margin-bottom: 20px;
+
+    .MuiMenuItem-root {
+        max-height: 30px;
+    }
+
+    .formControl {
+        margin-top: 5px;
+        width: 85%;
+        padding-bottom: 10px;
+    }
+
+    .menu-item {
+        color: black;
+        padding-bottom: 0px;
+    }
+
+
+
+}

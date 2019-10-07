@@ -92,6 +92,14 @@ class App extends Component {
               <Route exact path='/admin/evolution' render={() => <PortfolioGraphs getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/weekly-schedule' render={() => <LoanWeekList getUser={this.getTheUser} location={this.state.loggedInUser.location} />} />
               <Route path='/admin/client/list' render={() => <ClientList getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
+              <Route path='/admin/investor/details/:investorId'
+                render={({ match }) =>
+                  <DetailInvestor
+                    investorId={match.params.investorId}
+                    getUser={this.getTheUser}
+                    location={this.state.loggedInUser.location}
+                  />}
+              />
               <Route path='/admin/cash-account/:cashAccount' render={({ match }) => <CashAccounts getUser={this.getTheUser} cashAccount={match.params.cashAccount} />} />
               <Route path='/admin/loan/:loanId' render={({ match }) => <LoanDetails loanId={match.params.loanId} />} />
               <Route path='/admin/client/:clientId' render={({ match }) => <ClientDetails clientId={match.params.clientId} />} />
