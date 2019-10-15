@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Collateral from '../Collateral'
 
 const styles = theme => ({
     root: {
@@ -274,6 +275,11 @@ class LoanDetails extends Component {
                                     <Tab
                                         disableRipple
                                         classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
+                                        label="COLATERAL"
+                                    />
+                                    <Tab
+                                        disableRipple
+                                        classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
                                         label="DOCUMENTOS"
                                     />
                                 </Tabs>
@@ -300,7 +306,8 @@ class LoanDetails extends Component {
                                 handleNewCommission={this.handleNewCommission}
                                 saveNewCommission={this.saveNewCommission}
                                 deleteCommission={this.deleteCommission} />}
-                            {value === 4 && <Documents />}
+                            {value === 4 && <Collateral loanId={details._id} />}
+                            {value === 5 && <Documents />}
                         </div>
                     </div>
                 ) :
