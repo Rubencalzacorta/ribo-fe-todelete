@@ -13,18 +13,11 @@ import '../Detail/Investors.scss'
 import numbro from 'numbro'
 import { format } from 'date-fns'
 
-const CollateralTableConstants = [
-    'Tipo',
-    'Fecha',
-    'Status',
-    'Valor',
-    'LTV',
-    'LOTV']
 
 const Collateral = (props) => {
     const { isShowing, toggle } = useModal()
     const [expanded, setExpanded] = useState(false);
-    const [loan, setLoan] = useState(props.loanId)
+    const loan = props.loanId
     const [collaterals, setCollaterals] = useState([])
     const collateralService = new CollateralService()
 
@@ -39,10 +32,10 @@ const Collateral = (props) => {
                 setCollaterals(collaterals)
             }
         })
-    }, [])
+    }, [collateralService, loan])
 
     const addCollateral = (newCollateral) => {
-        collateralService.addCollateral({ ...newCollateral, _loan: props.loanId })
+        collateralService.addCollateral({ ...newCollateral, _loan: loan })
             .then((resp) => {
                 setCollaterals([...collaterals, resp.response])
             })

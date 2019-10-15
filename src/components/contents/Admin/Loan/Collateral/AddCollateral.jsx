@@ -1,5 +1,5 @@
 
-import React, { useState, setState } from 'react';
+import React, { useState } from 'react';
 import { Button, MenuItem, TextField, Paper } from '@material-ui/core';
 import './collateral.scss'
 import constants from './constants'
