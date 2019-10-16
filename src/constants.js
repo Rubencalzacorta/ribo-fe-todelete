@@ -222,7 +222,7 @@ const loanInitialState = {
     open: false,
     loanDetails: {
         duration: 0,
-
+        investedCapital: 0,
         capital: 0,
         interest: 0,
         loanType: "linear",
@@ -230,7 +230,8 @@ const loanInitialState = {
         startDate: "",
         paymentDate: ""
     },
-    openPaymentDate: false,
+    investmentEqCapital: true,
+    // openPaymentDate: false,
     investor: "",
     currency: "USD",
     cashAccount: '',

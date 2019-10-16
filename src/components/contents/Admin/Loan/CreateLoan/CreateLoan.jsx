@@ -123,25 +123,28 @@ class CreateLoan extends Component {
 
   handleLoanDetailsChange = event => {
     const { name, value } = event.target;
+    console.log(name, value)
+    // if (name === 'loanType' && (value === 'linearIntFirst' || 'monday')) {
 
-    if (name === 'loanType' && (value === 'linearIntFirst' || 'monday')) {
-
+    //   this.setState(prevState => ({
+    //     ...prevState,
+    //     loanDetails: {
+    //       ...prevState.loanDetails,
+    //       [name]: value
+    //     },
+    //     openPaymentDate: true
+    //   }))
+    // } else 
+    if (this.state.investmentEqCapital && name === 'capital') {
+      console.log('aqui')
       this.setState(prevState => ({
         ...prevState,
         loanDetails: {
           ...prevState.loanDetails,
-          [name]: value
+          [name]: value,
+          investedCapital: value
         },
-        openPaymentDate: true
-      }))
-    } else if (this.state.loanDetails.loanType === 'linearIntFirst' || 'monday') {
-      this.setState(prevState => ({
-        ...prevState,
-        loanDetails: {
-          ...prevState.loanDetails,
-          [name]: value
-        },
-        openPaymentDate: true
+        openPaymentDate: false
       }))
     } else {
       this.setState(prevState => ({
@@ -160,6 +163,13 @@ class CreateLoan extends Component {
     this.setState({ [name]: value });
 
   };
+
+  toggleInvestmentEqCapital = () => {
+    this.setState({
+      investmentEqCapital: !this.state.investmentEqCapital,
+      loanDetails: { ...this.state.loanDetails, investedCapital: this.state.loanDetails.capital }
+    })
+  }
 
   handleAutoInvest = () => {
     this.setState({ autoInvest: !this.state.autoInvest })
@@ -244,7 +254,7 @@ class CreateLoan extends Component {
   };
 
   render() {
-    let { loanDetails, open, loanSchedule } = this.state
+    let { loanDetails, open, loanSchedule, investmentEqCapital } = this.state
     return (
       <div className="content">
         <form onSubmit={this.handleFormSubmit}>
@@ -257,6 +267,8 @@ class CreateLoan extends Component {
             open={open}
             handleClose={this.handleClose}
             loanSchedule={loanSchedule}
+            investmentEqCapital={investmentEqCapital}
+            toggleInvestmentEqCapital={this.toggleInvestmentEqCapital}
           />
           <div className="form-row  general-loan-details">
             <div className="card col-md-12">
