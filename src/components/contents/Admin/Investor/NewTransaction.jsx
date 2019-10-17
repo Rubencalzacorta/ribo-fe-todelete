@@ -28,7 +28,7 @@ class NewTransaction extends Component {
     let debit = 0
     let credit = 0
 
-    if ((concept === "WITHDRAWAL") || (concept === "COST")) {
+    if ((concept === "WITHDRAWAL") || (concept === "COST") || (concept === "INSURANCE_COST")) {
       debit = 0
       credit = amount
     } else {
@@ -118,6 +118,7 @@ class NewTransaction extends Component {
                 <option value="DEPOSIT">Deposito</option>
                 <option value="WITHDRAWAL">Retiro</option>
                 <option value="COST">Costo</option>
+                <option value="INSURANCE_COST">Seguro</option>
               </select>
             </div>
             <div className="form-group col-md-6">
