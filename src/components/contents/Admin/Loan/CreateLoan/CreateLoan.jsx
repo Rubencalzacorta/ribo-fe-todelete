@@ -122,7 +122,7 @@ class CreateLoan extends Component {
   }
 
   handleLoanDetailsChange = event => {
-    const { name, value } = event.target;
+    const { name, value, type } = event.target;
     console.log(name, value)
     // if (name === 'loanType' && (value === 'linearIntFirst' || 'monday')) {
 
@@ -141,8 +141,8 @@ class CreateLoan extends Component {
         ...prevState,
         loanDetails: {
           ...prevState.loanDetails,
-          [name]: value,
-          investedCapital: value
+          [name]: type === "number" ? parseFloat(value) : value,
+          investedCapital: type === "number" ? parseFloat(value) : value,
         },
         openPaymentDate: false
       }))
@@ -151,7 +151,7 @@ class CreateLoan extends Component {
         ...prevState,
         loanDetails: {
           ...prevState.loanDetails,
-          [name]: value
+          [name]: type === "number" ? parseFloat(value) : value,
         },
         openPaymentDate: false
       }))
