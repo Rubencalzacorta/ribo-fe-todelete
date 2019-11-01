@@ -142,7 +142,7 @@ function LoanTable(props) {
                   </CustomTableCell>
                   <CustomTableCell align="left">
                     <Link to={`/admin/loan/${row._loan}`}>
-                      {row.borrower[0].fullName}
+                      {row.borrower[0].firstName + " " + row.borrower[0].lastName}
                     </Link>
                   </CustomTableCell>
                   <CustomTableCell align="right">
