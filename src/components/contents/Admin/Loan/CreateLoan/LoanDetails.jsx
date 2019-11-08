@@ -1,9 +1,13 @@
 import React from 'react'
-import Modal from '@material-ui/core/Modal';
-import LoanSchedule from "./LoanSchedule"
+// import Modal from '@material-ui/core/Modal';
+// import LoanSchedule from "./LoanSchedule"
 
 function LoanDetails(props) {
-  let { loanDetails, handleClose, open, loanSchedule, investmentEqCapital } = props
+  let { loanDetails,
+    // handleClose, 
+    // open, 
+    // loanSchedule, 
+    investmentEqCapital } = props
   return (
     <div className="form-row general-loan-details">
       <div className="card col-md-12">
