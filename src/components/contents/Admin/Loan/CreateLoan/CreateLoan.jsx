@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import ClientService from '../../../../../services/ClientService'
+// import { loanSelector } from './scheduler.js'
 import TransactionService from "../../../../../services/TransactionService";
 import LoanService from "../../../../../services/LoanService";
 import Colateral from './Colateral'
 import LoanDetails from './LoanDetails'
-import { loanSelector } from "../helpers/scheduleCalc";
 import { loanInitialState } from '../../../../../constants'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -247,11 +247,11 @@ class CreateLoan extends Component {
     this.setState({ investors: investorsD });
   };
 
-  calcLoanSchedule = () => {
-    let { loanDetails } = this.state;
-    let schedule = loanSelector(1, loanDetails)
-    this.setState({ loanSchedule: schedule, open: true });
-  };
+  // calcLoanSchedule = () => {
+  // let { loanDetails } = this.state;
+  // let schedule = loanSelector(1, loanDetails);
+  // this.setState({ loanSchedule: schedule, open: true });
+  // };
 
   render() {
     let { loanDetails, open, loanSchedule, investmentEqCapital } = this.state
@@ -263,7 +263,7 @@ class CreateLoan extends Component {
             loanDetails={loanDetails}
             handleLoanDetailsChange={this.handleLoanDetailsChange}
             openPaymentDate={this.state.openPaymentDate}
-            calcLoanSchedule={this.calcLoanSchedule}
+            // calcLoanSchedule={this.calcLoanSchedule}
             open={open}
             handleClose={this.handleClose}
             loanSchedule={loanSchedule}
@@ -437,5 +437,6 @@ class CreateLoan extends Component {
     );
   }
 }
+
 
 export default withRouter(CreateLoan);

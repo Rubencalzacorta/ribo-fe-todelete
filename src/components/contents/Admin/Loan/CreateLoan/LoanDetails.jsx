@@ -41,6 +41,9 @@ function LoanDetails(props) {
                 <option value="amort">
                   Amortizado
                 </option>
+                <option value="amort2">
+                  Amortizado (Customizado)
+                </option>
               </select>
             </div>
             {loanDetails.loanType === 'factoring' ?
@@ -56,24 +59,37 @@ function LoanDetails(props) {
                   required
                 />
               </div> :
-              <div className="form-group col-md-6 col-sm-6">
-                <label>Frequencia:</label>
-                <select
-                  id="loan_type"
-                  className="form-control"
-                  name="period"
-                  value={loanDetails.period}
-                  onChange={e => props.handleLoanDetailsChange(e)}
-                  required
-                >
-                  <option defaultValue="monthly">Mensual</option>
-                  <option value="biWeekly">Quincenal</option>
-                  <option value="payDay">Dia de pago</option>
-                </select>
-              </div>
-
+              <>
+                <div className="form-group col-md-3 col-sm-3">
+                  <label>Frequencia:</label>
+                  <select
+                    id="loan_type"
+                    className="form-control"
+                    name="period"
+                    value={loanDetails.period}
+                    onChange={e => props.handleLoanDetailsChange(e)}
+                    required
+                  >
+                    <option defaultValue="monthly">Mensual</option>
+                    <option value="biWeekly">Bisemanal</option>
+                    <option value="weekly">Semanal</option>
+                    <option value="payDay">Dia de pago</option>
+                  </select>
+                </div>
+                <div className="form-group col-md-3 col-sm-3">
+                  <label>Periodos de solo interes :</label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="startAmortPeriod"
+                    name="startAmortPeriod"
+                    value={loanDetails.startAmortPeriod}
+                    onChange={e => props.handleLoanDetailsChange(e)}
+                    disabled={loanDetails.loanType === 'amort2' ? false : true}
+                  />
+                </div>
+              </>
             }
-
           </div>
           <div className="form-row col-md-12">
             <div className="form-group col-md-6 col-sm-6">
@@ -174,7 +190,7 @@ function LoanDetails(props) {
               />
             </div>
           </div>
-          <div className="form-row col-md-12">
+          {/* <div className="form-row col-md-12">
             <div className="calc-button col-md-6 ">
               <button
                 type="button"
@@ -192,7 +208,7 @@ function LoanDetails(props) {
                 <LoanSchedule loanSchedule={loanSchedule} />
               </Modal>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div >
