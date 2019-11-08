@@ -236,7 +236,7 @@ const loanInitialState = {
     investor: "",
     currency: "USD",
     cashAccount: '',
-    useOfFunds: "",
+    useOfFunds: "vehicle",
     investmentAmount: 0,
     investors: [],
     autoInvest: true
