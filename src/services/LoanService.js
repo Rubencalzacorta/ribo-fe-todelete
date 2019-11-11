@@ -72,10 +72,11 @@ class LoanService {
   }
 
 
-  createLoan = (_borrower, collateralType, collateralValue, collateralDescription, loanDetails, useOfFunds, toInvest, currency) => {
+  createLoan = (_borrower, insurancePremium, collateralType, collateralValue, collateralDescription, loanDetails, useOfFunds, toInvest, currency) => {
 
     return this.service.post('/create', {
         _borrower,
+        insurancePremium,
         collateralType,
         collateralValue,
         collateralDescription,
@@ -93,10 +94,11 @@ class LoanService {
 
   }
 
-  createLoanAllActive = (_borrower, collateralType, collateralValue, collateralDescription, loanDetails, useOfFunds, currency, country) => {
+  createLoanAllActive = (_borrower, insurancePremium, collateralType, collateralValue, collateralDescription, loanDetails, useOfFunds, currency, country) => {
 
     return this.service.post('/create/all-active-invest', {
         _borrower,
+        insurancePremium,
         collateralType,
         collateralValue,
         collateralDescription,

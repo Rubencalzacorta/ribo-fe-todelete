@@ -45,11 +45,8 @@ function AccTransacionsTable(props) {
             </div>
             <div className="detail-schedule details-name">
               <p className="acc-date">
-                {row._loan
-                  ? row._loan._borrower.firstName +
-                    " " +
-                    row._loan._borrower.lastName
-                  : "PERSONAL"}
+                {row.concept === 'INSURANCE_PREMIUM' ? 'PRIMA' :
+                  row._loan ? row._loan._borrower.firstName + " " + row._loan._borrower.lastName : "PERSONAL"}
               </p>
             </div>
             <div className="detail-schedule details-concept">

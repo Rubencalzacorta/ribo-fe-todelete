@@ -168,7 +168,7 @@ function LoanDetails(props) {
           <div className="form-row col-md-12 col-sm-6">
             {loanDetails.loanType !== 'factoring' ?
               <div className="form-group col-md-6 col-sm-6">
-                <label>Duracion:</label>
+                <label>Cuotas:</label>
                 <input
                   className="form-control"
                   type="number"

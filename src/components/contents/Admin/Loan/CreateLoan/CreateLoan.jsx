@@ -42,10 +42,11 @@ class CreateLoan extends Component {
     event.preventDefault();
 
     const _borrower = this.state._id;
-    const collateralType = this.state.collateralType;
-    const collateralValue = parseFloat(this.state.collateralValue);
-    const collateralDescription = this.state.collateralDescription;
+    const insurancePremium = this.state.insurancePremium
     const currency = this.state.currency;
+    const collateralType = this.state.collateralType
+    const collateralValue = this.state.collateralValue
+    const collateralDescription = this.state.collateralDescription
     const loanDetails = this.state.loanDetails;
     const useOfFunds = this.state.useOfFunds;
     const toInvest = this.state.investors;
@@ -55,6 +56,7 @@ class CreateLoan extends Component {
     (!autoInvest) ?
       this.LoanService.createLoan(
         _borrower,
+        insurancePremium,
         collateralType,
         collateralValue,
         collateralDescription,
@@ -78,6 +80,7 @@ class CreateLoan extends Component {
         }) :
       this.LoanService.createLoanAllActive(
         _borrower,
+        insurancePremium,
         collateralType,
         collateralValue,
         collateralDescription,
@@ -159,9 +162,12 @@ class CreateLoan extends Component {
   }
 
   handleChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-
+    const { name, value, type } = event.target;
+    if (name === 'insurancePremium') {
+      this.setState({ [name]: parseFloat(value) })
+    } else {
+      this.setState({ [name]: type === "number" ? parseFloat(value) : value });
+    }
   };
 
   toggleInvestmentEqCapital = () => {
