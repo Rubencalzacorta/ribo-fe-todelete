@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Chip} from '@material-ui/core';
+import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Chip, Button } from '@material-ui/core';
 import PaymentIcon from '@material-ui/icons/Payment';
 import DoneIcon from '@material-ui/icons/Done';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -14,7 +14,7 @@ function ScheduleBody(props) {
     };
 
     let { scheduleDetails } = props
-    let { loanSchedule, openPaymentOption, reversePayment, deletePayments } = scheduleDetails
+    let { loanSchedule, openPaymentOption, reversePayment, deletePayments, capitalRemaining } = scheduleDetails
 
     return (
         loanSchedule.map((item, i) => {
@@ -120,7 +120,7 @@ function ScheduleBody(props) {
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
                             <div className='payment-summary'>
-                                <p>PAGOS </p>
+                                <p>Resumen de pagos </p>
                                 <div className='payment-holder'>
                                     {item.payments.length > 0 ? item.payments.map((e, y) => {
                                         return (
@@ -141,6 +141,9 @@ function ScheduleBody(props) {
 
                                         )
                                     }) : ""}
+                                </div>
+                                <div >
+                                    <Button className="full-pmt-btn" variant="contained" onClick={() => openPaymentOption(item, true)}> Pago Total</Button>
                                 </div>
                             </div>
                         </ExpansionPanelDetails>

@@ -5,10 +5,10 @@ import './Schedule.scss'
 
 function Schedule(props) {
 
-    const { loanSchedule, openPaymentOption, reversePayment, deletePayments } = props;
+    const { loanSchedule, openPaymentOption, reversePayment, deletePayments, capitalRemaining } = props;
 
     let scheduleDetails = {
-        loanSchedule, openPaymentOption, reversePayment, deletePayments
+        loanSchedule, openPaymentOption, reversePayment, deletePayments, capitalRemaining
     }
     return (
         <div className="loan-schedule-detail-holder">

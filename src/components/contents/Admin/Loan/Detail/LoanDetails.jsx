@@ -191,31 +191,47 @@ class LoanDetails extends Component {
             )
     }
 
-    openPaymentOption = (item) => {
+    openPaymentOption = (item, fullPayment) => {
         this.setState({
             openPayment: true,
-            installment: item
+            installment: item,
+            fullPayment: fullPayment
         })
     }
 
     closePaymentOption = () => {
         this.setState({
             openPayment: false,
-            installment: null
+            installment: null,
+            fullPayment: false
         })
     }
 
     paymentReceiver = (payment) => {
+        let { fullPayment } = this.state
 
-        this.PaymentService.newPayment(payment)
-            .then(response => {
-                this.loader()
-                this.setState({ openPayment: false })
-            })
-            .catch(error => {
-                this.setState({ error })
-            }
-            )
+        if (fullPayment) {
+            this.PaymentService.newFullPayment(payment)
+                .then(response => {
+                    this.loader()
+                    this.setState({ openPayment: false })
+                })
+                .catch(error => {
+                    this.setState({ error })
+                }
+                )
+        } else {
+            this.PaymentService.newPayment(payment)
+                .then(response => {
+                    this.loader()
+                    this.setState({ openPayment: false })
+                })
+                .catch(error => {
+                    this.setState({ error })
+                }
+                )
+        }
+
     }
 
     loanRemove = (id) => {
@@ -237,7 +253,9 @@ class LoanDetails extends Component {
             commissions,
             salesmen,
             newPct,
-            newSalesman } = this.state
+            newSalesman,
+            fullPayment
+        } = this.state
         const { classes } = this.props;
         let { details, investors, transactions } = this.state.loan
         return (
@@ -286,8 +304,21 @@ class LoanDetails extends Component {
                             </div>
                             {value === 0 &&
                                 <div>
-                                    {this.state.openPayment && <Payment installment={installment} loan={details} receivePayment={this.paymentReceiver} closePaymentOption={this.closePaymentOption} />}
-                                    <Schedule loanSchedule={details.loanSchedule.sort(this.compare)} openPaymentOption={this.openPaymentOption} reversePayment={this.reversePayment} deletePayments={this.deletePayments} />
+                                    {this.state.openPayment &&
+                                        <Payment
+                                            installment={installment}
+                                            loan={details}
+                                            receivePayment={this.paymentReceiver}
+                                            closePaymentOption={this.closePaymentOption}
+                                            fullPayment={fullPayment}
+                                        />}
+                                    <Schedule
+                                        loanSchedule={details.loanSchedule.sort(this.compare)}
+                                        openPaymentOption={this.openPaymentOption}
+                                        reversePayment={this.reversePayment}
+                                        deletePayments={this.deletePayments}
+                                        capitalRemaining={details.capitalRemaining}
+                                    />
                                     <div className='loan-delete'>
                                         <Button variant="contained" color="secondary" className='right-button' onClick={() => this.loanRemove(details._id)}>
                                             ELIMINAR PRESTAMO

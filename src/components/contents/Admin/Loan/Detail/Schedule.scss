@@ -296,15 +296,27 @@
 
 .payment-summary {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     max-width: 800px;
 
     p {
         font-weight: 600;
     }
 
+    .full-pmt-btn {
+        margin-top: 20px;
+        background-color: #1A76D2;
+        color: white;
+        font-weight: 600;
+        // padding-left: 20px;
+    }
+
+    .full-pmt-btn:hover {
+        background-color: rgb(10, 73, 136);
+    }
+
     .payment-holder {
-        padding-left: 20px;
+        padding-top: 20px;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;

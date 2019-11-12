@@ -21,6 +21,13 @@ class PaymentService {
             .then(response => response.data)
     }
 
+    newFullPayment = (paymentDetails) => {
+        return this.service.post(`/prepay-loan/installment/${paymentDetails._loanSchedule}`,
+                paymentDetails
+            )
+            .then(response => response.data)
+    }
+
 }
 
 export default PaymentService;

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { accounts } from "../../../../../constants.js";
 import "./Payment.scss";
+import LoanDetailHeader from "./Statistics.jsx";
 
 class Payment extends Component {
   constructor(props) {
@@ -28,12 +29,12 @@ class Payment extends Component {
   };
 
   componentDidMount = () => {
-    let { installment } = this.props;
+    let { installment, loan, fullPayment } = this.props;
     console.log(installment)
 
     this.setState({
       date_pmt: installment.date,
-      amount: Math.round(installment.balanceDue * 100) / 100,
+      amount: fullPayment ? loan.capitalRemaining : Math.round(installment.balanceDue * 100) / 100,
       _loan: installment._loan,
       _loanSchedule: installment._id,
       cashAccount: undefined,
@@ -42,7 +43,7 @@ class Payment extends Component {
 
 
   render() {
-    let { receivePayment, closePaymentOption } = this.props;
+    let { receivePayment, closePaymentOption, fullPayment, loan } = this.props;
     return (
       <div className="loan-schedule-holder">
         <div className="loan-payment-holder">
@@ -63,6 +64,7 @@ class Payment extends Component {
             <input
               label="Monto"
               name="amount"
+              min={fullPayment ? loan.capitalRemaining : 0}
               className="form-control input-sm"
               value={this.state.amount ? this.state.amount : undefined}
               onChange={this.handleChangePayment}
