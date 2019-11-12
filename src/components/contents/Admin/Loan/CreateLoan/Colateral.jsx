@@ -9,6 +9,7 @@ const useOfFundsContent = [
   { value: 'motorcycleWithInsurance', text: 'Moto con seguro' },
   { value: 'personalWithInsurance', text: 'Personal con seguro' },
   { value: 'capitalGoodsWithInsurance', text: 'Bienes de Capital con Seguro' },
+  { value: 'payroll', text: 'Nomina' },
   { value: 'workingCapital', text: 'Capital Trabajo' },
   { value: 'refinancing', text: 'Refinanciamiento' },
   { value: 'debtConsolidation', text: 'Consolidación de Deuda' },

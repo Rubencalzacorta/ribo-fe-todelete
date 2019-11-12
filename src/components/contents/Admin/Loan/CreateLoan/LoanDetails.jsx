@@ -76,8 +76,8 @@ function LoanDetails(props) {
                   >
                     <option defaultValue="monthly">Mensual</option>
                     <option value="biWeekly">Bisemanal</option>
+                    <option value="payDay">Quincenal</option>
                     <option value="weekly">Semanal</option>
-                    <option value="payDay">Dia de pago</option>
                   </select>
                 </div>
                 <div className="form-group col-md-3 col-sm-3">
