@@ -11,6 +11,7 @@
     "date-fns": "^2.4.1",
     "dotenv": "^6.2.0",
     "env-cmd": "^10.0.1",
+    "eslint-utils": "^1.4.3",
     "file-saver": "^2.0.1",
     "formik": "^1.5.2",
     "history": "^4.10.1",
