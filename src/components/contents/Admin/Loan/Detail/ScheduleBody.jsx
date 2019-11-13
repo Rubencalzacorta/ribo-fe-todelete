@@ -13,8 +13,42 @@ function ScheduleBody(props) {
         setExpanded(isExpanded ? panel : false);
     };
 
+    const displayStatus = (status) => {
+        let statusText
+        switch (status) {
+            case 'DISBURSTMENT':
+                statusText = 'INICIO';
+                break
+            case 'PAID':
+                statusText = 'PAGO';
+                break
+            case 'DUE':
+                statusText = 'PAGADERO';
+                break
+            case 'OVERDUE':
+                statusText = 'ATRASADO';
+                break
+            case 'PENDING':
+                statusText = 'PENDIENTE';
+                break
+            case 'OUTSTANDING':
+                statusText = 'INCOMPLETO';
+                break
+            case 'UNPAID_OVERDUE':
+                statusText = 'NP ATRASADO';
+                break
+            case 'UNPAID_DUE':
+                statusText = 'NP PAGADERO';
+                break
+            case 'CLOSED':
+                statusText = 'CERRADO';
+                break
+        }
+        return statusText
+    }
+
     let { scheduleDetails } = props
-    let { loanSchedule, openPaymentOption, reversePayment, deletePayments, capitalRemaining } = scheduleDetails
+    let { loanSchedule, openPaymentOption, reversePayment, deletePayments } = scheduleDetails
 
     return (
         loanSchedule.map((item, i) => {
@@ -33,12 +67,7 @@ function ScheduleBody(props) {
                                 </div>
                                 <div className="detail-schedule details-content-status">
                                     <p className='acc-total-status'>
-                                        {item.status === 'DISBURSTMENT' ? 'INICIO' :
-                                            item.status === 'PAID' ? 'PAGO' :
-                                                item.status === 'DUE' ? 'PAGADERO' :
-                                                    item.status === 'OVERDUE' ? 'ATRASADO' :
-                                                        item.status === 'PENDING' ? 'PENDIENTE' :
-                                                            item.status === 'OUTSTANDING' ? 'INCOMPLETO' : item.status}
+                                        {displayStatus(item.status)}
                                     </p>
                                 </div>
                                 <div className="detail-schedule details-content">
