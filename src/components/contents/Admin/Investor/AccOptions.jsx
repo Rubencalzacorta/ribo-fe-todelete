@@ -31,7 +31,6 @@ const AccOptions = (props) => {
         deleteFee
     } = props
 
-
     return (
         <div className="account-options">
             <div className="investment-options">

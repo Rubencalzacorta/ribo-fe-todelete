@@ -152,25 +152,20 @@ class DetailInvestor extends Component {
     this.setState({ ...investorInitialState, _investor: _investor })
     this.fetchInvestor(_investor)
 
+
     let transactions = await this.TransactionService.getTransactions(_investor)
     let loanDetails = await this.TransactionService.getLoanInvestorDetails(_investor)
-    let autoInvest = await this.InvestorService.getInvestorOptions(_investor)
-    let investorFees = await this.InvestorService.getInvestorFees(_investor)
 
     return Promise.all([
       loanDetails,
-      autoInvest,
-      investorFees,
       transactions,
     ])
       .then(response => {
+
         this.setState({
           display: true,
-          transactions: response[3],
+          transactions: response[1],
           loanDetails: response[0],
-          isAutoInvesting: response[1].isAutoInvesting,
-          investorType: response[2].investorType,
-          investorFees: response[2].data,
           getDetails: false
         });
         return response
@@ -200,6 +195,32 @@ class DetailInvestor extends Component {
           })
         })
     }
+
+    if (!this.state.getInvestmentOptions) {
+      this.InvestorService.getInvestorOptions(id)
+        .then(response => {
+          this.setState({
+            ...this.state,
+            isAutoInvesting: response.isAutoInvesting,
+            investorType: response.investorType,
+            getInvestmentOptions: false
+          }
+          )
+        })
+    }
+
+    if (!this.state.getInvestmentFees) {
+      this.InvestorService.getInvestorFees(id)
+        .then(response => {
+          this.setState({
+            ...this.state,
+            investorFees: response.data,
+            getInvestmentFees: false
+          }
+          )
+        })
+    }
+
 
     if (!this.state.getInvestmentDetails) {
       this.InvestorService.getInvestmentDetails(id)
