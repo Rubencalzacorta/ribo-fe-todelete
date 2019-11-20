@@ -22,7 +22,7 @@ const adminUrls = [{
     {
         link: true,
         url: 'activity',
-        text: 'Actividad'
+        text: 'Cobranzas'
     },
     {
         link: true,
