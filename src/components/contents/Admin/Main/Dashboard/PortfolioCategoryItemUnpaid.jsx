@@ -44,12 +44,12 @@ export default class PortfolioDueCategoryUnpaid extends Component {
                 <div className="item-cards">
                     <div className="item-content-unpaid">
                         <div className="item-holder">
-                            <p className="content">{(data.firstName + " " + data.lastName).slice(0, 23)}</p>
+                            <p className="content">{(data.firstName.split().length >= 1 && data.lastName.split().length >= 1 ? data.firstName.split(" ")[0] + " " + data.lastName.split(" ")[0] : data.firstName + " " + data.lastName).slice(0, 23)}</p>
                         </div>
                     </div>
                     <div className="item-content-unpaid">
                         <div className="item-holder">
-                            <p className="content">{(moment(data.date).format('YYYY-MM-DD'))}</p>
+                            <p className="content">{moment(data.date).diff(moment(), 'd') * -1 > 0 ? (moment(data.date).format('YYYY-MM-DD')) + "  |  " + moment(data.date).diff(moment(), 'd') * -1 + "d" : (moment(data.date).format('YYYY-MM-DD'))}</p>
                         </div>
                     </div>
                     <div className="item-content-unpaid">

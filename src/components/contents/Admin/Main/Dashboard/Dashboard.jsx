@@ -94,12 +94,12 @@ export default class Dashboard extends Component {
           {portfolio ? (<PortfolioCategoryGeneral data={portfolio} title={'Pagos - Portafolio'} cash={total} />) : ""}
           {overdue ? (
             <div>
-              <PortfolioCategory data={overdue} title={'Pagos atrasados'} />
+              <PortfolioCategory data={overdue} title={'Pagos atrasados (+7d)'} />
               {overdue.installments.map((e, i) => <PortfolioCategoryItemUnpaid key={i} data={e} loader={this.loader} />)}
             </div>) : ""}
           {due ? (
             <div>
-              <PortfolioCategory data={due} title={'Pagos pendientes'} />
+              <PortfolioCategory data={due} title={'Pagos pendientes (±7d)'} />
               {due.installments.map((e, i) => <PortfolioCategoryItemUnpaid key={i} data={e} loader={this.loader} />)}
             </div>) : ""}
           {outstanding ? (
