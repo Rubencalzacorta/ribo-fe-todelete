@@ -91,25 +91,25 @@ export default class Dashboard extends Component {
     return (
       <div className="content">
         <div>
-          {portfolio ? (<PortfolioCategoryGeneral data={portfolio} title={'Pagos - Portafolio'} cash={total} />) : ""}
+          {/* {portfolio ? (<PortfolioCategoryGeneral data={portfolio} title={'Pagos - Portafolio'} cash={total} />) : ""} */}
           {overdue ? (
             <div>
-              <PortfolioCategory data={overdue} title={'Pagos atrasados (+7d)'} />
+              <PortfolioCategory data={overdue} title={'Cobranza atrasada (+7d)'} />
               {overdue.installments.map((e, i) => <PortfolioCategoryItemUnpaid key={i} data={e} loader={this.loader} />)}
             </div>) : ""}
           {due ? (
             <div>
-              <PortfolioCategory data={due} title={'Pagos pendientes (±7d)'} />
+              <PortfolioCategory data={due} title={'Cobranza pendiente (±7d)'} />
               {due.installments.map((e, i) => <PortfolioCategoryItemUnpaid key={i} data={e} loader={this.loader} />)}
             </div>) : ""}
           {outstanding ? (
             <div>
-              <PortfolioCategory data={outstanding} title={'Pagos Incompletos'} />
+              <PortfolioCategory data={outstanding} title={'Cobranza de pagos Incompletos'} />
               {outstanding.installments.map((e, i) => <PortfolioCategoryItemOut key={i} data={e} loader={this.loader} />)}
             </div>) : ""}
           {paid ? (
             <div>
-              <PortfolioCategoryPaid data={paid} title={'Pagos realizados'} />
+              <PortfolioCategoryPaid data={paid} title={'Cobranza realizada del mes corriente'} />
               {paid.installments.map((e, i) => <PortfolioCategoryItem key={i} data={e} />)}
             </div>) : ""}
         </div>

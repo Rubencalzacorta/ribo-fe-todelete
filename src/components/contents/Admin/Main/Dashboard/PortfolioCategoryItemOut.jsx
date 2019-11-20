@@ -54,17 +54,17 @@ export default class PortfolioDueCategoryUnpaid extends Component {
                     </div>
                     <div className="item-content-unpaid">
                         <div className="item-holder">
-                            <p className="content">{(data.interest - data.interest_pmt).toLocaleString()}</p>
+                            <p className="content number-content">{(data.interest - data.interest_pmt).toLocaleString()}</p>
                         </div>
                     </div>
                     <div className="item-content-unpaid">
                         <div className="item-holder">
-                            <p className="content">{(data.principal - data.principal_pmt).toLocaleString() + " " + data.currency}</p>
+                            <p className="content number-content">{(data.principal - data.principal_pmt).toLocaleString()}</p>
                         </div>
                     </div>
                     <div className="item-content-unpaid">
                         <div className="item-holder">
-                            <p className="content">{(data.balanceDue).toLocaleString()}</p>
+                            <p className="content number-content">{(data.balanceDue).toLocaleString() + " " + data.currency}</p>
                         </div>
                     </div>
                     <div className="item-content-unpaid">
