@@ -59,7 +59,7 @@ export default class PortfolioDueCategoryUnpaid extends Component {
                     </div>
                     <div className="item-content-unpaid">
                         <div className="item-holder">
-                            <p className="content">{(data.principal - data.principal_pmt).toLocaleString()}</p>
+                            <p className="content">{(data.principal - data.principal_pmt).toLocaleString() + " " + data.currency}</p>
                         </div>
                     </div>
                     <div className="item-content-unpaid">

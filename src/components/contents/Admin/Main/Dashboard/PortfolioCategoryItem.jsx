@@ -19,12 +19,12 @@ const PortfolioDueCategory = (props) => {
             </div>
             <div className="item-content">
                 <div className="item-holder">
-                    <p className="content">{(data.interest).toLocaleString()}</p>
+                    <p className="content">{(data.interest).toLocaleString() + " " + data.currency}</p>
                 </div>
             </div>
             <div className="item-content">
                 <div className="item-holder">
-                    <p className="content">{(data.principal).toLocaleString()}</p>
+                    <p className="content">{(data.principal).toLocaleString() + " " + data.currency}</p>
                 </div>
             </div>
             <div className="item-content">
