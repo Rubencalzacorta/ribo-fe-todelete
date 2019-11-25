@@ -1,11 +1,12 @@
 .access-holder {
     display: flex;
     width: 100%;
-    
+
 }
 
 .access-window {
     margin: 0 auto;
+
     width: 60%;
     min-height: 100vh;
 }
@@ -24,7 +25,7 @@
 }
 
 .access-notify-failure {
-    width:100%;
+    width: 100%;
     align-content: center;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -34,24 +35,45 @@
     color: white;
     // rgb(58, 255, 196);
     height: 70px;
+
     p {
         margin-top: 12px;
     }
 }
 
+.error-notification {
+    width: 100%;
+    align-content: center;
+    border-radius: 5px;
+    margin: 10px;
+    text-align: center;
+    background-color: rgba(255, 77, 61, 0.788);
+    color: white;
+    // rgb(58, 255, 196);
+    height: 70px;
+
+    h1 {
+        margin-top: 20px;
+        font-size: 1em;
+    }
+}
+
 .access-notify-success {
-    width:100%;
+    width: 100%;
     align-content: center;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     text-align: center;
     margin: -5px;
-    background-color: rgb(58, 255, 196);;
+    background-color: rgb(58, 255, 196);
+    ;
     height: 50px;
+
     p {
         margin-top: 12px;
     }
 }
+
 .access-window-note {
     width: 100%;
     font-weight: 400;
@@ -68,7 +90,7 @@
     background-position: center;
     height: 200px;
     margin: 0 auto;
-    margin-top: 30px;
+    margin-top: 15%;
     width: 60%;
 }
 
@@ -103,6 +125,7 @@
     width: 40%;
 
 }
+
 .credentials-form-holder {
     margin: 0 auto;
     margin-top: 50px;
@@ -113,6 +136,7 @@
     .entry {
         visibility: hidden;
     }
+
     .access-holder {
         display: flex;
         flex-direction: column;
@@ -121,9 +145,11 @@
     .logo-access {
         width: 80%;
     }
+
     .user-credentials {
         width: 100%;
     }
+
     .access-window {
         width: 80%;
     }

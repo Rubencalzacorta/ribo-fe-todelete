@@ -3,7 +3,7 @@ import './App.scss';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import AuthService from './components/auth/AuthService';
 import Signup from './components/auth/Signup.jsx';
-import Login from './components/auth/Login';
+import Login from './components/auth/Login.jsx';
 import EmailConfirmation from './components/auth/EmailConfirmation';
 import PendingConfirmation from './components/auth/PendingConfirmation';
 import Portfolio from './components/contents/Admin/Main/Portfolio/Portfolio'

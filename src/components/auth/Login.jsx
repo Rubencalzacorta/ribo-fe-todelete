@@ -75,7 +75,7 @@ class Login extends Component {
         this.setState({
           username: username,
           password: password,
-          error: true
+          error: error.response.data.message
         });
       });
   };
@@ -130,7 +130,11 @@ class Login extends Component {
                 Ingresar
               </Button>
             </form>
-            <h1>{this.state.error ? "Error" : ""}</h1>
+            {this.state.error ?
+              <div className="error-notification">
+                <h1>Usuario o contraseña incorrecta, intente nuevamente</h1>
+              </div> : ""
+            }
           </div>
         </div>
       </div>
