@@ -190,6 +190,7 @@ const initialState = {
         nationalId: null,
         nationality: null,
         otherNationalities: null,
+        personalReference: null,
         placeOfBirth: null,
         immigrationCertificate: null,
         Occupation: null,

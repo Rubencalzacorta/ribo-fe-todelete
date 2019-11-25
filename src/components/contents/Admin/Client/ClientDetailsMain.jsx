@@ -170,6 +170,10 @@ class Client extends Component {
               <p className="content-description">Email</p>
               <p className="content-details">{client.email}</p>
             </div>
+            <div className="profile-details">
+              <p className="content-description">Referencia personal</p>
+              <p className="content-details">{client.personalReference}</p>
+            </div>
           </div>
           <div className="heading-activity">
             <div>

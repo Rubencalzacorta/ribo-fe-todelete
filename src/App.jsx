@@ -10,7 +10,7 @@ import Portfolio from './components/contents/Admin/Main/Portfolio/Portfolio'
 import PortfolioGraphs from './components/contents/Admin/Main/Portfolio/PortfolioGraphs'
 import Dashboard from './components/contents/Admin/Main/Dashboard/Dashboard'
 import CashAccounts from './components/contents/Admin/Financial/CashAccounts.jsx'
-import CreateClientForm from './components/contents/Admin/Client/CreateClientForm';
+import CreateClientForm from './components/contents/Admin/Client/CreateClientForm.jsx';
 import CompanyCreateForm from './components/contents/Admin/Company/CompanyCreateForm';
 import ClientList from './components/contents/Admin/Client/ClientList.jsx'
 import ClientDetails from './components/contents/Admin/Client/ClientDetails.jsx'

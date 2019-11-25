@@ -159,6 +159,18 @@ class EditProfile extends Component {
                             </MenuItem>
                         ))}
                     </TextField>
+                    <TextField
+                        name="personalReference"
+                        label="Referencia personal"
+                        type="text"
+                        value={details.personalReference}
+                        onChange={(e) => this.handleChange(e)}
+                        className={classes.textField}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        margin="normal"
+                    />
                 </div>
                 <div className="heading-activity">
                     <div>

@@ -116,6 +116,10 @@ const CreateClient = ({
                 ))}
               </Field>
             </div>
+            <div className="form-label">
+              <p>Referencia personal</p>
+              <Field className="input-field" type="text" name="personalReference" />
+            </div>
           </div>
         </div>
         <div className="formSectionHolder">
@@ -221,6 +225,7 @@ const CreateClientForm = withFormik({
     placeOfBirth,
     cellphoneNumber,
     gender,
+    personalReference,
     civilStatus,
     nationality,
     nationalId,
@@ -242,6 +247,7 @@ const CreateClientForm = withFormik({
       email: email || "",
       DOB: DOB || "",
       placeOfBirth: placeOfBirth || "",
+      personalReference: personalReference || "",
       cellphoneNumber: cellphoneNumber || "",
       gender: gender || "MALE",
       civilStatus: civilStatus || "SINGLE",
