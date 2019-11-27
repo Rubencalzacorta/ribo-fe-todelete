@@ -160,6 +160,155 @@ let ownership = [{
     value: 'PUBLIC'
 }]
 
+let txConstants = [{
+        label: 'DEPOSIT',
+        value: 'Deposito'
+    },
+    {
+        label: 'DIVESTMENT',
+        value: 'Desinversión'
+    },
+    {
+        label: 'INVESTMENT',
+        value: 'Inversión'
+    },
+    {
+        label: 'WITHDRAWAL',
+        value: 'Retiro'
+    },
+    {
+        label: 'INTERNAL_TRANSFER_RECIPIENT',
+        value: 'Transfer interna - destinario'
+    },
+    {
+        label: 'INTERNAL_TRANSFER_SENDER',
+        value: 'Transfer interna - remitente'
+    },
+    {
+        label: 'INTERNATIONAL_TRANSFER_RECIPIENT',
+        value: 'Intl. transfer - destinatario'
+    },
+    {
+        label: 'INTERNATIONAL_TRANSFER_SENDER',
+        value: 'Intl. transfer - remitente'
+    },
+    {
+        label: 'DIVIDENDS',
+        value: 'Dividendos'
+    },
+    {
+        label: 'INTEREST',
+        value: 'Intereses'
+    },
+    {
+        label: 'CAPITAL',
+        value: 'Capital'
+    },
+    {
+        label: 'FEE',
+        value: 'Fee'
+    },
+    {
+        label: 'COST',
+        value: 'Costo'
+    },
+    {
+        label: 'COMMISSION',
+        value: 'Comisión'
+    },
+    {
+        label: 'MANAGEMENT_FEE',
+        value: 'Fee de gestión'
+    },
+    {
+        label: 'MANAGEMENT_INTEREST',
+        value: 'Intereses por gestión'
+    },
+    {
+        label: 'INSURANCE_COST',
+        value: 'Costo de seguro'
+    },
+    {
+        label: 'INSURANCE_PREMIUM',
+        value: 'Prima de seguro'
+    },
+    {
+        label: 'BANKING_FEE',
+        value: 'Fee bancario general'
+    },
+    {
+        label: 'BANKING_TRANSFER_FEE',
+        value: 'Fee bancario por transferencias'
+    },
+    {
+        label: 'INCOME_ORIGINATION_FEE',
+        value: 'Ingreso por originación'
+    },
+    {
+        label: 'COST_ORIGINATION_LEGAL',
+        value: 'Costo legal por originación'
+    },
+    {
+        label: 'COST_ORIGINATION_TRANSPORT',
+        value: 'Costo de transporte por originación'
+    },
+    {
+        label: 'COST_ORIGINATION_EXPENSES',
+        value: 'Gastos por originación'
+    },
+    {
+        label: 'COST_ORIGINATION_SENTINEL',
+        value: 'Costo originación sentinel'
+    },
+    {
+        label: 'COST_SERVICING_LEGAL',
+        value: 'Costo legal servicio de deuda'
+    },
+    {
+        label: 'COST_SERVICING_TRANSPORT',
+        value: 'Costo de transporte servicio de deuda'
+    },
+    {
+        label: 'COST_SERVICING_EXPENSES',
+        value: 'Gastos de servicio de deuda'
+    },
+    {
+        label: 'SG&A_ACCOUNTING',
+        value: 'Contabilidad'
+    },
+    {
+        label: 'SG&A_TECH_SERVICES',
+        value: 'Tecnologia'
+    },
+    {
+        label: 'SG&A_LEGAL',
+        value: 'Legal'
+    },
+    {
+        label: 'SG&A_MAILING',
+        value: 'Correspondencia'
+    },
+    {
+        label: 'SG&A_OFFICE_RENT',
+        value: 'Renta de oficina'
+    },
+    {
+        label: 'SG&A_OFFICE_PRINT',
+        value: 'Servicios de impresión'
+    },
+    {
+        label: 'SG&A_OFFICE_STORAGE',
+        value: 'Deposito'
+    },
+    {
+        label: 'TRAVEL_EXPENSES',
+        value: 'Gastos de viaje'
+    },
+    {
+        label: 'TRANSPORT',
+        value: 'Transporte general'
+    }
+]
 let nationalIdType = [{
     label: 'Cédula o DNI',
     value: 'ID'
@@ -290,5 +439,6 @@ module.exports = {
     feeDistribution,
     loanInitialState,
     nationalIdType,
-    ownership
+    ownership,
+    txConstants
 }
