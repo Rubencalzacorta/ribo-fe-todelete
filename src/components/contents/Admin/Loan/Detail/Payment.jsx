@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { accounts } from "../../../../../constants.js";
 import "./Payment.scss";
-import LoanDetailHeader from "./Statistics.jsx";
 
 class Payment extends Component {
   constructor(props) {

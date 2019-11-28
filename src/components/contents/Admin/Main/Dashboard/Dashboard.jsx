@@ -4,7 +4,7 @@ import TransactionService from '../../../../../services/TransactionService'
 import moment from 'moment'
 import PortfolioCategory from './PortfolioCategory'
 import PortfolioCategoryPaid from './PortfolioCategoryPaid'
-import PortfolioCategoryGeneral from './PortfolioCategoryGeneral'
+// import PortfolioCategoryGeneral from './PortfolioCategoryGeneral'
 import PortfolioCategoryItem from './PortfolioCategoryItem'
 import PortfolioCategoryItemUnpaid from './PortfolioCategoryItemUnpaid'
 import PortfolioCategoryItemOut from './PortfolioCategoryItemOut'
@@ -86,7 +86,7 @@ export default class Dashboard extends Component {
 
   render() {
 
-    const { portfolio, overdue, due, paid, total, outstanding } = this.state;
+    const { overdue, due, paid, outstanding } = this.state;
 
     return (
       <div className="content">

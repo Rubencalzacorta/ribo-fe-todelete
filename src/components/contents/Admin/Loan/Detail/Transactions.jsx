@@ -31,7 +31,7 @@ function LoanSchedule(props) {
                             <p className='acc-date'>{moment(item.date).format("YY-MM-DD")}</p>
                         </div>
                         <div className="detail-schedule details-content">
-                            <p className='acc-date'>{item._investor.firstName + " " + item._investor.lastName}</p>
+                            <p className='acc-date'>{item._investor ? item._investor.firstName + " " + item._investor.lastName : 'AAAAAAAAAA'}</p>
                         </div>
                         <div className="detail-schedule details-content">
                             <p className='acc-date'>{item.concept}</p>

@@ -1,23 +1,17 @@
 import React, { Component } from 'react'
 import ClientService from '../../../../services/ClientService'
+import PaymentService from '../../../../services/PaymentService'
 import { withRouter } from 'react-router-dom'
 import numbro from 'numbro'
 import ClientTable from './ClientTable'
-import _ from "lodash"
 import { Link } from 'react-router-dom'
-import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
-import Divider from "@material-ui/core/Divider";
-import ReactHTMLTableToExcel from 'react-html-table-to-excel';
-import IconButton from "@material-ui/core/IconButton";
-import Button from '@material-ui/core/Button';
 import SearchIcon from "@material-ui/icons/Search";
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import queryString from 'query-string'
 import './ClientList.scss'
 import { rounder } from './../../../helpers/numberFunctions'
-import Badge from '@material-ui/core/Badge';
-import Dialog from '@material-ui/core/Dialog';
-import Typography from '@material-ui/core/Typography';
+import { TextField, InputLabel, FormControl, Dialog, Badge, Button, IconButton, Divider, Paper, InputBase, Select, MenuItem } from '@material-ui/core';
+import { accounts } from '../../../../constants';
 
 
 
@@ -25,9 +19,12 @@ class LoanList extends Component {
   state = {
     clients: [],
     getClients: false,
-    bulkPayment: []
+    bulkPayment: [],
+    cashAccount: null,
+    paymentDate: null
   }
   service = new ClientService();
+  paymentService = new PaymentService();
 
 
   handleChange = (event) => {
@@ -39,6 +36,11 @@ class LoanList extends Component {
     }
   }
 
+  handleSelect = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  }
+
   handleClickOpen = () => {
     this.setState({ open: true });
   }
@@ -46,6 +48,36 @@ class LoanList extends Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
+  handleSubmit = () => {
+    let { bulkPayment, paymentDate, cashAccount } = this.state
+    this.paymentService.newBulkPayment({
+      bulkPayment: bulkPayment,
+      paymentDate: paymentDate,
+      cashAccount: cashAccount
+    })
+      .then(response => {
+        if (response.status === 'success') {
+          this.setState({
+            open: false,
+            cashAccount: null,
+            paymentDate: null,
+            bulkPayment: [],
+            paymentStatus: 'success'
+          });
+          this.fetchClients(this.state.clientName)
+        }
+      })
+      .catch(e => {
+        this.setState({
+          open: false,
+          cashAccount: null,
+          paymentDate: null,
+          bulkPayment: [],
+          paymentStatus: 'failure'
+        });
+      })
+  }
 
   toggleChange = (e) => {
     const { name, value, checked } = e.target
@@ -55,8 +87,9 @@ class LoanList extends Component {
     if (isChecked) {
       this.setState({
         bulkPayment: [...this.state.bulkPayment, {
-          _id: _id,
-          payment: rounder(obj.payment),
+          _loanSchedule: _id,
+          _loan: obj._loan,
+          amount: rounder(obj.payment),
           client: obj.client,
           date: obj.date
         }
@@ -64,7 +97,7 @@ class LoanList extends Component {
       })
     } else {
       let arr = this.state.bulkPayment
-      let equalId = (element) => element._id == _id
+      let equalId = (element) => element._loanSchedule === _id
       let index = arr.findIndex(equalId)
       if (index > -1) {
         arr.splice(index, 1)
@@ -91,7 +124,6 @@ class LoanList extends Component {
   }
 
 
-
   fetchClients(clientName) {
     this.service.getClients(this.props.userLocation, clientName)
       .then(response => {
@@ -108,6 +140,8 @@ class LoanList extends Component {
       })
   }
 
+
+
   onKeyPress(event) {
     if (event.which === 13 /* Enter */) {
       this.props.history.push({
@@ -121,10 +155,21 @@ class LoanList extends Component {
 
   render() {
 
-    const { clients, bulkPayment, clientName, open } = this.state
+    const { clients, bulkPayment, clientName, open, cashAccount, paymentDate, paymentStatus } = this.state
 
     return (
       <div className="content">
+        {paymentStatus === 'success' ?
+          <div class="alert alert-success alert-dismissible">
+            <button href="#" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+            <strong>Exito!</strong> El pago se ha procesado correctamente.
+        </div>
+          : paymentStatus === 'failure' ?
+            <div class="alert alert-success alert-dismissible">
+              <button href="#" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+              <strong>Fallo!</strong> La operación no se ha procesado correctamente
+        </div> : ""
+        }
         <Paper className="root">
           <IconButton className="iconButton" disabled aria-label="menu">
             <i className="material-icons">
@@ -171,6 +216,39 @@ class LoanList extends Component {
         <Dialog onClose={() => this.handleClose()} open={open}>
           <Paper className="payment-modal">
             <h6>LISTADO DE PAGOS POR PROCESAR</h6>
+
+            <FormControl className="input-date-cash" required>
+              <InputLabel htmlFor="filled-age-simple">Cuenta</InputLabel>
+              <Select
+                value={cashAccount}
+                name="cashAccount"
+                type="string"
+                label="Cuenta"
+                onChange={(e) => this.handleSelect(e)}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {accounts.map(e => {
+                  return (<MenuItem value={e}>{e}</MenuItem>)
+                })}
+              </Select>
+              <TextField
+                id="date"
+                name="paymentDate"
+                label="Fecha de Pago"
+                type="date"
+                value={paymentDate}
+                className="paymentDate"
+                onChange={(e) => this.handleSelect(e)}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </FormControl>
             <table>
               <thead>
                 <tr>
@@ -185,7 +263,7 @@ class LoanList extends Component {
                     return (<tr>
                       <td className="content">{`${i + 1}.- ${e.client}`}</td>
                       <td className="date">{e.date}</td>
-                      <td className="table-amount">{numbro(e.payment).format({
+                      <td className="table-amount">{numbro(e.amount).format({
                         thousandSeparated: true,
                         mantissa: 2,
                       })}</td>
@@ -196,7 +274,7 @@ class LoanList extends Component {
                   <td className="table-client totals head"></td>
                   <td className="table-amount totals">
                     {bulkPayment.length > 0 ? numbro(bulkPayment.reduce((acc, e) => {
-                      return acc + e.payment
+                      return acc + e.amount
                     }
                       , 0)).format({
                         thousandSeparated: true,
@@ -207,7 +285,7 @@ class LoanList extends Component {
               </tbody>
             </table>
             <Button onClick={() => this.handleClose()} className="button-client-search" variant="contained">CANCELAR</Button>
-            <Button className="button-client-search" variant="contained">PROCESAR</Button>
+            <Button onClick={() => this.handleSubmit()} className="button-client-search" variant="contained">PROCESAR</Button>
           </Paper>
         </Dialog>
         {(clients.length > 0) ? <ClientTable data={clients} onChange={this.toggleChange} bulkPayment={bulkPayment} /> : ""}

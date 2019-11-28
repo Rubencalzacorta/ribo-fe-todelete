@@ -3,8 +3,6 @@
 }
 
 
-
-
 .ser-item-holder {
     width: 100%;
     display: flex;
@@ -111,4 +109,9 @@
     .header-date {
         min-width: 132.5px;
     }
+}
+
+.pure-material-checkbox {
+    padding: 0px 9px 0px 0px !important;
+    margin-top: 0px !important;
 }

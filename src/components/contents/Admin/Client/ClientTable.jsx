@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import { Paper, Checkbox } from '@material-ui/core';
 import moment from 'moment'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
@@ -85,10 +85,12 @@ function LoanTable(props) {
                       <td className="ser-loan-detail">
                         {row.loans[j] ?
                           <>
-                            <input
+                            <Checkbox
+                              className="pure-material-checkbox"
                               type="checkbox"
                               name={row.loans[j].nextPayment._id}
                               value={JSON.stringify({
+                                _loan: row.loans[j]._id,
                                 client: row.firstName + " " + row.lastName,
                                 payment: (row.loans[j].nextPayment.interest + row.loans[j].nextPayment.principal),
                                 date: moment(row.loans[j].nextPayment.date).format('YYYY-MM-DD')
@@ -120,10 +122,12 @@ function LoanTable(props) {
                       <td className="ser-loan-detail">
                         {row.loans[j] ?
                           <>
-                            <input
+                            <Checkbox
+                              className="pure-material-checkbox"
                               type="checkbox"
                               name={row.loans[j].nextPayment._id}
                               value={JSON.stringify({
+                                _loan: row.loans[j]._id,
                                 client: row.firstName + " " + row.lastName,
                                 payment: (row.loans[j].nextPayment.interest + row.loans[j].nextPayment.principal),
                                 date: moment(row.loans[j].nextPayment.date).format('YYYY-MM-DD')
@@ -159,10 +163,12 @@ function LoanTable(props) {
                   <td className="ser-loan-detail">
                     {row.loans[0] ?
                       <>
-                        <input
+                        <Checkbox
+                          className="pure-material-checkbox"
                           type="checkbox"
                           name={row.loans[0].nextPayment._id}
                           value={JSON.stringify({
+                            _loan: row.loans[0]._id,
                             client: row.firstName + " " + row.lastName,
                             payment: (row.loans[0].nextPayment.interest + row.loans[0].nextPayment.principal),
                             date: moment(row.loans[0].nextPayment.date).format('YYYY-MM-DD')

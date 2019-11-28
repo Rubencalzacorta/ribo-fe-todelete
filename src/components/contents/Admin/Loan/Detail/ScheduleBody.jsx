@@ -43,6 +43,8 @@ function ScheduleBody(props) {
             case 'CLOSED':
                 statusText = 'CERRADO';
                 break
+            default:
+                statusText = null
         }
         return statusText
     }

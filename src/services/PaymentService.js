@@ -28,6 +28,12 @@ class PaymentService {
             .then(response => response.data)
     }
 
+    newBulkPayment = (bulkPayment) => {
+        return this.service.post(`/bulk-payment`,
+                bulkPayment
+            )
+            .then(response => response.data)
+    }
 }
 
 export default PaymentService;
