@@ -26,6 +26,11 @@ const adminUrls = [{
     },
     {
         link: true,
+        url: 'payments',
+        text: 'Pagos'
+    },
+    {
+        link: true,
         url: 'portfolio',
         text: 'Portafolio'
     },

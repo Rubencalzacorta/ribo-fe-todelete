@@ -9,6 +9,11 @@ class PaymentService {
         });
     }
 
+    getAllPayments = () => {
+        return this.service.get(`/`)
+            .then(response => response.data)
+    }
+
     deletePayment = (paymentId) => {
         return this.service.delete(`/installment/${paymentId}`)
             .then(response => response.data)
