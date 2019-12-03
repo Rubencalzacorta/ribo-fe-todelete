@@ -71,6 +71,11 @@ class LoanService {
       .then(response => response.data)
   }
 
+  restructure = (loanId, restructuringDetails) => {
+    return this.service.post(`/restructure/${loanId}`, restructuringDetails)
+      .then(response => response.data)
+  }
+
 
   createLoan = (_borrower, insurancePremium, collateralType, collateralValue, collateralDescription, loanDetails, useOfFunds, toInvest, currency) => {
 
