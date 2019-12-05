@@ -5,6 +5,7 @@ import loanService from '../../../../../services/LoanService'
 import PaymentService from '../../../../../services/PaymentService'
 import Investors from './Investors'
 import Schedule from './Schedule'
+import RestructureForm from './RestructureForm'
 import Transactions from './Transactions'
 import Statistics from './Statistics'
 import Commissions from './Commissions'
@@ -13,9 +14,8 @@ import Payment from './Payment';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Divider, Typography, Tabs, Tab, Grid, FormControl, ButtonGroup, Paper, Dialog, TextField, Select, InputLabel, MenuItem, FormHelperText } from '@material-ui/core';
+import { Tabs, Tab, Grid, ButtonGroup, Dialog } from '@material-ui/core';
 import Collateral from '../Collateral'
-import { classPrivateMethod } from '@babel/types';
 
 const styles = theme => ({
     root: {
@@ -317,7 +317,7 @@ class LoanDetails extends Component {
                                 <strong>Exito!</strong> La solicitud se ha procesado correctamente.
                             </div>
                             : status === 'failure' ?
-                                <div class="alert alert-success alert-dismissible">
+                                <div class="alert alert-danger alert-dismissible">
                                     <button href="#" class="close" data-dismiss="alert" aria-label="close">&times;</button>
                                     <strong>Fallo!</strong> La solicitud no se ha procesado correctamente
                             </div> : ""
@@ -398,160 +398,10 @@ class LoanDetails extends Component {
                                             </Grid>
                                         </Grid>
                                         <Dialog onClose={() => this.handleClose()} open={open}>
-                                            <Paper style={{ padding: 30, width: 600, display: 'flex', flexWrap: 'wrap' }}>
-                                                <Grid item xs>
-                                                    <Typography gutterBottom variant="h6">
-                                                        REESTRUCTURACIÓN DE PRESTAMO
-                                                    </Typography>
-                                                </Grid>
-                                                <Divider />
-                                                <TextField
-                                                    id="standard-full-width"
-                                                    label="TASA DE INTERES"
-                                                    style={{ margin: 8 }}
-                                                    helperText="% mensual"
-                                                    onChange={(e) => this.onChangeRestructuring(e)}
-                                                    type="number"
-                                                    name="interest"
-                                                    value={restructuringDetails.interest}
-                                                    fullWidth
-                                                    margin="normal"
-                                                    InputLabelProps={{
-                                                        shrink: true,
-                                                    }}
-                                                />
-                                                <TextField
-                                                    id="standard-full-width"
-                                                    label="CUOTAS"
-                                                    type="number"
-                                                    name="duration"
-                                                    onChange={(e) => this.onChangeRestructuring(e)}
-                                                    style={{ margin: 8 }}
-                                                    helperText="numero total de cuotas a pagar"
-                                                    value={restructuringDetails.duration}
-                                                    fullWidth
-                                                    margin="normal"
-                                                    InputLabelProps={{
-                                                        shrink: true,
-                                                    }}
-                                                />
-                                                <TextField
-                                                    id="standard-full-width"
-                                                    label="CUOTAS DE SOLO INTERES"
-                                                    name="startAmortPeriod"
-                                                    onChange={(e) => this.onChangeRestructuring(e)}
-                                                    style={{ margin: 8 }}
-                                                    value={restructuringDetails.startAmortPeriod}
-                                                    helperText="cuotas de solo intereses antes de pagar capital"
-                                                    fullWidth
-                                                    type="number"
-                                                    margin="normal"
-                                                    InputLabelProps={{
-                                                        shrink: true,
-                                                    }}
-                                                />
-                                                <FormControl style={{
-                                                    width: '100%', marginTop: 15, marginLeft: 8, marginRight: 8
-                                                }}>
-                                                    <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-                                                        TIPO DE REESTRUCTURACIÓN
-                                                </InputLabel>
-                                                    <Select
-                                                        name="restructuringType"
-                                                        value={restructuringDetails.restructuringType}
-                                                        type="string"
-                                                        labelId="demo-simple-select-label"
-                                                        id="demo-simple-select"
-                                                        fullWidth
-                                                        onChange={(e) => this.onChangeRestructuring(e)}
-                                                    // value={age}
-                                                    // onChange={handleChange}
-                                                    >
-                                                        <MenuItem value={'capital'}>Capital</MenuItem>
-                                                        <MenuItem value={'capitalAndDueInterest'}>Capital e Intereses Adeudados</MenuItem>
-                                                        <MenuItem value={'capitalAndPendingInterest'}>Capital, intereses adeudados y pendientes</MenuItem>
-                                                    </Select>
-                                                    <FormHelperText>indicará el monto a reestructurar</FormHelperText>
-                                                </FormControl>
-                                                <FormControl style={{
-                                                    width: '100%', marginTop: 15, marginLeft: 8, marginRight: 8
-                                                }}>
-                                                    <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-                                                        FRECUENCIA
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="demo-simple-select-label"
-                                                        id="demo-simple-select"
-                                                        fullWidth
-                                                        value={restructuringDetails.period}
-                                                        name="period"
-                                                        onChange={(e) => this.onChangeRestructuring(e)}
-                                                    // value={age}
-                                                    // onChange={handleChange}
-                                                    >
-                                                        <MenuItem value={'weekly'}>Semanal</MenuItem>
-                                                        <MenuItem value={'biWeekly'}>Cada 2 semanas</MenuItem>
-                                                        <MenuItem value={'payDay'}>Dia de pago (Quincenas)</MenuItem>
-                                                        <MenuItem value={'monthly'}>Mensual</MenuItem>
-                                                    </Select>
-                                                    <FormHelperText>frequencia con la que se realizaran los pagos</FormHelperText>
-                                                </FormControl>
-                                                <FormControl style={{
-                                                    width: '100%', marginTop: 15, marginLeft: 8, marginRight: 8
-                                                }}>
-                                                    <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-                                                        TIPO DE AMORTIZACIÓN
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="demo-simple-select-label"
-                                                        id="demo-simple-select"
-                                                        fullWidth
-                                                        onChange={(e) => this.onChangeRestructuring(e)}
-                                                        value={restructuringDetails.loanType}
-                                                        // value={age}
-                                                        name="loanType"
-                                                    // onChange={handleChange}
-                                                    >
-                                                        <MenuItem value={'amort2'}>Amortización</MenuItem>
-                                                    </Select>
-                                                    <FormHelperText>esquema de repago</FormHelperText>
-                                                </FormControl>
-                                                <TextField
-                                                    id="standard-full-width"
-                                                    type="date"
-                                                    label="FECHA DE INICIO"
-                                                    style={{ margin: 8, marginTop: 15 }}
-                                                    helperText="fecha desde la cual se empezarán a calcular los primeros intereses"
-                                                    fullWidth
-                                                    onChange={(e) => this.onChangeRestructuring(e)}
-                                                    value={restructuringDetails.startDate}
-                                                    margin="normal"
-                                                    name="startDate"
-                                                    InputLabelProps={{
-                                                        shrink: true,
-                                                    }}
-                                                />
-                                                <TextField
-                                                    id="standard-full-width"
-                                                    type="date"
-                                                    label="FECHA DE PAGO"
-                                                    style={{ margin: 8, marginTop: 15 }}
-                                                    helperText="fecha en la que se realizara el primer pago"
-                                                    fullWidth
-                                                    onChange={(e) => this.onChangeRestructuring(e)}
-                                                    value={restructuringDetails.paymentDate}
-                                                    margin="normal"
-                                                    name="paymentDate"
-                                                    InputLabelProps={{
-                                                        shrink: true,
-                                                    }}
-                                                />
-                                                <div className='loan-delete'>
-                                                    <Button color="primary" variant="contained" onClick={() => this.loanRestructure()}>
-                                                        reestructurar
-                                                    </Button>
-                                                </div>
-                                            </Paper>
+                                            <RestructureForm
+                                                onChangeRestructuring={this.onChangeRestructuring}
+                                                loanRestructure={this.loanRestructure}
+                                                restructuringDetails={restructuringDetails} />
                                         </Dialog>
                                     </div>
                                 </div>

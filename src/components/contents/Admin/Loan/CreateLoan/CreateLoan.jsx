@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import ClientService from '../../../../../services/ClientService'
-// import { loanSelector } from './scheduler.js'
+import loanSelector from '../helpers/scheduleCalc.js'
 import TransactionService from "../../../../../services/TransactionService";
 import LoanService from "../../../../../services/LoanService";
 import Colateral from './Colateral'
@@ -253,11 +253,11 @@ class CreateLoan extends Component {
     this.setState({ investors: investorsD });
   };
 
-  // calcLoanSchedule = () => {
-  // let { loanDetails } = this.state;
-  // let schedule = loanSelector(1, loanDetails);
-  // this.setState({ loanSchedule: schedule, open: true });
-  // };
+  calcLoanSchedule = () => {
+    let { loanDetails } = this.state;
+    let schedule = loanSelector(1, loanDetails);
+    this.setState({ loanSchedule: schedule, open: true });
+  };
 
   render() {
     let { loanDetails, open, loanSchedule, investmentEqCapital } = this.state
@@ -269,12 +269,12 @@ class CreateLoan extends Component {
             loanDetails={loanDetails}
             handleLoanDetailsChange={this.handleLoanDetailsChange}
             openPaymentDate={this.state.openPaymentDate}
-            // calcLoanSchedule={this.calcLoanSchedule}
             open={open}
             handleClose={this.handleClose}
             loanSchedule={loanSchedule}
             investmentEqCapital={investmentEqCapital}
             toggleInvestmentEqCapital={this.toggleInvestmentEqCapital}
+            calcLoanSchedule={this.calcLoanSchedule}
           />
           <div className="form-row  general-loan-details">
             <div className="card col-md-12">

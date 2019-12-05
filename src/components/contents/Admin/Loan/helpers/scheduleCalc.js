@@ -1,45 +1,69 @@
 const moment = require('moment')
 
-rounder = (numberToRound) => {
+const rounder = (numberToRound) => {
   return Math.round(numberToRound * 10000) / 10000
 }
 
 
-interestRatesTransformer = (interest) => {
+const interestRatesTransformer = (interest) => {
   interest = interest / 100
   return {
     'yearly': interest * 12,
     'quarterly': interest * 3,
     'bimonthly': interest * 2,
     'monthly': interest,
-    'biweekly': ((interest * 12) / 360) * 14,
+    'biWeekly': ((interest * 12) / 360) * 14,
     'weekly': ((interest * 12) / 360) * 7,
+    'payDay': ((interest * 12) / 360) * 15,
     'daily': ((interest * 12) / 360),
   }
 }
 
-let balance_period = (C, P, i) => {
-  let periodSchedule = {}
+const paymentDateCalc = (inputDate, pl, p, period) => {
+  let date
+  if (period != 'payDay') {
+    date = moment(inputDate).add(pl, p).format('YYYY-MM-DD')
+  } else {
+    if (moment(inputDate).add(pl, p).date() < 16) {
+      date = moment(inputDate).add(pl, p).set({
+        date: 15 + 1
+      }).format('YYYY-MM-DD')
 
-  periodSchedule.interest = rounder(C * i)
-  periodSchedule.principal = rounder(P - (C * i))
-  periodSchedule.payment = rounder(P)
-  periodSchedule.balance = rounder(C - periodSchedule.principal)
+    } else {
+      let lastDay = moment(inputDate).add(pl, p).endOf('month').date()
+      date = moment(inputDate).add(pl, p).set({
+        date: lastDay + 1
+      }).format('YYYY-MM-DD')
+    }
+  }
 
-  return periodSchedule
+  return date
 }
 
-const period = (period) => {
+let balance_period = (C, P, i) => {
+  let periodSchedule = {};
+
+  periodSchedule.interest = rounder(C * i);
+  periodSchedule.principal = rounder(P - (C * i));
+  periodSchedule.payment = rounder(P);
+  periodSchedule.balance = rounder(C - periodSchedule.principal);
+
+  return periodSchedule;
+}
+
+const periodCalc = (period) => {
   if (period == 'yearly') {
-    return 'years'
+    return 'years';
   } else if (period == 'quarterly') {
-    return 'quaters'
+    return 'quaters';
   } else if (period == 'monthly') {
-    return 'month'
-  } else if (period == 'biweekly') {
-    return 'weeks'
+    return 'month';
+  } else if (period == 'biWeekly') {
+    return 'weeks';
+  } else if (period == 'payDay') {
+    return 'weeks';
   } else if (period == 'weekly') {
-    return 'weeks'
+    return 'weeks';
   }
 }
 
@@ -52,22 +76,31 @@ const periodLength = (period) => {
     return 1
   } else if (period == 'biweekly') {
     return 2
+  } else if (period == 'payDay') {
+    return 2
   } else if (period == 'weekly') {
     return 1
   }
 }
 
-amort2Loan = (amountOfPayments, periodicity, initialDate, startDate, startAmortPeriod, interest, capital) => {
-  schedule = []
 
-  let p = period(periodicity)
+const amort2Loan = (loanId, period, duration, startDate, paymentDate, startAmortPeriod, interest, capital, currency) => {
+
+  let periodicity = period
+  let amountOfPayments = duration
+  let initialDate = startDate
+  startDate = paymentDate
+  let schedule = []
+
+  let p = periodCalc(periodicity)
   let pl = periodLength(periodicity)
   let int = interestRatesTransformer(interest)[periodicity]
+
   let amortPeriods = amountOfPayments - startAmortPeriod
   let payments = annuity(capital, int, amortPeriods)
   let initialAmort = payments - (capital * interestRatesTransformer(interest)[periodicity])
 
-  for (i = 0; i < amountOfPayments + 1; i++) {
+  for (let i = 0; i < amountOfPayments + 1; i++) {
 
     let ap = i >= startAmortPeriod ? i - startAmortPeriod : 0;
 
@@ -81,7 +114,6 @@ amort2Loan = (amountOfPayments, periodicity, initialDate, startDate, startAmortP
         balance: capital
       })
     } else if (i == 1) {
-      console.log(ap)
       schedule.push({
         '#': i,
         status: 'PMT',
@@ -105,7 +137,7 @@ amort2Loan = (amountOfPayments, periodicity, initialDate, startDate, startAmortP
       schedule.push({
         '#': i,
         status: 'PMT',
-        date: moment(schedule[schedule.length - 1].date).add(pl, p).format('YYYY-MM-DD'),
+        date: paymentDateCalc(schedule[schedule.length - 1].date, pl, p, periodicity),
         ...ap
       })
     }
@@ -145,6 +177,7 @@ const getStartDate = (date) => {
   } else if (day > 25 && day <= lastDay) {
     return moment([year, month, 15]).add(1, 'M').format('YYYY-MM-DD')
   }
+
 }
 
 const mondayPayDayLoan = (loan, duration, interestRate, capital, dstartDate, dpaymentDate, currency) => {
@@ -558,7 +591,9 @@ const daysDiff = (initialDate, lastDate) => {
 
 const factoring = (loan, startDate, days, interest, capital, currency) => {
   let schedule = []
-  interest = [(interest / 100) * (days / 30)] * capital
+  let dailyInterest = ((interest / 100) * 12) / 360
+  interest = dailyInterest * days * capital
+  capital = capital - interest
   let disburstment = {
     _loan: loan,
     date: moment(startDate).format('YYYY-MM-DD'),
@@ -588,7 +623,7 @@ const factoring = (loan, startDate, days, interest, capital, currency) => {
 }
 
 
-const loanScheduleSelector = (loanId, loanDetails, currency) => {
+const loanSelector = (loanId = 1, loanDetails, currency) => {
 
   let {
     loanType,
@@ -598,7 +633,8 @@ const loanScheduleSelector = (loanId, loanDetails, currency) => {
     capital,
     startDate,
     paymentDate,
-    days
+    days,
+    startAmortPeriod
   } = loanDetails
 
   interest = parseFloat(interest)
@@ -628,10 +664,12 @@ const loanScheduleSelector = (loanId, loanDetails, currency) => {
   }
 }
 
-module.exports = {
-  loanScheduleSelector,
-  payDayLoan,
-  linearLoan,
-  linearLoanIntFirst,
-  lumpSumLoan
-}
+export default loanSelector
+
+// module.exports = {
+//   loanSelector,
+//   payDayLoan,
+//   linearLoan,
+//   linearLoanIntFirst,
+//   lumpSumLoan
+// }
