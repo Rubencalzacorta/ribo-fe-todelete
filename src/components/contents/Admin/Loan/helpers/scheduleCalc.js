@@ -21,7 +21,7 @@ const interestRatesTransformer = (interest) => {
 
 const paymentDateCalc = (inputDate, pl, p, period) => {
   let date
-  if (period != 'payDay') {
+  if (period !== 'payDay') {
     date = moment(inputDate).add(pl, p).format('YYYY-MM-DD')
   } else {
     if (moment(inputDate).add(pl, p).date() < 16) {
@@ -52,33 +52,33 @@ let balance_period = (C, P, i) => {
 }
 
 const periodCalc = (period) => {
-  if (period == 'yearly') {
+  if (period === 'yearly') {
     return 'years';
-  } else if (period == 'quarterly') {
+  } else if (period === 'quarterly') {
     return 'quaters';
-  } else if (period == 'monthly') {
+  } else if (period === 'monthly') {
     return 'month';
-  } else if (period == 'biWeekly') {
+  } else if (period === 'biWeekly') {
     return 'weeks';
-  } else if (period == 'payDay') {
+  } else if (period === 'payDay') {
     return 'weeks';
-  } else if (period == 'weekly') {
+  } else if (period === 'weekly') {
     return 'weeks';
   }
 }
 
 const periodLength = (period) => {
-  if (period == 'yearly') {
+  if (period === 'yearly') {
     return 1
-  } else if (period == 'quarterly') {
+  } else if (period === 'quarterly') {
     return 1
-  } else if (period == 'monthly') {
+  } else if (period === 'monthly') {
     return 1
-  } else if (period == 'biweekly') {
+  } else if (period === 'biweekly') {
     return 2
-  } else if (period == 'payDay') {
+  } else if (period === 'payDay') {
     return 2
-  } else if (period == 'weekly') {
+  } else if (period === 'weekly') {
     return 1
   }
 }
@@ -104,7 +104,7 @@ const amort2Loan = (loanId, period, duration, startDate, paymentDate, startAmort
 
     let ap = i >= startAmortPeriod ? i - startAmortPeriod : 0;
 
-    if (i == 0) {
+    if (i === 0) {
       schedule.push({
         '#': i,
         status: 'DISB',
@@ -113,18 +113,18 @@ const amort2Loan = (loanId, period, duration, startDate, paymentDate, startAmort
         principal: 0,
         balance: capital
       })
-    } else if (i == 1) {
+    } else if (i === 1) {
       schedule.push({
         '#': i,
         status: 'PMT',
         date: moment(startDate).format('YYYY-MM-DD'),
         interest: rounder((moment(startDate).diff(moment(initialDate), 'd') + 1) * capital * interestRatesTransformer(interest)['daily']),
-        principal: ap == 0 ? 0 : initialAmort,
-        payment: ap == 0 ? rounder((moment(startDate).diff(moment(initialDate), 'd') + 1) * capital * interestRatesTransformer(interest)['daily']) : (moment(startDate).diff(moment(initialDate), 'd') + 1) * capital * interestRatesTransformer(interest)['daily'] + initialAmort,
-        balance: ap == 0 ? capital : capital - initialAmort
+        principal: ap === 0 ? 0 : initialAmort,
+        payment: ap === 0 ? rounder((moment(startDate).diff(moment(initialDate), 'd') + 1) * capital * interestRatesTransformer(interest)['daily']) : (moment(startDate).diff(moment(initialDate), 'd') + 1) * capital * interestRatesTransformer(interest)['daily'] + initialAmort,
+        balance: ap === 0 ? capital : capital - initialAmort
       })
     } else {
-      if (ap == 0) {
+      if (ap === 0) {
         ap = {
           interest: rounder(capital * interestRatesTransformer(interest)[periodicity]),
           principal: 0,

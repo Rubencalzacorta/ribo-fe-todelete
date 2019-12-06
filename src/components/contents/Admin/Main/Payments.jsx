@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { CsvBuilder } from 'filefy';
 import PaymentService from './../../../../services/PaymentService'
-// import moment from 'moment';
 import MaterialTable from 'material-table';
 import numbro from 'numbro'
 
@@ -34,7 +33,7 @@ function PaymentList() {
             }
         };
         FetchData();
-    }, []);
+    }, [response, paymentService]);
 
     return (
         <div className="content">
@@ -54,11 +53,12 @@ function Index({ model }) {
             csvColumns.map(columnDef => rowData[columnDef.field])
         );
 
-        const builder = new CsvBuilder(('pagos recibidos') + '.csv')
+        const builder = new CsvBuilder('pagos recibidos.csv')
             .setDelimeter(',')
             .setColumns(csvColumns.map(columnDef => columnDef.title))
             .addRows(data)
             .exportFile();
+        return builder
     }
 
     return (
