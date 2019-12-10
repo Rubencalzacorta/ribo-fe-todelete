@@ -17,7 +17,7 @@ const clientUrls = [{
 
 const adminUrls = [{
         link: false,
-        text: '- General'
+        text: 'General'
     },
     {
         link: true,
@@ -42,7 +42,7 @@ const adminUrls = [{
     },
     {
         link: false,
-        text: '- Finanzas'
+        text: 'Finanzas'
     }, {
         link: true,
         url: 'financials',
@@ -50,7 +50,7 @@ const adminUrls = [{
     },
     {
         link: false,
-        text: '- Cliente'
+        text: 'Cliente'
     },
     {
         link: true,
@@ -59,7 +59,7 @@ const adminUrls = [{
     },
     {
         link: false,
-        text: '- Compañia'
+        text: 'Compañia'
     },
     {
         link: true,
@@ -73,7 +73,7 @@ const adminUrls = [{
     },
     {
         link: false,
-        text: '- Inversionista'
+        text: 'Inversionista'
     },
     {
         link: true,
@@ -92,7 +92,7 @@ const adminUrls = [{
     },
     {
         link: false,
-        text: '- Prestamos'
+        text: 'Prestamos'
     },
     {
         link: true,

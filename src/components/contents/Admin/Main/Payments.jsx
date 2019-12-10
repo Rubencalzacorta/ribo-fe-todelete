@@ -21,19 +21,24 @@ const columnsFormat = [
 function PaymentList() {
     const paymentService = new PaymentService()
     const [response, setResponse] = useState({ columns: columnsFormat, data: [] });
-    const [error, setError] = useState(null);
+    // const [error, setError] = useState(null);
 
     useEffect(() => {
         const FetchData = async () => {
             try {
                 const res = await paymentService.getAllPayments();
-                setResponse({ ...response, data: res });
+                const newRes = {
+                    ...response,
+                    data: res
+                }
+                return setResponse(newRes);
             } catch (error) {
-                setError(error);
+                console.log(error)
             }
         };
         FetchData();
-    }, [response, paymentService]);
+
+    }, []);
 
     return (
         <div className="content">

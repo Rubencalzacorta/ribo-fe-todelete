@@ -322,6 +322,171 @@ let nationalIdType = [{
     label: 'Licencia de Conducir',
     value: 'DRIVING_LICENSE'
 }]
+let txConcepts = [{
+        value: 'DEPOSIT',
+        label: 'Deposito'
+    },
+    {
+        value: 'DIVESTMENT',
+        label: 'Desinversion'
+    },
+    {
+        value: 'INVESTMENT',
+        label: 'Inversion'
+    },
+    {
+        value: 'WITHDRAWAL',
+        label: 'Retiro'
+    },
+    {
+        value: 'INTERNAL_TRANSFER_RECIPIENT',
+        label: 'Recepción Transferencia Interna'
+    },
+    {
+        value: 'INTERNAL_TRANSFER_SENDER',
+        label: 'Envio Transferencia Interna'
+    },
+    {
+        value: 'INTERNATIONAL_TRANSFER_RECIPIENT',
+        label: 'Recepción Transferencia Intl'
+    },
+    {
+        value: 'INTERNATIONAL_TRANSFER_SENDER',
+        label: 'Envio Transferencia Intl'
+    },
+    {
+        value: 'DIVIDENDS',
+        label: 'Dividendos'
+    },
+    {
+        value: 'INTEREST',
+        label: 'Intereses'
+    },
+    {
+        value: 'INTEREST_PAYMENT',
+        label: 'Pago de Intereses'
+    },
+    {
+        value: 'CAPITAL',
+        label: 'Capital'
+    },
+    {
+        value: 'FEE',
+        label: 'Fee'
+    },
+    {
+        value: 'COST',
+        label: 'Costo'
+    },
+    {
+        value: 'COMMISSION_INCOME',
+        label: 'Ingreso por comisiones'
+    },
+    {
+        value: 'COMMISSION_COST',
+        label: 'Egreso por comisiones'
+    },
+    {
+        value: 'MANAGEMENT_FEE_INCOME',
+        label: 'Ingreso por fee de Gestión'
+    },
+    {
+        value: 'MANAGEMENT_FEE_COST',
+        label: 'Egreso por fee de Gestión'
+    },
+    {
+        value: 'MANAGEMENT_INTEREST_INCOME',
+        label: 'Ingreso por intereses de Gestión'
+    },
+    {
+        value: 'MANAGEMENT_INTEREST_COST',
+        label: 'Egreso por intereses de Gestión'
+    },
+    {
+        value: 'INSURANCE_COST',
+        label: 'Costo de Seguro'
+    },
+    {
+        value: 'INSURANCE_PREMIUM',
+        label: 'Prima de Seguro'
+    },
+    {
+        value: 'BANKING_FEE',
+        label: 'Fee Bancario'
+    },
+    {
+        value: 'BANKING_TRANSFER_FEE',
+        label: 'Fee Transferencia Bancario'
+    },
+    {
+        value: 'INCOME_ORIGINATION_FEE',
+        label: 'Ingreso por originación'
+    },
+    {
+        value: 'COST_ORIGINATION_LEGAL',
+        label: 'Costo de originación - Legal'
+    },
+    {
+        value: 'COST_ORIGINATION_TRANSPORT',
+        label: 'Costo de originación - Transporte'
+    },
+    {
+        value: 'COST_ORIGINATION_EXPENSES',
+        label: 'Costo de originación - Gastos'
+    },
+    {
+        value: 'COST_ORIGINATION_SENTINEL',
+        label: 'Costo de originación - Sentinel'
+    },
+    {
+        value: 'COST_SERVICING_LEGAL',
+        label: 'Costo de servicio - Legal'
+    },
+    {
+        value: 'COST_SERVICING_TRANSPORT',
+        label: 'Costo de servicio - Transporte'
+    },
+    {
+        value: 'COST_SERVICING_EXPENSES',
+        label: 'Costo de servicio - Gastos'
+    },
+    {
+        value: 'SG&A_ACCOUNTING',
+        label: 'General, Administracion, Servicios - Contabilidad'
+    },
+    {
+        value: 'SG&A_TECH_SERVICES',
+        label: 'General, Administracion, Servicios - Tecnologia'
+    },
+    {
+        value: 'SG&A_LEGAL',
+        label: 'General, Administracion, Servicios - Legal'
+    },
+    {
+        value: 'SG&A_MAILING',
+        label: 'General, Administracion, Servicios - Correspondencia'
+    },
+    {
+        value: 'SG&A_OFFICE_RENT',
+        label: 'General, Administracion, Servicios - Renta'
+    },
+    {
+        value: 'SG&A_OFFICE_PRINT',
+        label: 'General, Administracion, Servicios - Copias e Impresiones'
+    },
+    {
+        value: 'SG&A_OFFICE_STORAGE',
+        label: 'General, Administracion, Servicios - Almacenamiento'
+    },
+    {
+        value: 'TRAVEL_EXPENSES',
+        label: 'Gasto de viaje'
+    },
+    {
+        value: 'TRANSPORT',
+        label: 'Transporte'
+    },
+]
 
 const initialState = {
     client: {
@@ -440,5 +605,6 @@ module.exports = {
     loanInitialState,
     nationalIdType,
     ownership,
-    txConstants
+    txConstants,
+    txConcepts
 }
