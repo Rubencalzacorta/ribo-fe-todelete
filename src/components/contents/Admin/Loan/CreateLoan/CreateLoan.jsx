@@ -300,11 +300,13 @@ class CreateLoan extends Component {
                       >
                         <option>Seleccionar Cuenta</option>
                         {this.state.accounts
-                          ? this.state.accounts.map((e, i) => (
-                            <option key={i} value={[e.investor[0]._id, e.cashAccount]}>
-                              {e.cashAccount + " - " + e.investor[0].firstName + " " + e.investor[0].lastName}
-                            </option>
-                          ))
+                          ? this.state.accounts.map((e, i) => {
+                            if (e.investor[0] !== undefined) {
+                              return <option key={i} value={[e.investor[0]._id, e.cashAccount]}>
+                                {e.cashAccount + " - " + e.investor[0].firstName + " " + e.investor[0].lastName}
+                              </option>
+                            }
+                          })
                           : ""}
                       </select>
                     </div>
