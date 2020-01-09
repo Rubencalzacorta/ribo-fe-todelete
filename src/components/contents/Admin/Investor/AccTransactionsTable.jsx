@@ -1,10 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import TransactionService from '../../../../services/TransactionService'
 import moment from "moment";
 import "./acc-transactions.scss";
 
+const rounder = (numberToRound) => {
+  return Math.round(numberToRound * 10000) / 10000
+}
+
 function AccTransacionsTable(props) {
-  const { data } = props;
+  const transactionService = new TransactionService();
+  const [data, setData] = useState(null)
+  const { accountTotal, investorId } = props;
   let acc = 0;
+
+  useEffect(() => {
+    if (data === null) {
+      transactionService.getTransactions(investorId)
+        .then(async response => {
+          let txData = []
+          await response.forEach((e, i) => {
+            let balance = 0
+            if (i === 0) {
+              balance = accountTotal
+            } else {
+              balance = rounder(txData[i - 1].balance) + rounder(- txData[i - 1].debit + txData[i - 1].credit)
+            }
+            return txData.push({ ...e, balance: balance })
+          })
+          setData(txData)
+        })
+    }
+  })
 
   return (
     <div className="personal-transactions-holder">
@@ -34,7 +60,7 @@ function AccTransacionsTable(props) {
           <p className="title">COMENTARIO</p>
         </div>
       </div>
-      {data.map((row, i) => {
+      {data ? data.map((row, i) => {
         acc = acc + (row.debit - row.credit);
         return (
           <div key={i} className="loan-schedule-content">
@@ -68,7 +94,7 @@ function AccTransacionsTable(props) {
             </div>
             <div className="detail-schedule details-content">
               <p className="acc-total">
-                {acc.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                {row.balance.toLocaleString(undefined, { maximumFractionDigits: 2 })}
               </p>
             </div>
             <div className="detail-schedule details-content">
@@ -79,7 +105,7 @@ function AccTransacionsTable(props) {
             </div>
           </div>
         );
-      })}
+      }) : ''}
     </div>
   );
 }

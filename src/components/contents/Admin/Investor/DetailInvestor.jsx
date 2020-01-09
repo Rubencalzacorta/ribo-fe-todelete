@@ -13,6 +13,9 @@ import './detail-investor.scss'
 import '../Client/ClientList.scss'
 import SelectBar from './SelectBar'
 
+const rounder = (numberToRound) => {
+  return Math.round(numberToRound * 10000) / 10000
+}
 
 const styles = theme => ({
   root: {
@@ -192,15 +195,15 @@ class DetailInvestor extends Component {
       display: true
     })
 
-    if (this.state.getTransactions) {
-      this.TransactionService.getTransactions(id)
-        .then(response => {
-          this.setState({
-            transactions: response,
-            getTransactions: false
-          })
-        })
-    }
+    // if (this.state.getTransactions) {
+    //   this.TransactionService.getTransactions(id)
+    //     .then(response => {
+    //       this.setState({
+    //         transactions: response,
+    //         getTransactions: false
+    //       })
+    //     })
+    // }
 
     if (this.state.getLoanInvestments) {
       this.TransactionService.getLoanInvestorDetails(id)
@@ -446,7 +449,7 @@ class DetailInvestor extends Component {
                 </div>
                 {value === 0 && <AccLoanSummaryTable loanDetails={loanDetails} />}
                 {value === 1 && <AccInvestmentsTable investments={investments} />}
-                {value === 2 && <AccTransactionsTable data={transactions} />}
+                {value === 2 && <AccTransactionsTable investorId={investorId} data={transactions} accountTotal={summary.cashAvailable} />}
                 {value === 3 && <AccOptions
                   feeReceivers={this.state.investors}
                   changeInvestorType={this.changeInvestorType}
