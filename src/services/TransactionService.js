@@ -32,8 +32,8 @@ class TransactionService {
       .then(response => response.data)
   }
 
-  getTransactions = (_investor) => {
-    return this.service.get(`/transaction-list/${_investor}`)
+  getTransactions = (_investor, page, pageSize) => {
+    return this.service.get(`/transaction-list/${_investor}/${page}/${pageSize}`)
       .then(response => response.data)
   }
 

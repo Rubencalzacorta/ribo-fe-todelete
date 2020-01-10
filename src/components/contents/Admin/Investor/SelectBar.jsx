@@ -29,7 +29,7 @@ const SelectBar = (props) => {
                         id: 'outlined-age-simple',
                     }}
                 >
-                    {(investors) ? investors.map(e =>
+                    {investors ? investors.map(e =>
                         <Link to={`/admin/investor/details/${e._id}`} key={e._id} value={e._id}>
                             <MenuItem className='menu-item' value={e._id}>
                                 <CountryFlag country={e.location} />

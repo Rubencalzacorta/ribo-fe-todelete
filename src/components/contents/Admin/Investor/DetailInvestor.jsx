@@ -13,6 +13,9 @@ import './detail-investor.scss'
 import '../Client/ClientList.scss'
 import SelectBar from './SelectBar'
 
+const rounder = (numberToRound) => {
+  return Math.round(numberToRound * 10000) / 10000
+}
 
 const styles = theme => ({
   root: {
@@ -70,6 +73,14 @@ const investorInitialState = {
     totalCosts: 0,
     feeIncome: 0,
   },
+  getTransactions: true,
+  getLoanInvestments: true,
+  getCashDetails: true,
+  getInvestmentOptions: true,
+  getInvestmentFees: true,
+  getInvestmentDetails: true,
+  getPLDetails: true,
+  getCashMovements: true,
   getDetails: false,
   getInvestor: false,
   loanDetails: null,
@@ -92,11 +103,12 @@ class DetailInvestor extends Component {
 
   componentDidUpdate() {
     let { investorId } = this.props
-    let { getDetails, getInvestor } = this.state
+    let { getInvestor } = this.state
 
-    if (investorId && getDetails && getInvestor) {
-      this.investorDetails(investorId)
+    if (investorId && getInvestor) {
+      // this.investorDetails(investorId)
       this.fetchInvestor(investorId)
+      this.setState({ getInvestor: false })
     }
 
   }
@@ -148,42 +160,62 @@ class DetailInvestor extends Component {
   };
 
 
-  investorDetails = async (_investor) => {
-    this.setState({ ...investorInitialState, _investor: _investor })
-    this.fetchInvestor(_investor)
+  // investorDetails = async (_investor) => {
+  //   this.setState({ ...investorInitialState, _investor: _investor })
+  //   this.fetchInvestor(_investor)
 
 
-    let transactions = await this.TransactionService.getTransactions(_investor)
-    let loanDetails = await this.TransactionService.getLoanInvestorDetails(_investor)
+  //   // let transactions = await this.TransactionService.getTransactions(_investor)
+  //   // let loanDetails = await this.TransactionService.getLoanInvestorDetails(_investor)
 
-    return Promise.all([
-      loanDetails,
-      transactions,
-    ])
-      .then(response => {
+  //   return Promise.all([
+  //     loanDetails,
+  //     // transactions,
+  //   ])
+  //     .then(response => {
 
-        this.setState({
-          display: true,
-          transactions: response[1],
-          loanDetails: response[0],
-          getDetails: false
-        });
-        return response
-      })
-      .catch(error => {
-        this.setState({
-          error: error
-        });
-      })
-  }
+  //       this.setState({
+  //         display: true,
+  //         // transactions: response[1],
+  //         loanDetails: response[0],
+  //         getDetails: false
+  //       });
+  //       return response
+  //     })
+  //     .catch(error => {
+  //       this.setState({
+  //         error: error
+  //       });
+  //     })
+  // }
 
-  fetchInvestor = (id) => {
+  fetchInvestor = async (id) => {
 
     this.setState({
       display: true
     })
 
-    if (!this.state.getCashDetails) {
+    // if (this.state.getTransactions) {
+    //   this.TransactionService.getTransactions(id)
+    //     .then(response => {
+    //       this.setState({
+    //         transactions: response,
+    //         getTransactions: false
+    //       })
+    //     })
+    // }
+
+    if (this.state.getLoanInvestments) {
+      this.TransactionService.getLoanInvestorDetails(id)
+        .then(response => {
+          this.setState({
+            loanDetails: response,
+            getLoanInvestments: false
+          })
+        })
+    }
+
+    if (this.state.getCashDetails) {
       this.InvestorService.getCashDetails(id)
         .then(response => {
           this.setState({
@@ -196,7 +228,7 @@ class DetailInvestor extends Component {
         })
     }
 
-    if (!this.state.getInvestmentOptions) {
+    if (this.state.getInvestmentOptions) {
       this.InvestorService.getInvestorOptions(id)
         .then(response => {
           this.setState({
@@ -209,7 +241,7 @@ class DetailInvestor extends Component {
         })
     }
 
-    if (!this.state.getInvestmentFees) {
+    if (this.state.getInvestmentFees) {
       this.InvestorService.getInvestorFees(id)
         .then(response => {
           this.setState({
@@ -222,7 +254,7 @@ class DetailInvestor extends Component {
     }
 
 
-    if (!this.state.getInvestmentDetails) {
+    if (this.state.getInvestmentDetails) {
       this.InvestorService.getInvestmentDetails(id)
         .then(response => {
           this.setState({
@@ -235,7 +267,7 @@ class DetailInvestor extends Component {
         })
     }
 
-    if (!this.state.getPLDetails) {
+    if (this.state.getPLDetails) {
       this.InvestorService.getPLDetails(id)
         .then(response => {
           this.setState({
@@ -248,7 +280,7 @@ class DetailInvestor extends Component {
         })
     }
 
-    if (!this.state.getCashMovements) {
+    if (this.state.getCashMovements) {
       this.InvestorService.getCashMovements(id)
         .then(response => {
           this.setState({
@@ -299,7 +331,7 @@ class DetailInvestor extends Component {
 
   handleChange = (event) => {
     const { name, value } = event.target;
-    this.setState({ [name]: value, getDetails: true, getInvestor: true });
+    this.setState({ [name]: value, getInvestor: true });
   }
 
   handleNewFee = (event) => {
@@ -417,7 +449,7 @@ class DetailInvestor extends Component {
                 </div>
                 {value === 0 && <AccLoanSummaryTable loanDetails={loanDetails} />}
                 {value === 1 && <AccInvestmentsTable investments={investments} />}
-                {value === 2 && <AccTransactionsTable data={transactions} />}
+                {value === 2 && <AccTransactionsTable investorId={investorId} data={transactions} accountTotal={summary.cashAvailable} />}
                 {value === 3 && <AccOptions
                   feeReceivers={this.state.investors}
                   changeInvestorType={this.changeInvestorType}
