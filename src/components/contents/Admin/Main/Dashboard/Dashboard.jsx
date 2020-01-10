@@ -8,6 +8,7 @@ import PortfolioCategoryPaid from './PortfolioCategoryPaid'
 import PortfolioCategoryItem from './PortfolioCategoryItem'
 import PortfolioCategoryItemUnpaid from './PortfolioCategoryItemUnpaid'
 import PortfolioCategoryItemOut from './PortfolioCategoryItemOut'
+import './dashboard.scss'
 
 export default class Dashboard extends Component {
   state = {
@@ -89,7 +90,7 @@ export default class Dashboard extends Component {
     const { overdue, due, paid, outstanding } = this.state;
 
     return (
-      <div className="content">
+      <div className="content dashboard-content">
         <div>
           {/* {portfolio ? (<PortfolioCategoryGeneral data={portfolio} title={'Pagos - Portafolio'} cash={total} />) : ""} */}
           {overdue ? (

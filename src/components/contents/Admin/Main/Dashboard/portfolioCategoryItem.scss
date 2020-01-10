@@ -59,3 +59,14 @@
         }
     }
 }
+
+@media screen and (max-width: 400px) {
+    .item-cards {
+        padding: 10px 20px;
+
+        .item-content-unpaid {
+            width: 100%;
+        }
+    }
+
+}

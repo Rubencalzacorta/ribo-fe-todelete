@@ -29,7 +29,6 @@ class Payment extends Component {
 
   componentDidMount = () => {
     let { installment, loan, fullPayment } = this.props;
-    console.log(installment)
 
     this.setState({
       date_pmt: installment.date,
@@ -46,7 +45,7 @@ class Payment extends Component {
     return (
       <div className="loan-schedule-holder">
         <div className="loan-payment-holder">
-          <div className="detail-schedule details-date">
+          <div className="payment-date">
             <label className="acc-title">FECHA</label>
             <input
               type="date"
