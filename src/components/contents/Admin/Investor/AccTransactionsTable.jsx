@@ -10,27 +10,16 @@ const rounder = (numberToRound) => {
 function AccTransacionsTable(props) {
   const transactionService = new TransactionService();
   const [data, setData] = useState(null)
-  const { accountTotal, investorId } = props;
-  let acc = 0;
+  const { investorId } = props;
 
   useEffect(() => {
     if (data === null) {
       transactionService.getTransactions(investorId)
         .then(async response => {
-          let txData = []
-          await response.forEach((e, i) => {
-            let balance = 0
-            if (i === 0) {
-              balance = accountTotal
-            } else {
-              balance = rounder(txData[i - 1].balance) + rounder(- txData[i - 1].debit + txData[i - 1].credit)
-            }
-            return txData.push({ ...e, balance: balance })
-          })
-          setData(txData)
+          setData(response)
         })
     }
-  })
+  }, [])
 
   return (
     <div className="personal-transactions-holder">
@@ -61,7 +50,6 @@ function AccTransacionsTable(props) {
         </div>
       </div>
       {data ? data.map((row, i) => {
-        acc = acc + (row.debit - row.credit);
         return (
           <div key={i} className="loan-schedule-content">
             <div className="detail-schedule details-date">
@@ -71,8 +59,7 @@ function AccTransacionsTable(props) {
             </div>
             <div className="detail-schedule details-name">
               <p className="acc-date">
-                {row.concept === 'INSURANCE_PREMIUM' ? 'PRIMA' :
-                  row._loan ? row._loan._borrower.firstName + " " + row._loan._borrower.lastName : "PERSONAL"}
+                {row.fullName}
               </p>
             </div>
             <div className="detail-schedule details-concept">
