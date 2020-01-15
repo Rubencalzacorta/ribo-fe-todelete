@@ -26,7 +26,7 @@ const PortfolioDueCategoryUnpaid = (props) => {
     }
 
     return (
-        (width >= 400) ? (
+        (width >= 500) ? (
             <div>
                 <div className="item-cards">
                     <div className="item-content-unpaid">

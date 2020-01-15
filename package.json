@@ -28,6 +28,7 @@
     "query-string": "^6.8.3",
     "react": "^16.9.0",
     "react-chartjs-2": "^2.7.6",
+    "react-d3-treemap": "^1.0.15",
     "react-dom": "^16.9.0",
     "react-final-form": "^6.3.3",
     "react-html-table-to-excel": "^2.0.0",

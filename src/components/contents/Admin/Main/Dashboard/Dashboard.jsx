@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import LoanService from '../../../../../services/LoanService'
+import ReportingService from '../../../../../services/ReportingService'
 import TransactionService from '../../../../../services/TransactionService'
 import moment from 'moment'
 import PortfolioCategory from './PortfolioCategory'
 import PortfolioCategoryPaid from './PortfolioCategoryPaid'
 // import PortfolioCategoryGeneral from './PortfolioCategoryGeneral'
+import TreeMap from "react-d3-treemap";
+// Include its styles in you build process as well
+// import "react-d3-treemap/dist/react.d3.treemap.css";
 import PortfolioCategoryItem from './PortfolioCategoryItem'
 import PortfolioCategoryItemUnpaid from './PortfolioCategoryItemUnpaid'
 import PortfolioCategoryItemOut from './PortfolioCategoryItemOut'
@@ -14,6 +18,7 @@ export default class Dashboard extends Component {
   state = {
     loans: [],
     getLoan: true,
+    getReport: true,
     startDate: moment().subtract(7, 'days').toISOString().substring(0, 10),
     endDate: moment().add(7, 'days').toISOString().substring(0, 10),
     country: 'Todos',
@@ -21,6 +26,7 @@ export default class Dashboard extends Component {
   }
   service = new LoanService();
   TransactionService = new TransactionService();
+  reportingService = new ReportingService();
 
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -33,11 +39,13 @@ export default class Dashboard extends Component {
   componentDidMount = () => {
     this.fetchLoans()
     this.fetchAccountsTotals()
+    this.fetchReport()
   }
 
   loader = async () => {
     this.fetchAccountsTotals()
     this.fetchLoans()
+    this.fetchReport()
   }
 
   fetchAccountsTotals() {
@@ -81,13 +89,45 @@ export default class Dashboard extends Component {
           loans: false
         })
       })
+
+  }
+
+  fetchReport() {
+
+    let country = 'WORLD'
+
+
+    this.reportingService.getCollection()
+      .then(async response => {
+        if (country === 'WORLD') {
+          this.setState({
+            getReport: false,
+            report: response
+          })
+        } else {
+          let a = response.filter(e => {
+            return e.name.children.name === country
+          })
+          this.setState({
+            getReport: false,
+            report: a
+          })
+        }
+
+      })
+      .catch(err => {
+        this.setState({
+          report: null
+        })
+      })
+
   }
 
 
 
   render() {
 
-    const { overdue, due, paid, outstanding } = this.state;
+    const { overdue, due, paid, outstanding, report } = this.state;
 
     return (
       <div className="content dashboard-content">
@@ -112,6 +152,10 @@ export default class Dashboard extends Component {
             <div>
               <PortfolioCategoryPaid data={paid} title={'Cobranza realizada del mes corriente'} />
               {paid.installments.map((e, i) => <PortfolioCategoryItem key={i} data={e} />)}
+            </div>) : ""}
+          {report ? (
+            <div style={{ 'margin-top': '20px' }}>
+              <TreeMap height={700} width={1000} data={report} valueUnit={'USD'} />
             </div>) : ""}
         </div>
       </div>
