@@ -9,6 +9,7 @@ import PendingConfirmation from './components/auth/PendingConfirmation';
 import Portfolio from './components/contents/Admin/Main/Portfolio/Portfolio'
 import Payments from './components/contents/Admin/Main/Payments.jsx'
 import PortfolioGraphs from './components/contents/Admin/Main/Portfolio/PortfolioGraphs'
+import Collection from './components/contents/Admin/Main/Dashboard/Collection'
 import Dashboard from './components/contents/Admin/Main/Dashboard/Dashboard'
 import CashAccounts from './components/contents/Admin/Financial/CashAccounts.jsx'
 import CreateClientForm from './components/contents/Admin/Client/CreateClientForm.jsx';
@@ -88,6 +89,7 @@ class App extends Component {
               <Route exact path='/admin/loan/list' render={() => <LoanList getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/loan/period' render={() => <PeriodSchedule getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/activity' render={() => <Dashboard getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
+              <Route exact path='/admin/collection-late' render={() => <Collection getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/payments' render={() => <Payments getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/portfolio' render={() => <Portfolio getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/company/create' render={() => <CompanyCreateForm getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />

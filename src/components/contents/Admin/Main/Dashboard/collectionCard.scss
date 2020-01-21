@@ -1,0 +1,74 @@
+.period-card {
+    margin-top: 20px;
+}
+
+.collection-card {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    margin-top: 20px;
+
+    .date-col {
+        width: 10%
+    }
+
+    .name-col {
+        width: 25%
+    }
+
+    .quote-col {
+        width: 10%
+    }
+
+    .amount-col {
+        width: 20%
+    }
+
+    .since-col {
+        width: 15%
+    }
+
+    .option-col {
+        width: 20%
+    }
+}
+
+.collection-info-card {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+
+    .date-col {
+        width: 10%
+    }
+
+    .name-col {
+        width: 25%
+    }
+
+    .quote-col {
+        width: 10%
+    }
+
+    .amount-col {
+        width: 20%
+    }
+
+    .since-col {
+        width: 15%
+    }
+
+    .option-col {
+        width: 20%
+    }
+}
+
+@media all and (max-width: 400px) {
+
+    .distance {
+        width: 100%;
+    }
+
+}

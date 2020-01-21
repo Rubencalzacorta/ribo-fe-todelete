@@ -26,6 +26,11 @@ const adminUrls = [{
     },
     {
         link: true,
+        url: 'collection-late',
+        text: 'Cobranza (Días)'
+    },
+    {
+        link: true,
         url: 'payments',
         text: 'Pagos'
     },

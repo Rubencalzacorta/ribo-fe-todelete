@@ -39,13 +39,11 @@ export default class Dashboard extends Component {
   componentDidMount = () => {
     this.fetchLoans()
     this.fetchAccountsTotals()
-    this.fetchReport()
   }
 
   loader = async () => {
     this.fetchAccountsTotals()
     this.fetchLoans()
-    this.fetchReport()
   }
 
   fetchAccountsTotals() {
@@ -91,38 +89,6 @@ export default class Dashboard extends Component {
       })
 
   }
-
-  fetchReport() {
-
-    let country = 'WORLD'
-
-
-    this.reportingService.getCollection()
-      .then(async response => {
-        if (country === 'WORLD') {
-          this.setState({
-            getReport: false,
-            report: response
-          })
-        } else {
-          let a = response.filter(e => {
-            return e.name.children.name === country
-          })
-          this.setState({
-            getReport: false,
-            report: a
-          })
-        }
-
-      })
-      .catch(err => {
-        this.setState({
-          report: null
-        })
-      })
-
-  }
-
 
 
   render() {
