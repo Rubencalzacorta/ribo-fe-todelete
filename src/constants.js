@@ -245,6 +245,16 @@ let txConstants = [{
         value: 'Gastos de servicio de deuda'
     },
     {
+        label: 'SALARY',
+        value: 'Salarios'
+    }, {
+        label: 'SG&A_MARKETING',
+        value: 'General, Administración, Servicios - Marketing'
+    }, {
+        label: 'SG&A_MISCELLANEOUS',
+        value: 'General, Administración, Servicios - Miscelaneo'
+    },
+    {
         label: 'SG&A_ACCOUNTING',
         value: 'Contabilidad'
     },
@@ -281,6 +291,7 @@ let txConstants = [{
         value: 'Transporte general'
     }
 ]
+
 let nationalIdType = [{
     label: 'Cédula o DNI',
     value: 'ID'
@@ -395,6 +406,17 @@ let txConcepts = [{
     {
         value: 'COST_SERVICING_EXPENSES',
         label: 'Costo de servicio - Gastos'
+    },
+    {
+        value: 'SALARY',
+        label: 'Salarios'
+    },
+    {
+        value: 'SG&A_MARKETING',
+        label: 'General, Administración, Servicios - Marketing'
+    }, {
+        value: 'SG&A_MISCELLANEOUS',
+        label: 'General, Administración, Servicios - Miscelaneo'
     },
     {
         value: 'SG&A_ACCOUNTING',
