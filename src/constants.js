@@ -160,17 +160,10 @@ let ownership = [{
     value: 'PUBLIC'
 }]
 
+
 let txConstants = [{
         label: 'DEPOSIT',
         value: 'Deposito'
-    },
-    {
-        label: 'DIVESTMENT',
-        value: 'Desinversión'
-    },
-    {
-        label: 'INVESTMENT',
-        value: 'Inversión'
     },
     {
         label: 'WITHDRAWAL',
@@ -193,20 +186,11 @@ let txConstants = [{
         value: 'Intl. transfer - remitente'
     },
     {
-        label: 'DIVIDENDS',
-        value: 'Dividendos'
-    },
-    {
-        label: 'INTEREST',
-        value: 'Intereses'
-    },
-    {
-        label: 'CAPITAL',
-        value: 'Capital'
-    },
-    {
-        label: 'FEE',
-        value: 'Fee'
+        label: 'COST',
+        value: 'Costo'
+    }, {
+        label: 'COMMISSION',
+        value: 'Comisión'
     },
     {
         label: 'COST',
@@ -217,20 +201,8 @@ let txConstants = [{
         value: 'Comisión'
     },
     {
-        label: 'MANAGEMENT_FEE',
-        value: 'Fee de gestión'
-    },
-    {
-        label: 'MANAGEMENT_INTEREST',
-        value: 'Intereses por gestión'
-    },
-    {
         label: 'INSURANCE_COST',
         value: 'Costo de seguro'
-    },
-    {
-        label: 'INSURANCE_PREMIUM',
-        value: 'Prima de seguro'
     },
     {
         label: 'BANKING_FEE',
@@ -322,17 +294,11 @@ let nationalIdType = [{
     label: 'Licencia de Conducir',
     value: 'DRIVING_LICENSE'
 }]
+
+
 let txConcepts = [{
         value: 'DEPOSIT',
         label: 'Deposito'
-    },
-    {
-        value: 'DIVESTMENT',
-        label: 'Desinversion'
-    },
-    {
-        value: 'INVESTMENT',
-        label: 'Inversion'
     },
     {
         value: 'WITHDRAWAL',
@@ -356,19 +322,15 @@ let txConcepts = [{
     },
     {
         value: 'DIVIDENDS',
+        label: 'Distribución de Utilidades'
+    },
+    {
+        value: 'DIVIDEND_INCOME',
         label: 'Dividendos'
     },
     {
-        value: 'INTEREST',
-        label: 'Intereses'
-    },
-    {
-        value: 'INTEREST_PAYMENT',
+        value: 'INTEREST_COST',
         label: 'Pago de Intereses'
-    },
-    {
-        value: 'CAPITAL',
-        label: 'Capital'
     },
     {
         value: 'FEE',
@@ -379,6 +341,10 @@ let txConcepts = [{
         label: 'Costo'
     },
     {
+        value: 'UNCLASSIFIED_COST',
+        label: 'Costo sin clasificar'
+    },
+    {
         value: 'COMMISSION_INCOME',
         label: 'Ingreso por comisiones'
     },
@@ -387,28 +353,8 @@ let txConcepts = [{
         label: 'Egreso por comisiones'
     },
     {
-        value: 'MANAGEMENT_FEE_INCOME',
-        label: 'Ingreso por fee de Gestión'
-    },
-    {
-        value: 'MANAGEMENT_FEE_COST',
-        label: 'Egreso por fee de Gestión'
-    },
-    {
-        value: 'MANAGEMENT_INTEREST_INCOME',
-        label: 'Ingreso por intereses de Gestión'
-    },
-    {
-        value: 'MANAGEMENT_INTEREST_COST',
-        label: 'Egreso por intereses de Gestión'
-    },
-    {
         value: 'INSURANCE_COST',
         label: 'Costo de Seguro'
-    },
-    {
-        value: 'INSURANCE_PREMIUM',
-        label: 'Prima de Seguro'
     },
     {
         value: 'BANKING_FEE',
