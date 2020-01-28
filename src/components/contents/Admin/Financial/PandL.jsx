@@ -3,7 +3,7 @@ import ReportingService from '../../../../services/ReportingService'
 import InvestorService from '../../../../services/InvestorService'
 import _ from 'lodash'
 import moment from 'moment'
-import { Grid, CardHeader, Divider, TextField, MenuItem, Button, CardActions, CardContent, Card } from '@material-ui/core'
+import { Grid, CardHeader, Divider, TextField, MenuItem, Button, CardContent, Card } from '@material-ui/core'
 
 
 const periodicityData = [
@@ -82,6 +82,7 @@ export default function PandL() {
             }
         }
         FetchData()
+        // eslint-disable-next-line
     }, [])
 
     return (

@@ -13,10 +13,6 @@ import './detail-investor.scss'
 import '../Client/ClientList.scss'
 import SelectBar from './SelectBar'
 
-const rounder = (numberToRound) => {
-  return Math.round(numberToRound * 10000) / 10000
-}
-
 const styles = theme => ({
   root: {
     flexGrow: 1,

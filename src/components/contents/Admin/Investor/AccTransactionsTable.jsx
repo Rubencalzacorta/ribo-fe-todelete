@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import TransactionService from '../../../../services/TransactionService'
 import MaterialTable from 'material-table'
 import numbro from 'numbro'

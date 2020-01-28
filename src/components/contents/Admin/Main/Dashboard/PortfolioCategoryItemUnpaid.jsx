@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import './portfolioCategoryItem.scss'
 import moment from 'moment'
 import { Link } from 'react-router-dom'

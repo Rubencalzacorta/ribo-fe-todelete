@@ -37,7 +37,7 @@ function PaymentList() {
             }
         };
         FetchData();
-
+        // eslint-disable-next-line
     }, []);
 
     return (

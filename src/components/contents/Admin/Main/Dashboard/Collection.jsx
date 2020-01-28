@@ -56,8 +56,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function SimpleTabs() {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
-    const [collection, setCollection] = React.useState(0);
+    const [value, setValue] = useState(0);
+    const [collection, setCollection] = useState(0);
     const reportingService = new ReportingService();
 
     const handleChange = (event, newValue) => {
@@ -74,7 +74,7 @@ export default function SimpleTabs() {
             }
         };
         FetchData();
-
+        // eslint-disable-next-line
     }, []);
 
 
