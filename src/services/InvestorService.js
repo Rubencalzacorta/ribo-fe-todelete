@@ -27,6 +27,11 @@ class InvestorService {
       .then(response => response.data)
   }
 
+  getHoldingAccounts = () => {
+    return this.service.get('/holding-account/list', )
+      .then(response => response.data)
+  }
+
   getInvestorInvestments = (investor) => {
     return this.service.get(`/investments/${investor}`, )
       .then(response => response.data)

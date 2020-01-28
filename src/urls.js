@@ -50,8 +50,12 @@ const adminUrls = [{
         text: 'Finanzas'
     }, {
         link: true,
-        url: 'financials',
+        url: 'financials/indicators',
         text: 'Indicadores'
+    }, {
+        link: true,
+        url: 'financials/p-and-l',
+        text: 'P & L'
     },
     {
         link: false,
