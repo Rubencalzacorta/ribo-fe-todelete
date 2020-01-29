@@ -105,6 +105,11 @@ const adminUrls = [{
     },
     {
         link: true,
+        url: 'loan/calculator',
+        text: 'Calculadora'
+    },
+    {
+        link: true,
         url: 'loan/list',
         text: 'Listado'
     },

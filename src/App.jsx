@@ -25,6 +25,7 @@ import PandL from './components/contents/Admin/Financial/PandL.jsx'
 import LoanList from './components/contents/Admin/Loan/LoanList'
 import LoanWeekList from './components/contents/Admin/Loan/LoanWeekList'
 import PeriodSchedule from './components/contents/Admin/Loan/PeriodSchedule'
+import Calculator from './components/contents/Admin/Loan/Calculator/Calculator'
 import LoanDetails from './components/contents/Admin/Loan/Detail/LoanDetails'
 import Activity from './components/contents/Client/Activity/Activity'
 import Loan from './components/contents/Client/Loan/Loan'
@@ -89,6 +90,7 @@ class App extends Component {
               <Route exact path='/admin/financials/indicators' render={() => <FinDashboard getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/financials/p-and-l' render={() => <PandL getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/loan/list' render={() => <LoanList getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
+              <Route exact path='/admin/loan/calculator' render={() => <Calculator getUser={this.getTheUser} />} />
               <Route exact path='/admin/loan/period' render={() => <PeriodSchedule getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/activity' render={() => <Dashboard getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
               <Route exact path='/admin/collection-late' render={() => <Collection getUser={this.getTheUser} userLocation={this.state.loggedInUser.location} />} />
