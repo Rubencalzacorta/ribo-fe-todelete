@@ -17,107 +17,105 @@ const clientUrls = [{
 
 const adminUrls = [{
         link: false,
-        text: 'General'
-    },
-    {
-        link: true,
-        url: 'activity',
-        text: 'Cobranzas'
-    },
-    {
-        link: true,
-        url: 'collection-late',
-        text: 'Cobranza (Días)'
-    },
-    {
-        link: true,
-        url: 'payments',
-        text: 'Pagos'
-    },
-    {
-        link: true,
-        url: 'portfolio',
-        text: 'Portafolio'
-    },
-    {
-        link: true,
-        super: true,
-        url: 'evolution',
-        text: 'Evolución'
-    },
-    {
-        link: false,
-        text: 'Finanzas'
+        text: 'General',
+        links: [{
+            link: true,
+            url: 'activity',
+            text: 'Cobranzas'
+        }, {
+            link: true,
+            url: 'collection-late',
+            text: 'Cobranza (Días)'
+        }, {
+            link: true,
+            url: 'payments',
+            text: 'Pagos'
+        }, {
+            link: true,
+            url: 'portfolio',
+            text: 'Portafolio'
+        }, {
+            link: true,
+            super: true,
+            url: 'evolution',
+            text: 'Evolución'
+        }, ]
     }, {
-        link: true,
-        url: 'financials/indicators',
-        text: 'Indicadores'
+        link: false,
+        text: 'Finanzas',
+        links: [{
+            link: true,
+            url: 'financials/indicators',
+            text: 'Indicadores'
+        }, {
+            link: true,
+            url: 'financials/p-and-l',
+            text: 'P & L'
+        }, ]
     }, {
-        link: true,
-        url: 'financials/p-and-l',
-        text: 'P & L'
+        link: false,
+        text: 'Cliente',
+        links: [{
+            link: true,
+            url: 'client/list',
+            text: 'Listado'
+        }]
     },
     {
         link: false,
-        text: 'Cliente'
-    },
-    {
-        link: true,
-        url: 'client/list',
-        text: 'Listado'
-    },
-    {
-        link: false,
-        text: 'Compañia'
-    },
-    {
-        link: true,
-        url: 'company/create',
-        text: 'Crear'
-    },
-    {
-        link: true,
-        url: 'company/list',
-        text: 'Listado'
+        text: 'Compañia',
+        links: [{
+                link: true,
+                url: 'company/create',
+                text: 'Crear'
+            },
+            {
+                link: true,
+                url: 'company/list',
+                text: 'Listado'
+            }
+        ]
     },
     {
         link: false,
-        text: 'Inversionista'
-    },
-    {
-        link: true,
-        url: 'investor/create',
-        text: 'Crear'
-    },
-    {
-        link: true,
-        url: 'investor/details',
-        text: 'Detalle'
-    },
-    {
-        link: true,
-        url: 'investor/transaction',
-        text: 'Transacciones'
+        text: 'Inversionista',
+        links: [{
+                link: true,
+                url: 'investor/create',
+                text: 'Crear'
+            },
+            {
+                link: true,
+                url: 'investor/details',
+                text: 'Detalle'
+            },
+            {
+                link: true,
+                url: 'investor/transaction',
+                text: 'Transacciones'
+            }
+        ]
     },
     {
         link: false,
-        text: 'Prestamos'
-    },
-    {
-        link: true,
-        url: 'loan/calculator',
-        text: 'Calculadora'
-    },
-    {
-        link: true,
-        url: 'loan/list',
-        text: 'Listado'
-    },
-    {
-        link: true,
-        url: 'loan/period',
-        text: 'Periodo'
-    },
+        text: 'Prestamo',
+        links: [{
+                link: true,
+                url: 'loan/calculator',
+                text: 'Calculadora'
+            },
+            {
+                link: true,
+                url: 'loan/list',
+                text: 'Listado'
+            },
+            {
+                link: true,
+                url: 'loan/period',
+                text: 'Periodo'
+            },
+        ]
+    }
 ]
 
 module.exports = {
