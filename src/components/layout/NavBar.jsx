@@ -25,10 +25,20 @@ const useStyles = makeStyles(theme => ({
   },
   expansionPanel: {
     backgroundColor: '#00446B',
+    boxShadow: 'none',
+    '&:before': {
+      backgroundColor: 'rgba(0, 0, 0, 0)'
+    }
+  },
+  expansionPanelSummary: {
+    borderBottomColor: 'rgba(0, 0, 0, 0)',
+    borderTopColor: 'rgba(0, 0, 0, 0)',
   },
   expansionPanelDetails: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    paddingBottom: '0px',
+    paddingTop: '0px'
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -51,6 +61,7 @@ const useStyles = makeStyles(theme => ({
   },
   items: {
     width: '100%',
+    padding: '0px 16px'
     // height: 40,
     // padding: 10,
   },
@@ -91,6 +102,7 @@ export default function NavBar(props) {
             ? adminUrls.map((e, index) => (
               <ExpansionPanel className={classes.expansionPanel}>
                 <ExpansionPanelSummary
+                  className={classes.expansionPanelSummary}
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
@@ -107,7 +119,6 @@ export default function NavBar(props) {
                       </Link>
                     )
                   })}
-
                 </ExpansionPanelDetails>
               </ExpansionPanel>
             ))
