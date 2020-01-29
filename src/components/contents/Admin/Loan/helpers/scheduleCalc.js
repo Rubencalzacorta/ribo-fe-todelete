@@ -118,9 +118,9 @@ const amort2Loan = (loanId, period, duration, startDate, paymentDate, startAmort
         '#': i,
         status: 'PMT',
         date: moment(startDate).format('YYYY-MM-DD'),
-        interest: rounder((moment(startDate).diff(moment(initialDate), 'd') + 1) * capital * interestRatesTransformer(interest)['daily']),
+        interest: rounder((moment(startDate).diff(moment(initialDate), 'd')) * capital * interestRatesTransformer(interest)['daily']),
         principal: ap === 0 ? 0 : initialAmort,
-        payment: ap === 0 ? rounder((moment(startDate).diff(moment(initialDate), 'd') + 1) * capital * interestRatesTransformer(interest)['daily']) : (moment(startDate).diff(moment(initialDate), 'd') + 1) * capital * interestRatesTransformer(interest)['daily'] + initialAmort,
+        payment: ap === 0 ? rounder((moment(startDate).diff(moment(initialDate), 'd')) * capital * interestRatesTransformer(interest)['daily']) : (moment(startDate).diff(moment(initialDate), 'd')) * capital * interestRatesTransformer(interest)['daily'] + initialAmort,
         balance: ap === 0 ? capital : capital - initialAmort
       })
     } else {

@@ -1,16 +1,10 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import ClientService from '../../../../../services/ClientService'
 import loanSelector from '../helpers/scheduleCalc.js'
-import TransactionService from "../../../../../services/TransactionService";
-import LoanService from "../../../../../services/LoanService";
 import LoanDetails from './LoanDetails'
 import LoanSchedule from "./LoanSchedule"
 import { loanInitialState } from '../../../../../constants'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 
-class CreateLoan extends Component {
+class Calculator extends Component {
   constructor(props) {
     super(props);
     this.state = loanInitialState
@@ -89,4 +83,4 @@ class CreateLoan extends Component {
 }
 
 
-export default withRouter(CreateLoan);
+export default Calculator;
