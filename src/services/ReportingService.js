@@ -14,6 +14,10 @@ class ReportingService {
             .then(response => response.data)
     }
 
+    getCollectionReport = () => {
+        return this.service.get(`/collection-days`)
+            .then(response => response.data)
+    }
     getPandL = (query) => {
         console.log(query)
         return this.service.get(`/p-and-l`, {

@@ -1,5 +1,21 @@
 .period-card {
-    margin-top: 20px;
+    margin: 20px 0px;
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .MuiBox-root {
+        padding: 20px 0px;
+    }
+
+    .MuiCardContent-root {
+        padding: 5px;
+    }
+}
+
+.dashboard-content {
+    padding: 20px;
 }
 
 .collection-card {

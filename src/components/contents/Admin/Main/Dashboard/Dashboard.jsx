@@ -64,15 +64,31 @@ export default class Dashboard extends Component {
     }
   }
 
-  fetchLoans(e) {
+  fetchAccountsTotals() {
+    if (!this.state.accounts) {
+      let country = this.props.userLocation
+      this.TransactionService.getInvestorsAvailability(country)
+        .then(response => {
+          let total = response.reduce((acc, e) => { return acc + e.accumTotal }, 0)
+          this.setState({
+            total: total
+          })
+        })
+        .catch(err => {
+          this.setState({
+            total: false
+          })
+        })
+    }
+  }
 
+  fetchLoans(e) {
     if (e) { e.preventDefault(e) }
     const { startDate, endDate } = this.state
     const { userLocation } = this.props
     this.service.getPortfolioStatus(userLocation, startDate, endDate)
       .then(async response => {
         let loans = response
-
         this.setState({
           getLoan: false,
           portfolio: loans.portfolio,
