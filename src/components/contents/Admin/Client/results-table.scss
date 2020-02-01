@@ -20,6 +20,8 @@
         .ser-client {
             white-space: nowrap;
             overflow: hidden;
+            margin: 0px;
+            margin-top: 7px;
         }
 
         span {
@@ -28,8 +30,12 @@
 
         a {
             color: black;
-            font-size: 0.6em;
+            font-size: 1em;
             font-weight: 600;
+            height: auto;
+            width: fit-content;
+            margin-top: 10px;
+            text-decoration: none;
         }
     }
 
