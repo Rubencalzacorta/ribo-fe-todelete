@@ -32,7 +32,9 @@ import Activity from './components/contents/Client/Activity/Activity'
 import Loan from './components/contents/Client/Loan/Loan'
 import Profile from './components/contents/Client/Profile/Profile.jsx'
 import Layout from './components/layout/Layout.jsx'
+import runtimeEnv from '@mars/heroku-js-runtime-env';
 require('dotenv').config();
+
 
 class App extends Component {
 
@@ -75,10 +77,8 @@ class App extends Component {
         })
     }
   }
-
   render() {
     this.fetchUser()
-    console.log(process.env)
     if (this.state.loggedInUser && this.state.loggedInUser.admin) {
       return (
         <div className="App">

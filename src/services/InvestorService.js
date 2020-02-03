@@ -1,10 +1,11 @@
 import axios from 'axios';
-require('dotenv').config();
+const env = runtimeEnv();
+
 
 class InvestorService {
   constructor() {
     this.service = axios.create({
-      baseURL: `${process.env.REACT_APP_API_URL}/api/investor`,
+      baseURL: `${env.REACT_APP_API_URL}/api/investor`,
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json'

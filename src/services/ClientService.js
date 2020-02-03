@@ -1,10 +1,10 @@
 import axios from 'axios';
-require('dotenv').config();
+const env = runtimeEnv();
 
 class ClientService {
   constructor() {
     this.service = axios.create({
-      baseURL: `${process.env.REACT_APP_API_URL}/api/client`,
+      baseURL: `${env.REACT_APP_API_URL}/api/client`,
       withCredentials: true,
     });
   }

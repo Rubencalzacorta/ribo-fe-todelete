@@ -1,10 +1,10 @@
 import axios from 'axios';
-require('dotenv').config();
+const env = runtimeEnv();
 
 class PaymentService {
     constructor() {
         this.service = axios.create({
-            baseURL: `${process.env.REACT_APP_API_URL}/api/payment`,
+            baseURL: `${env.REACT_APP_API_URL}/api/payment`,
             withCredentials: true,
         });
     }

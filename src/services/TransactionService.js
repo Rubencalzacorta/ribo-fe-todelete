@@ -1,11 +1,9 @@
 import axios from 'axios';
-require('dotenv').config();
-console.log(process.env.NODE_ENV)
-console.log(process.env.REACT_APP_API_URL)
+const env = runtimeEnv();
 class TransactionService {
   constructor() {
     this.service = axios.create({
-      baseURL: `${process.env.REACT_APP_API_URL}/api/transaction`,
+      baseURL: `${env.REACT_APP_API_URL}/api/transaction`,
       withCredentials: true,
     });
   }

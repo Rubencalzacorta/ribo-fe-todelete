@@ -1,10 +1,10 @@
 import axios from 'axios';
-require('dotenv').config();
+const env = runtimeEnv();
 
 class LoanService {
   constructor() {
     this.service = axios.create({
-      baseURL: `${process.env.REACT_APP_API_URL}/api/loan`,
+      baseURL: `${env.REACT_APP_API_URL}/api/loan`,
       withCredentials: true,
     });
   }
