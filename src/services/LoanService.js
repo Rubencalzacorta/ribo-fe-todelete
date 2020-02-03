@@ -1,6 +1,6 @@
 import axios from 'axios';
-const env = runtimeEnv();
 import runtimeEnv from '@mars/heroku-js-runtime-env';
+const env = runtimeEnv();
 
 class LoanService {
   constructor() {
