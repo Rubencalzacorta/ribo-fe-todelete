@@ -12,6 +12,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import './layout.scss'
 
 const drawerWidth = 240;
 
@@ -103,7 +104,7 @@ export default function NavBar(props) {
               <ExpansionPanel className={classes.expansionPanel}>
                 <ExpansionPanelSummary
                   className={classes.expansionPanelSummary}
-                  expandIcon={<ExpandMoreIcon />}
+                  expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
