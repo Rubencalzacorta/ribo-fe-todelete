@@ -21,11 +21,6 @@ class CollateralService {
       .then(response => response.data)
   }
 
-  getClient = (clientId) => {
-    return this.service.get(`/detail/${clientId}`)
-      .then(response => response.data)
-  }
-
   getInvAccounts = () => {
     return this.service.get('/get-accounts')
       .then(response => response.data)

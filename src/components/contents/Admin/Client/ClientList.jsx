@@ -124,8 +124,8 @@ class LoanList extends Component {
   }
 
 
-  fetchClients(clientName) {
-    this.service.getClients(this.props.userLocation, clientName)
+  fetchClients(query) {
+    this.service.getClients(query)
       .then(response => {
         this.setState({
           getClients: false,

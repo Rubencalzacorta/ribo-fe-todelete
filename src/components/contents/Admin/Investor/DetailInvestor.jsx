@@ -202,7 +202,7 @@ class DetailInvestor extends Component {
     // }
 
     if (this.state.getLoanInvestments) {
-      this.TransactionService.getLoanInvestorDetails(id)
+      this.InvestorService.getLoanInvestorDetails(id)
         .then(response => {
           this.setState({
             loanDetails: response,
