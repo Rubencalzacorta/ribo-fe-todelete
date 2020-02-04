@@ -2,7 +2,20 @@
   padding: 2px 4px 2px;
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+
+  .MuiBadge-root {
+    width: 100%
+  }
+
+  .button-client-search {
+    width: 100%;
+    height: 40px;
+  }
+
+}
+
+.root>* {
+  margin: 10px;
 }
 
 .input {
@@ -11,7 +24,11 @@
 }
 
 .iconButton {
-  padding: 10;
+  padding: 15;
+}
+
+.createButton {
+  margin-right: 10px;
 }
 
 .divider {
@@ -37,6 +54,7 @@
       margin-left: 20px;
     }
   }
+
   .input-date-cash * {
     width: 150px;
   }
@@ -75,11 +93,19 @@
   }
 }
 
-.button-client-search {
-  margin: 100px;
-  width: 130px;
-  height: 40px;
+
+
+.MuiButton-contained {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+
+
+.MuiButton-label {
   font-weight: 600;
+  font-size: 11px;
+  font-family: 'roboto'
 }
 
 .download-table-xls-button {

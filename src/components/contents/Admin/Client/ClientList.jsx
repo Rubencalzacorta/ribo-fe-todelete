@@ -10,7 +10,7 @@ import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import queryString from 'query-string'
 import './ClientList.scss'
 import { rounder } from './../../../helpers/numberFunctions'
-import { TextField, InputLabel, FormControl, Dialog, Badge, Button, IconButton, Divider, Paper, InputBase, Select, MenuItem } from '@material-ui/core';
+import { TextField, Grid, InputLabel, FormControl, Dialog, Badge, Button, IconButton, Divider, Paper, InputBase, Select, MenuItem } from '@material-ui/core';
 import { accounts } from '../../../../constants';
 
 
@@ -158,7 +158,7 @@ class LoanList extends Component {
     const { clients, bulkPayment, clientName, open, cashAccount, paymentDate, paymentStatus } = this.state
 
     return (
-      <div className="content">
+      <div style={{ width: '100%', padding: '20px' }}>
         {paymentStatus === 'success' ?
           <div class="alert alert-success alert-dismissible">
             <button href="#" class="close" data-dismiss="alert" aria-label="close">&times;</button>
@@ -170,49 +170,65 @@ class LoanList extends Component {
               <strong>Fallo!</strong> La operación no se ha procesado correctamente
         </div> : ""
         }
-        <Paper className="root">
-          <IconButton className="iconButton" disabled aria-label="menu">
-            <i className="material-icons">
-              account_circle
-          </i>
-          </IconButton>
-          <InputBase
-            className="input"
-            placeholder="Buscar cliente"
-            name="inputValue"
-            onKeyDown={(e) => this.onKeyPress(e)}
-            onChange={(e) => this.handleChange(e)}
-            inputProps={{ "aria-label": "buscar cliente" }}
-          />
-          <IconButton disabled className="iconButton" aria-label="search">
-            <SearchIcon />
-          </IconButton>
-          <Divider className="divider" orientation="vertical" />
-          <IconButton
-            color="secondary"
-            className="iconButton"
-            aria-label="directions"
-          >
-            <i className="material-icons">
-              <Link to="/admin/client/create">
-                create
-              </Link>
+        <Grid container spacing={3} className="root">
+          <Grid item xs={12} sm={9}>
+            <Paper className="root">
+              <IconButton className="iconButton" disabled aria-label="menu">
+                <i className="material-icons">
+                  account_circle
             </i>
-          </IconButton>
-        </Paper>
-        <Button className="button-client-search" variant="contained">
-          <ReactHTMLTableToExcel
-            id="test-table-xls-button"
-            className="download-table-xls-button"
-            table="table-to-xls"
-            filename={clientName ? `${clientName} - ${new Date()}` : `resultados-busqueda-${new Date()}`}
-            sheet="tablexls"
-            buttonText='DESCARGAR'
-          />
-        </Button>
-        <Badge color="primary" badgeContent={bulkPayment.length}>
-          <Button onClick={() => this.handleClickOpen()} className="button-client-search" variant="contained">PAGOS</Button>
-        </Badge>
+              </IconButton>
+              <InputBase
+                className="input"
+                placeholder="Buscar cliente"
+                name="inputValue"
+                onKeyDown={(e) => this.onKeyPress(e)}
+                onChange={(e) => this.handleChange(e)}
+                inputProps={{ "aria-label": "buscar cliente" }}
+              />
+              <IconButton disabled className="iconButton" aria-label="search">
+                <SearchIcon />
+              </IconButton>
+              <Divider className="divider" orientation="vertical" />
+              <IconButton
+                color="secondary"
+                className="iconButton createButton"
+                aria-label="directions"
+              >
+                <i className="material-icons">
+                  <Link to="/admin/client/create">
+                    create
+              </Link>
+                </i>
+              </IconButton>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <Grid container
+              spacing={3}
+              direction="row"
+              justify="space-evenly"
+              alignItems="center">
+              <Grid item xs={6}>
+                <Badge color="primary" badgeContent={bulkPayment.length}>
+                  <Button onClick={() => this.handleClickOpen()} className="button-client-search" variant="contained">PAGOS</Button>
+                </Badge>
+              </Grid>
+              <Grid item xs={6}>
+                <Button className="button-client-search" variant="contained">
+                  <ReactHTMLTableToExcel
+                    id="test-table-xls-button"
+                    className="download-table-xls-button"
+                    table="table-to-xls"
+                    filename={clientName ? `${clientName} - ${new Date()}` : `resultados-busqueda-${new Date()}`}
+                    sheet="tablexls"
+                    buttonText='DESCARGAR'
+                  />
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
         <Dialog onClose={() => this.handleClose()} open={open}>
           <Paper className="payment-modal">
             <h6>LISTADO DE PAGOS POR PROCESAR</h6>

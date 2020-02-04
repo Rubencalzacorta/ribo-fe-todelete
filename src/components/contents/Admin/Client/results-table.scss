@@ -1,21 +1,62 @@
 .table-body {
-    max-width: 1000px;
+    margin-top: 10px;
+    padding-top: 10px;
+    height: 100%;
+
+    h4 {
+        margin: 0;
+        font-size: 14px;
+    }
 }
 
+.content-cell {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-height: 52px;
+    min-height: 52px;
+    font-size: 12px;
+
+    .ser-client {
+        white-space: nowrap;
+        overflow: hidden;
+        margin: 0px;
+        margin-top: 7px;
+    }
+}
+
+
+
+.row-height {
+    height: 52px;
+    min-height: 52;
+}
+
+.row-center {
+    align-content: center;
+}
+
+.gridContainer1>* {
+    // border: 1px solid red;
+    padding: 0px;
+}
+
+.gridContainer>* {
+    // border: 1px solid green
+}
 
 .ser-item-holder {
     width: 100%;
     display: flex;
     flex-direction: row;
-    height: 50px;
     font-size: 12px;
 
     .ser-name-country {
-        min-width: 300px;
-        max-width: 300px;
+        width: 100%;
         display: flex;
         flex-direction: row;
         padding: 5px 10px 10px 10px;
+        padding-left: 20px;
 
         .ser-client {
             white-space: nowrap;
@@ -40,16 +81,14 @@
     }
 
     .ser-businessName {
-        min-width: 120px;
-        max-width: 120px;
+        width: 100%;
         padding: 10px 10px 0px 10px;
         padding-left: 20px;
 
     }
 
     .ser-loanAmount {
-        min-width: 50px;
-        max-width: 50px;
+        width: 100%;
         padding: 10px 10px 0px 10px;
         padding-left: 20px;
     }
@@ -59,9 +98,8 @@
     }
 
     .ser-loan-detail {
-        width: 132.5px;
+        width: 100%;
         padding: 10px 10px 0px 10px;
-        padding-left: 20px;
 
         a {
             color: black;
@@ -71,53 +109,68 @@
 }
 
 .table-header {
-    width: 1000px;
+    width: 100%;
     display: flex;
     flex-direction: row;
     background: #00446B;
 
     .header {
-        padding: 20px;
+        padding: 5px 0px 5px 5px;
         font-size: 1em;
         font-weight: 600;
         color: white;
-
-
     }
 
     .header-name {
-        min-width: 300px;
-        max-width: 300px;
-        padding-left: 43px;
+        width: 100%;
+        padding-left: 20px;
     }
 
     .header-company {
-        min-width: 120px;
+        width: 100%;
     }
 
     .header-loan-number {
 
-        min-width: 50px;
+        width: 100%;
     }
 
     .header-capital {
-        min-width: 132.5px;
+        width: 100%;
     }
 
     .header-remaining {
-        min-width: 132.5px;
+        width: 100%;
     }
 
     .header-payment {
-        min-width: 132.5px;
+        width: 100%;
     }
 
     .header-date {
-        min-width: 132.5px;
+        width: 100%;
     }
 }
 
 .pure-material-checkbox {
     padding: 0px 9px 0px 0px !important;
     margin-top: 0px !important;
+}
+
+@media all and (max-width: 767px) {
+    .row-height {
+        height: 100%;
+        padding: 20px;
+    }
+
+    .header {
+        padding-left: 40px;
+        font-size: 1em;
+        font-weight: 600;
+        color: white;
+    }
+
+    .MuiGrid-spacing-xs-2>.MuiGrid-item {
+        padding-left: 20px;
+    }
 }
