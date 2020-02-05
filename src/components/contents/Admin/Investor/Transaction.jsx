@@ -13,16 +13,7 @@ import {
   MenuItem
 } from '@material-ui/core';
 
-const cashAccounts = [
-  { account: 'RBPERU', country: 'PERU' },
-  { account: 'GCUS', country: 'USA' },
-  { account: 'GFUS', country: 'USA' },
-  { account: 'GCDR', country: 'DOMINICAN_REPUBLIC' },
-]
-
-
 export default function Transaction(props) {
-  console.log(props)
   const [txData, setTxData] = useState({
     _investor: props.investorId,
     cashAccount: "",
@@ -102,7 +93,6 @@ export default function Transaction(props) {
       spacing={4}
       style={{ marginTop: '10px' }}
     >
-
       {
         txStatus.status === 'success' ?
           <Grid
