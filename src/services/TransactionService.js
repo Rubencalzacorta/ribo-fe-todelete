@@ -10,15 +10,8 @@ class TransactionService {
   }
 
 
-  transactionInvestor = (_investor, cashAccount, concept, amount, date, comment) => {
-    return this.service.post('/', {
-        _investor,
-        cashAccount,
-        concept,
-        amount,
-        date,
-        comment
-      })
+  transactionInvestor = (txData) => {
+    return this.service.post('/', txData)
       .then(response => response.data)
   }
 

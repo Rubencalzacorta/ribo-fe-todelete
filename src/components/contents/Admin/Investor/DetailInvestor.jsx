@@ -8,6 +8,7 @@ import AccTransactionsTable from './AccTransactionsTable';
 import AccOptions from './AccOptions';
 import InvestorSummary from './InvestorSummary'
 import AccInvestmentsTable from './AccInvestmentsTable';
+import Transaction from './Transaction';
 import AccLoanSummaryTable from './AccLoanSummaryTable';
 import './detail-investor.scss'
 import '../Client/ClientList.scss'
@@ -444,6 +445,11 @@ class DetailInvestor extends Component {
                     <Tab
                       disableRipple
                       classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
+                      label="TRANSACCIONES"
+                    />
+                    <Tab
+                      disableRipple
+                      classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
                       label="OPCIONES"
                     />
                   </Tabs>
@@ -451,7 +457,8 @@ class DetailInvestor extends Component {
                 {value === 0 && <AccLoanSummaryTable loanDetails={loanDetails} />}
                 {value === 1 && <AccInvestmentsTable investments={investments} />}
                 {value === 2 && <AccTransactionsTable investorId={investorId} data={transactions} accountTotal={summary.cashAvailable} />}
-                {value === 3 && <AccOptions
+                {value === 3 && <Transaction investorId={this.props.investorId} location={this.props.location} />}
+                {value === 4 && <AccOptions
                   feeReceivers={this.state.investors}
                   changeInvestorType={this.changeInvestorType}
                   toggleAutoInvest={this.toggleAutoInvest}
