@@ -122,11 +122,6 @@ class DetailInvestor extends Component {
     if (this.state.fetchInvestors) {
       this.InvestorService.getInvestors()
         .then(async response => {
-          if (this.props.location.toLowerCase() === "peru") {
-            response = response.filter(e => {
-              return e.location.toLowerCase() === "peru"
-            })
-          }
           let nameSort = await response.sort((a, b) => a.lastName.localeCompare(b.lastName));
           let countrySort = await nameSort.sort((a, b) => a.location.localeCompare(b.location))
           this.setState({
@@ -327,7 +322,17 @@ class DetailInvestor extends Component {
 
   handleChange = (event) => {
     const { name, value } = event.target;
-    this.setState({ [name]: value, getInvestor: true });
+    this.setState({
+      [name]: value,
+      getInvestor: true,
+      display: true,
+      getLoanInvestments: true,
+      getCashDetails: true,
+      getInvestmentFees: true,
+      getInvestmentDetails: true,
+      getPLDetails: true,
+      getCashMovements: true
+    });
   }
 
   handleNewFee = (event) => {
