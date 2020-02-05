@@ -54,6 +54,9 @@ class Payment extends Component {
               value={new Date(this.state.date_pmt)
                 .toISOString()
                 .substring(0, 10)}
+              max={new Date(this.state.date_pmt)
+                .toISOString()
+                .substring(0, 10)}
               onChange={this.handleChange}
             />
           </div>
