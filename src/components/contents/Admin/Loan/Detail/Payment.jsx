@@ -8,7 +8,7 @@ class Payment extends Component {
     super(props);
     this.state = {
       date_pmt: new Date().toISOString().substring(0, 10),
-      currentDate: moment().format('YYYY-MM-DD'),
+      currentDate: new Date(moment().format('YYYY-MM-DD')).toISOString().substring(0, 10),
       amount: undefined,
       _loan: undefined,
       _loanSchedule: undefined,
@@ -33,7 +33,7 @@ class Payment extends Component {
     let { installment, loan, fullPayment } = this.props;
 
     this.setState({
-      date_pmt: installment.date,
+      date_pmt: new Date().toISOString().substring(0, 10),
       amount: fullPayment ? loan.capitalRemaining : Math.round(installment.balanceDue * 100) / 100,
       _loan: installment._loan,
       _loanSchedule: installment._id,
@@ -53,7 +53,7 @@ class Payment extends Component {
               type="date"
               name="date_pmt"
               className="form-control"
-              value={new Date(this.state.currentDate)
+              value={new Date(this.state.date_pmt)
                 .toISOString()
                 .substring(0, 10)}
               max={new Date(this.state.currentDate)
