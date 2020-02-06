@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { accounts } from "../../../../../constants.js";
 import "./Payment.scss";
+import moment from "moment";
 
 class Payment extends Component {
   constructor(props) {
     super(props);
     this.state = {
       date_pmt: new Date().toISOString().substring(0, 10),
+      currentDate: moment().format('YYYY-MM-DD'),
       amount: undefined,
       _loan: undefined,
       _loanSchedule: undefined,
@@ -51,10 +53,10 @@ class Payment extends Component {
               type="date"
               name="date_pmt"
               className="form-control"
-              value={new Date(this.state.date_pmt)
+              value={new Date(this.state.currentDate)
                 .toISOString()
                 .substring(0, 10)}
-              max={new Date(this.state.date_pmt)
+              max={new Date(this.state.currentDate)
                 .toISOString()
                 .substring(0, 10)}
               onChange={this.handleChange}
