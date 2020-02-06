@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Paper, Grid, Checkbox } from '@material-ui/core';
 import moment from 'moment'
-import _ from 'lodash'
 import { Link } from 'react-router-dom'
 import './results-table.scss'
 import CountryFlag from '../../../helpers/CountryFlag.jsx'

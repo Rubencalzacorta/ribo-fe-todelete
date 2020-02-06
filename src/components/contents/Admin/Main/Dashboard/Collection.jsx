@@ -6,7 +6,7 @@ import {
 import TreeMap from "react-d3-treemap";
 import { makeStyles } from '@material-ui/core/styles';
 import ReportingService from '../../../../../services/ReportingService'
-import { AppBar, Card, CardContent, Divider, Tabs, Tab } from '@material-ui/core';
+import { AppBar, Tabs, Tab } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import MaterialTable from 'material-table'
 import Box from '@material-ui/core/Box';
@@ -163,7 +163,6 @@ export default function SimpleTabs() {
                                             options={{
                                                 search: true,
                                                 sort: true,
-                                                search: true,
                                                 showTitle: false,
                                                 toolbar: true,
                                                 pageSize: 10
@@ -177,75 +176,6 @@ export default function SimpleTabs() {
                             <TreeMap height={700} width={1200} data={report} valueUnit={'USD'} />
                         </TabPanel>
                     </> : ''}
-                {/* {
-                    collectiona ? collection.children.map((e, i) => {
-                        ''
-                        return (<TabPanel value={value} index={i} className='period-card'>
-                            {e.children.map(e => {
-                                return (
-                                    <Card className='card'>
-                                        <CardContent
-                                            className='collection-card'>
-                                            <div className='date-col'>
-                                                {e.name}
-                                            </div>
-                                            <div className='name-col'>
-                                                Deudor
-                                    </div>
-                                            <div className='amount-col'>
-                                                Monto Vencido
-                                    </div>
-                                            <div className='quote-col'>
-                                                Cuotas
-                                    </div >
-                                            <div className='since-col'>
-                                                Días
-                                    </div>
-                                            <div className='option-col'>
-                                                Opciones
-                                    </div>
-                                        </CardContent>
-                                        <Divider light />
-                                        {e.children.map(e => {
-                                            return (
-                                                <CardContent className='collection-info-card'>
-                                                    <div className='date-col'>
-                                                        {moment(e.date).format('YYYY-MM-DD')}
-                                                    </div>
-                                                    <div className='name-col'>
-                                                        {e.name}
-                                                    </div>
-                                                    <div className='amount-col'>
-                                                        {numbro(e.value).format({
-                                                            thousandSeparated: true,
-                                                            mantissa: 2,
-                                                        })}
-                                                    </div>
-                                                    <div className='quote-col'>
-                                                        {e.number_unpaid}
-                                                    </div >
-                                                    <div className='since-col'>
-                                                        {numbro(e.dayDiff).format({
-                                                            thousandSeparated: true,
-                                                            mantissa: 0,
-                                                        })}
-                                                    </div>
-                                                    <div className='option-col'>
-                                                        PAGAR ({numbro(e.oldest_payment).format({
-                                                            thousandSeparated: true,
-                                                            mantissa: 2,
-                                                        })})
-                                                </div>
-                                                </CardContent>
-                                            )
-                                        })}
-                                    </Card>)
-                            })}
-                        </TabPanel>)
-                    }) : '' */}
-                {/* } */}
-
-
             </div>
         </div >
     );

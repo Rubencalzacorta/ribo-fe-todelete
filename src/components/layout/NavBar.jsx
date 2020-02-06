@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
@@ -82,7 +81,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function NavBar(props) {
   const classes = useStyles()
-  let { theme, handleDrawerToggle, mobileOpen, handleBarTitle, user, container } = props
+  let { handleDrawerToggle, mobileOpen, handleBarTitle, user, container } = props
 
   const drawer = (
     <div >

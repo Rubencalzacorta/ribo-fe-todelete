@@ -126,18 +126,7 @@ class CreateLoan extends Component {
 
   handleLoanDetailsChange = event => {
     const { name, value, type } = event.target;
-    console.log(name, value)
-    // if (name === 'loanType' && (value === 'linearIntFirst' || 'monday')) {
 
-    //   this.setState(prevState => ({
-    //     ...prevState,
-    //     loanDetails: {
-    //       ...prevState.loanDetails,
-    //       [name]: value
-    //     },
-    //     openPaymentDate: true
-    //   }))
-    // } else 
     if (this.state.investmentEqCapital && name === 'capital') {
       console.log('aqui')
       this.setState(prevState => ({
@@ -300,6 +289,7 @@ class CreateLoan extends Component {
                       >
                         <option>Seleccionar Cuenta</option>
                         {this.state.accounts
+                          // eslint-disable-next-line
                           ? this.state.accounts.map((e, i) => {
                             if (e.investor[0] !== undefined) {
                               return <option key={i} value={[e.investor[0]._id, e.cashAccount]}>

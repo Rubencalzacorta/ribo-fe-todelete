@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import TransactionService from '../../../../services/TransactionService'
 import { txConcepts } from '../../../../constants'
 import {
@@ -49,7 +49,7 @@ export default function Transaction(props) {
     } catch (error) {
       console.log(error)
     }
-  }, [])
+  }, [cashAccounts, props.location])
 
   const handleChange = (event) => {
     const { name, value } = event.target;

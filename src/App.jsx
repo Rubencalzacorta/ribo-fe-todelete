@@ -32,7 +32,6 @@ import Activity from './components/contents/Client/Activity/Activity'
 import Loan from './components/contents/Client/Loan/Loan'
 import Profile from './components/contents/Client/Profile/Profile.jsx'
 import Layout from './components/layout/Layout.jsx'
-import runtimeEnv from '@mars/heroku-js-runtime-env';
 require('dotenv').config();
 
 
