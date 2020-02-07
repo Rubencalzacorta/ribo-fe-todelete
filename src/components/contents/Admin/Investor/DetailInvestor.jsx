@@ -336,6 +336,19 @@ class DetailInvestor extends Component {
     });
   }
 
+  refreshDetails = () => {
+    this.setState({
+      getInvestor: true,
+      display: true,
+      getLoanInvestments: true,
+      getCashDetails: true,
+      getInvestmentFees: true,
+      getInvestmentDetails: true,
+      getPLDetails: true,
+      getCashMovements: true
+    });
+  }
+
   handleNewFee = (event) => {
     const { name, value } = event.target;
     if (name === 'newPct') {
@@ -457,7 +470,7 @@ class DetailInvestor extends Component {
                 {value === 0 && <AccLoanSummaryTable loanDetails={loanDetails} />}
                 {value === 1 && <AccInvestmentsTable investments={investments} />}
                 {value === 2 && <AccTransactionsTable investorId={investorId} data={transactions} accountTotal={summary.cashAvailable} />}
-                {value === 3 && <Transaction investorId={this.props.investorId} location={this.props.location} />}
+                {value === 3 && <Transaction investorId={this.props.investorId} location={this.props.location} refreshDetails={this.refreshDetails} />}
                 {value === 4 && <AccOptions
                   feeReceivers={this.state.investors}
                   changeInvestorType={this.changeInvestorType}

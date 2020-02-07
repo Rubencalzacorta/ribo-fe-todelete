@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TransactionService from '../../../../services/TransactionService'
+import moment from 'moment'
 import { txConcepts } from '../../../../constants'
 import {
   Card,
@@ -14,6 +15,8 @@ import {
 } from '@material-ui/core';
 
 export default function Transaction(props) {
+  const [txStatus, setTxStatus] = useState({ status: null })
+  const transactionService = new TransactionService()
   const [txData, setTxData] = useState({
     _investor: props.investorId,
     cashAccount: "",
@@ -21,6 +24,7 @@ export default function Transaction(props) {
     comment: "",
     amount: 0,
     date: new Date().toISOString().substring(0, 10),
+    currentDate: moment().format('YYYY-MM-DD')
   })
   const [cashAccounts, setCashAccounts] = useState([
     { account: 'RBPERU', country: 'PERU' },
@@ -28,10 +32,6 @@ export default function Transaction(props) {
     { account: 'GFUS', country: 'USA' },
     { account: 'GCDR', country: 'DOMINICAN_REPUBLIC' },
   ])
-
-  const [txStatus, setTxStatus] = useState({ status: null })
-
-  const transactionService = new TransactionService()
 
 
   useEffect(() => {
@@ -58,7 +58,9 @@ export default function Transaction(props) {
       [name]: value
     });
   }
-
+  const resetStatus = (e) => {
+    setTxStatus({ status: null })
+  }
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
@@ -69,10 +71,14 @@ export default function Transaction(props) {
           cashAccount: "",
           concept: "",
           amount: 0,
-          date: new Date(),
+          date: new Date().toISOString().substring(0, 10),
+          currentDate: moment().format('YYYY-MM-DD'),
           comment: "",
         });
 
+      })
+      .then(() => {
+        props.refreshDetails()
       })
       .then(() => {
         setTxStatus({
@@ -90,7 +96,7 @@ export default function Transaction(props) {
   return (
     <Grid
       container
-      spacing={4}
+      spacing={2}
       style={{ marginTop: '10px' }}
     >
       {
@@ -103,7 +109,7 @@ export default function Transaction(props) {
             xs={12}
           >
             <div className="alert alert-success alert-dismissible">
-              <button href="#" className="close" data-dismiss="alert" aria-label="close">&times;</button>
+              <button href="#" className="close" onClick={(e) => { resetStatus(e) }} data-dismiss="alert" aria-label="close">&times;</button>
               <strong>Exito!</strong> La solicitud se ha procesado correctamente.
                             </div>
           </Grid>
@@ -116,7 +122,7 @@ export default function Transaction(props) {
               xs={12}
             >
               <div className="alert alert-danger alert-dismissible">
-                <button href="#" className="close" data-dismiss="alert" aria-label="close">&times;</button>
+                <button href="#" className="close" data-dismiss="alert" aria-label="close" onClick={(e) => { resetStatus(e) }}>&times;</button>
                 <strong>Fallo!</strong> La solicitud no se ha procesado correctamente
                             </div>
             </Grid> : ""
@@ -221,7 +227,7 @@ export default function Transaction(props) {
                     variant="outlined"
                     InputProps={{
                       inputProps: {
-                        max: new Date(txData.date)
+                        max: new Date(txData.currentDate)
                           .toISOString()
                           .substring(0, 10)
                       }
@@ -242,7 +248,7 @@ export default function Transaction(props) {
                     type='number'
                     onChange={(e) => handleChange(e)}
                     required
-                    value={txData.amount}
+                    value={txData.amount === 0 ? '' : txData.amount}
                     variant="outlined"
                   >
                   </TextField>
