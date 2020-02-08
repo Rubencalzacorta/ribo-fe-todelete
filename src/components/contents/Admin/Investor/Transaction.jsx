@@ -26,29 +26,38 @@ export default function Transaction(props) {
     date: new Date().toISOString().substring(0, 10),
     currentDate: moment().format('YYYY-MM-DD')
   })
-  const [cashAccounts, setCashAccounts] = useState([
-    { account: 'RBPERU', country: 'PERU' },
-    { account: 'GCUS', country: 'USA' },
-    { account: 'GFUS', country: 'USA' },
-    { account: 'GCDR', country: 'DOMINICAN_REPUBLIC' },
-  ])
+  const [cashAccounts, setCashAccounts] = useState({
+    filterAccounts: true,
+    accounts: [
+      { account: 'RBPERU', country: 'PERU' },
+      { account: 'GCUS', country: 'USA' },
+      { account: 'GFUS', country: 'USA' },
+      { account: 'GCDR', country: 'DOMINICAN_REPUBLIC' },
+    ]
+  })
 
 
   useEffect(() => {
-    try {
-      let locationCAs = []
-      if (props.location !== 'GLOBAL') {
-        locationCAs = cashAccounts.filter(e => {
-          return e.country === props.location
-        })
-      } else {
-        locationCAs = cashAccounts
-      }
+    if (cashAccounts.filterAccounts) {
+      try {
+        let locationCAs = []
+        if (props.location !== 'GLOBAL') {
+          locationCAs = cashAccounts.accounts.filter(e => {
+            return e.country === props.location
+          })
+        } else {
+          locationCAs = cashAccounts
+        }
 
-      setCashAccounts(locationCAs)
-    } catch (error) {
-      console.log(error)
+        setCashAccounts({
+          filterAccounts: false,
+          accounts: locationCAs
+        })
+      } catch (error) {
+        console.log(error)
+      }
     }
+
   }, [cashAccounts, props.location])
 
   const handleChange = (event) => {
@@ -170,8 +179,8 @@ export default function Transaction(props) {
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    {(cashAccounts)
-                      ? cashAccounts.map((e, i) => {
+                    {(cashAccounts.accounts)
+                      ? cashAccounts.accounts.map((e, i) => {
                         return <MenuItem key={i} value={e.account}>
                           {e.account}
                         </MenuItem>
