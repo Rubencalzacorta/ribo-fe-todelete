@@ -39,20 +39,22 @@ export default function Transaction(props) {
 
   useEffect(() => {
     if (cashAccounts.filterAccounts) {
+      let locationCAs = []
       try {
-        let locationCAs = []
         if (props.location !== 'GLOBAL') {
           locationCAs = cashAccounts.accounts.filter(e => {
             return e.country === props.location
           })
+          setCashAccounts({
+            filterAccounts: false,
+            accounts: locationCAs
+          })
         } else {
-          locationCAs = cashAccounts
+          setCashAccounts({
+            ...cashAccounts,
+            filterAccounts: false
+          })
         }
-
-        setCashAccounts({
-          filterAccounts: false,
-          accounts: locationCAs
-        })
       } catch (error) {
         console.log(error)
       }
