@@ -180,16 +180,6 @@ class DetailInvestor extends Component {
       display: true
     })
 
-    // if (this.state.getTransactions) {
-    //   this.TransactionService.getTransactions(id)
-    //     .then(response => {
-    //       this.setState({
-    //         transactions: response,
-    //         getTransactions: false
-    //       })
-    //     })
-    // }
-
     if (this.state.getLoanInvestments) {
       this.InvestorService.getLoanInvestorDetails(id)
         .then(response => {
@@ -251,6 +241,7 @@ class DetailInvestor extends Component {
           })
         })
     }
+
 
     if (this.state.getPLDetails) {
       this.InvestorService.getPLDetails(id)

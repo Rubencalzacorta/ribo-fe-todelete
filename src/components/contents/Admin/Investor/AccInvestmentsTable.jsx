@@ -86,7 +86,7 @@ function AccInvestmentsTable(props) {
         ]}
         data={query =>
           new Promise((resolve, reject) => {
-            investorService.getInvestmentDetails(investorId, query.page + 1, query.pageSize)
+            investorService.getInvestmentsSummary(investorId, query.page + 1, query.pageSize)
               .then(result => {
                 resolve({
                   data: result.data,

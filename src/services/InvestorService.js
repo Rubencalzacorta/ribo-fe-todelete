@@ -45,8 +45,8 @@ class InvestorService {
   }
 
   //keep
-  getInvestmentDetails = (investor, page, pageSize) => {
-    return this.service.get(`/profile/investment-details/${investor}/${page}/${pageSize}`, )
+  getInvestmentDetails = (investor) => {
+    return this.service.get(`/profile/investment-details/${investor}`, )
       .then(response => response.data)
   }
 
@@ -74,8 +74,8 @@ class InvestorService {
 
   //end preferences
 
-  getInvestmentsSummary = (investor) => {
-    return this.service.get(`/investment-summary/${investor}`, )
+  getInvestmentsSummary = (investor, page, pageSize) => {
+    return this.service.get(`/investment-summary/${investor}/${page}/${pageSize}`, )
       .then(response => response.data)
   }
 
