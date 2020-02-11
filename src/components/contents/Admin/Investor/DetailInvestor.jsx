@@ -141,14 +141,7 @@ class DetailInvestor extends Component {
   }
 
   handleTabChange = (event, value) => {
-    let { investorId } = this.props
     this.setState({ value });
-    if (value === 1) {
-      this.InvestorService.getInvestmentsSummary(investorId)
-        .then(response => {
-          this.setState({ investments: response })
-        })
-    }
   };
 
 
@@ -409,7 +402,6 @@ class DetailInvestor extends Component {
     const { classes, investorId } = this.props
     const {
       transactions,
-      investments,
       loanDetails,
       display,
       value,
@@ -468,7 +460,7 @@ class DetailInvestor extends Component {
                   </Tabs>
                 </div>
                 {value === 0 && <AccLoanSummaryTable loanDetails={loanDetails} />}
-                {value === 1 && <AccInvestmentsTable investments={investments} />}
+                {value === 1 && <AccInvestmentsTable investorId={investorId} />}
                 {value === 2 && <AccTransactionsTable investorId={investorId} data={transactions} accountTotal={summary.cashAvailable} />}
                 {value === 3 && <Transaction investorId={this.props.investorId} location={this.props.location} refreshDetails={this.refreshDetails} />}
                 {value === 4 && <AccOptions

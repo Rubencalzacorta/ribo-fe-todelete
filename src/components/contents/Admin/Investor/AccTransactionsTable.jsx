@@ -61,8 +61,6 @@ function AccTransacionsTable(props) {
             width: '100%'
           }
         }}
-
-
       />
 
 

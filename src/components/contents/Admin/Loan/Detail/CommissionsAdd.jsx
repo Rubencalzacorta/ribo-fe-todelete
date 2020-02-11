@@ -6,13 +6,13 @@ import './Commissions.scss'
 
 
 const NewCommission = (props) => {
-    let { salesmen,
+    let {
+        salesmen,
         newPct,
         newSalesman,
         handleNewCommission,
         saveNewCommission
     } = props
-
 
     return (
         <div className="modal-fee">

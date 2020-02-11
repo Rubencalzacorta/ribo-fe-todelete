@@ -1,100 +1,114 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import InvestorService from '../../../../services/InvestorService'
+import MaterialTable from 'material-table'
 import moment from "moment";
 import "./acc-investments.scss";
 import numbro from 'numbro'
 
 
 function AccInvestmentsTable(props) {
-  const { investments } = props;
+  const investorService = new InvestorService();
+  const { investorId } = props;
   return (
-    <>
-      <div className="personal-inv-summary-holder">
-        <div className="loan-schedule-head ">
-          <div className="detail-schedule head-date">
-            <p className="title-date">FECHA</p>
-          </div>
-          <div className="detail-schedule head-name">
-            <p className="title-date">PRESTAMO</p>
-          </div>
-          <div className="detail-schedule head-concept">
-            <p className="title">MONTO</p>
-          </div>
-          <div className="detail-schedule last head-content">
-            <p className="title">%</p>
-          </div>
-          <div className="detail-schedule last head-content">
-            <p className="title">TOTAL</p>
-          </div>
-          <div className="detail-schedule last head-content">
-            <p className="title">VENTA</p>
-          </div>
-          <div className="detail-schedule last head-content">
-            <p className="title">CAPITAL</p>
-          </div>
-          <div className="detail-schedule last head-content">
-            <p className="title">INGRESO</p>
-          </div>
-          <div className="detail-schedule last head-content">
-            <p className="title">ESTATUS</p>
-          </div>
-        </div>
-        {Array.isArray(investments) ? investments.map((row, i) => {
-          return (
-            <div key={i} className="loan-schedule-content">
-              <div className="detail-schedule details-date">
-                <p className="acc-date">
-                  {moment(row.startDate).format("YYYY-MM-DD")}
-                </p>
-              </div>
-              <div className="detail-schedule details-name">
-                <p className="acc-date">
-                  <Link className="acc-date" to={`/admin/loan/${row._loan}`}>{row.firstName + " " + row.lastName}</Link>
-                </p>
-              </div>
-              <div className="detail-schedule details-concept">
-                <p className="acc-total">{numbro(row.investment / row.pct).format({
-                  average: true,
-                  mantissa: 2,
-                })}</p>
-              </div>
-              <div className="detail-schedule details-content">
-                <p className="acc-total">
-                  {parseFloat(row.pct * 100).toFixed(2) + "%"}
-                </p>
-              </div>
-              <div className="detail-schedule details-content">
-                <p className="acc-total">{numbro(row.investment).format({
-                  average: true,
-                  mantissa: 2,
-                })}</p>
-              </div>
-              <div className="detail-schedule details-content">
-                <p className="acc-total">{numbro(row.divestment).format({
-                  average: true,
-                  mantissa: 2,
-                })}</p>
-              </div>
-              <div className="detail-schedule details-content">
-                <p className="acc-total">{numbro(row.capital).format({
-                  average: true,
-                  mantissa: 2,
-                })}</p>
-              </div>
-              <div className="detail-schedule details-content">
-                <p className="acc-total">{numbro(row.interest + row.feeIncome - row.feeExpenses + row.commissionIncome + row.managementFeeIncome - row.commissionExpense - row.managementFeeExpense).format({
-                  average: true,
-                  mantissa: 2,
-                })}</p>
-              </div>
-              <div className="detail-schedule details-content">
-                <p className="acc-total">{row.status === 'OPEN' ? 'ACTIVO' : 'CERRADO'}</p>
-              </div>
-            </div>
-          );
-        }) : ''}
-      </div>
-    </>
+    <div className="personal-transactions-holder">
+
+      <MaterialTable
+        title="Movimientos"
+        className='materialTable'
+        columns={[
+          {
+            title: 'Fecha', field: 'date', type: 'date', render: rowData => moment(rowData.startDate).format('YYYY/MM/DD')
+          },
+          {
+            title: 'Cliente', field: 'fullName', render: rowData =>
+              <Link className="acc-date" to={`/admin/loan/${rowData._loan}`}>
+                {(rowData.firstName.split().length >= 1 && rowData.lastName.split().length >= 1 ? rowData.firstName.split(" ")[0] + " " + rowData.lastName.split(" ")[0] : rowData.firstName + " " + rowData.lastName).slice(0, 23)}
+              </Link>
+          },
+          {
+            title: 'Nominal', field: 'debit',
+            render: rowData => numbro(rowData.investment / rowData.pct).format({
+              average: true,
+              mantissa: 2,
+            }),
+            type: 'numeric'
+          },
+          {
+            title: '%', field: 'pct',
+            render: rowData => numbro(rowData.pct * 100).format({ mantissa: 2 }) + '%'
+            ,
+            type: 'numeric'
+          },
+          {
+            title: 'Invertido', field: 'total', render: rowData =>
+              numbro(rowData.investment).format({
+                average: true,
+                mantissa: 2,
+              })
+            ,
+            type: 'numeric'
+          },
+          {
+            title: 'Venta', field: 'disvestments', render: rowData =>
+              numbro(rowData.divestment).format({
+                average: true,
+                mantissa: 2,
+              })
+            ,
+            type: 'numeric'
+          },
+          {
+            title: 'Venta', field: 'disvestments', render: rowData =>
+              numbro(rowData.capital).format({
+                average: true,
+                mantissa: 2,
+              }),
+            type: 'numeric'
+          },
+          {
+            title: 'Ingreso', field: 'income', render: rowData =>
+              numbro(rowData.interest
+                + rowData.feeIncome
+                - rowData.feeExpenses
+                + rowData.commissionIncome
+                + rowData.managementFeeIncome
+                - rowData.commissionExpense
+                - rowData.managementFeeExpense
+              ).format({
+                average: true,
+                mantissa: 2,
+              })
+            ,
+            type: 'numeric'
+          },
+          { title: 'Estatus', field: 'status' },
+        ]}
+        data={query =>
+          new Promise((resolve, reject) => {
+            investorService.getInvestmentDetails(investorId, query.page + 1, query.pageSize)
+              .then(result => {
+                resolve({
+                  data: result.data,
+                  page: result.page - 1,
+                  totalCount: result.total,
+                })
+              })
+          })
+        }
+        options={{
+          sort: false,
+          search: false,
+          showTitle: false,
+          toolbar: false,
+          pageSize: 10,
+          style: {
+            width: '1000px'
+          }
+        }}
+      />
+
+    </div>
   );
 }
 

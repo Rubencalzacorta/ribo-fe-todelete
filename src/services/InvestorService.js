@@ -45,8 +45,8 @@ class InvestorService {
   }
 
   //keep
-  getInvestmentDetails = (investor) => {
-    return this.service.get(`/profile/investment-details/${investor}`, )
+  getInvestmentDetails = (investor, page, pageSize) => {
+    return this.service.get(`/profile/investment-details/${investor}/${page}/${pageSize}`, )
       .then(response => response.data)
   }
 
