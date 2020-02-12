@@ -227,31 +227,42 @@ export default function PandL() {
                                     </div> : ""
                             }
                             <Divider />
-                            <CardContent style={{
-                                display: 'flex'
-                            }}>
-                                {PandLData ? PandLData.map((e, i) => {
-                                    return (i === 0 ?
-                                        <div style={{ width: '300px', wordWrap: 'break-all' }}>
-                                            {e.map(j => {
-                                                return totalConcepts.includes(j) ? <div style={{ fontWeight: 'bold', borderBottom: '1px solid black', margin: '5px 0px 5px 0px' }}>
-                                                    {j}
-                                                </div> : <div >
+                            <CardContent>
+                                <Grid
+                                    item
+                                    display
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        width: '100%',
+                                        overflowX: 'auto'
+                                    }}
+                                    md={2}
+                                    xs={12}
+                                >
+                                    {PandLData ? PandLData.map((e, i) => {
+                                        return (i === 0 ?
+                                            <div key={i} style={{ width: '300px', wordWrap: 'break-all' }}>
+                                                {e.map((j, k) => {
+                                                    return totalConcepts.includes(j) ? <div key={k} style={{ fontWeight: 'bold', borderBottom: '1px solid black', margin: '5px 0px 5px 0px' }}>
                                                         {j}
-                                                    </div>
-                                            })}
-                                        </div> :
-                                        <div style={{ width: '170px' }}>
-                                            {e.map((j, k) => {
-                                                let a = PandLData[0][k]
-                                                return k > 0 && totalConcepts.includes(a) ?
-                                                    <div style={{ fontWeight: 'bold', borderBottom: '1px solid black', margin: '5px 0px 5px 0px', textAlign: 'right' }}>{parseFloat(j).toFixed(2)}</div> :
-                                                    k > 0 ? <div style={{ textAlign: 'right' }}>{parseFloat(j).toFixed(2)}</div> :
-                                                        <div style={{ fontWeight: 'bold', borderBottom: '1px solid black', margin: '5px 0px 5px 0px', textAlign: 'right' }}>{moment(j).format('YYYY-MM-DD')}</div>
-                                            })}
-                                        </div>
-                                    )
-                                }) : ''}
+                                                    </div> : <div key={k}>
+                                                            {j}
+                                                        </div>
+                                                })}
+                                            </div> :
+                                            <div key={i} style={{ width: '170px' }}>
+                                                {e.map((j, k) => {
+                                                    let a = PandLData[0][k]
+                                                    return k > 0 && totalConcepts.includes(a) ?
+                                                        <div key={k} style={{ fontWeight: 'bold', borderBottom: '1px solid black', margin: '5px 0px 5px 0px', textAlign: 'right' }}>{parseFloat(j).toFixed(2)}</div> :
+                                                        k > 0 ? <div key={k} style={{ textAlign: 'right' }}>{parseFloat(j).toFixed(2)}</div> :
+                                                            <div key={k} style={{ fontWeight: 'bold', borderBottom: '1px solid black', margin: '5px 0px 5px 0px', textAlign: 'right' }}>{moment(j).format('YYYY-MM-DD')}</div>
+                                                })}
+                                            </div>
+                                        )
+                                    }) : ''}
+                                </Grid>
                             </CardContent>
                         </form>
                     </Card>

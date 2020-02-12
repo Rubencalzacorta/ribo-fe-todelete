@@ -20,7 +20,6 @@ class ReportingService {
             .then(response => response.data)
     }
     getPandL = (query) => {
-        console.log(query)
         return this.service.get(`/p-and-l`, {
                 params: query
             })

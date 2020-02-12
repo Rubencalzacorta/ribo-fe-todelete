@@ -100,7 +100,7 @@ export default function NavBar(props) {
           ))
           : user.admin
             ? adminUrls.map((e, index) => (
-              <ExpansionPanel className={classes.expansionPanel}>
+              <ExpansionPanel key={index} className={classes.expansionPanel}>
                 <ExpansionPanelSummary
                   className={classes.expansionPanelSummary}
                   expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
