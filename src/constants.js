@@ -1,88 +1,37 @@
-const fees = [{
-        text: "Ribo",
-        fee: [{
-            "admin": "5d3b2da39657b30017a9ed0c",
-            "fee": 0.70
-        }]
-    },
-    {
-        text: "Miguel 10%",
-        fee: [{
-            "admin": "5c80fd19a5b4b86c15c18b8c",
-            "fee": 0.1
-        }]
-    },
-    {
-        text: "Carrillo 15%, Castillo 15%, Miguel 10%",
-        fee: [{
-                "admin": "5cbded7d396ebf05b289cbbe",
-                "fee": 0.15
-            },
-            {
-                "admin": "5cd19be0821e200017b6fec2",
-                "fee": 0.15
-            },
-            {
-                "admin": "5cd19693821e200017b6fec1",
-                "fee": 0.1
-            }
-        ]
-    },
-    {
-        text: "Castillo 15%, Manuela 15%, Miguel 10%",
-        fee: [{
-                "admin": "5cd19be0821e200017b6fec2",
-                "fee": 0.15
-            },
-            {
-                "admin": "5cd19693821e200017b6fec1",
-                "fee": 0.1
-            },
-            {
-                "admin": "5cb642eda14a6d0017039aaa",
-                "fee": 0.15
-            }
-        ]
-    },
-    {
-        text: "Castillo 15%, Miguel 10%",
-        fee: [{
-                "admin": "5cd19be0821e200017b6fec2",
-                "fee": 0.15
-            },
-            {
-                "admin": "5cd19693821e200017b6fec1",
-                "fee": 0.1
-            }
-        ]
-    }
-
-
-
-]
-
 const accounts = ["RBPERU", "GCUS", "GFUS", "GCDR"]
 
-const feeDistribution = [{
-        participants: "P",
-        text: "Patricia 33.33%"
+
+const location = {
+    'DOMINICAN_REPUBLIC': 'República Dominicana',
+    'VENEZUELA': 'Venezuela',
+    'USA': 'USA',
+    'PERU': 'Perú'
+}
+
+const totalConcepts = [
+    'Fecha',
+    'Ingresos Financieros',
+    'Costos Financieros',
+    'Margen Financiero Bruto',
+    'Gastos por Servicios Financieros',
+    'Margen Operativo',
+    'Gasto General Administrativo y Servicios',
+    'Resultado Operativo',
+    'Dividendos',
+]
+
+const periodicityData = [{
+        value: 'weekly',
+        label: 'Semanal'
     },
     {
-        participants: "PG",
-        text: "Patricia 50%"
+        value: 'monthly',
+        label: 'Mensual'
     },
     {
-        participants: "PM",
-        text: "Patricia 30%, Miguel 10%"
+        value: 'yearly',
+        label: 'Anual'
     },
-    {
-        participants: "GPM",
-        text: "Patricia 45%, Miguel 10%"
-    },
-    {
-        participants: "M",
-        text: "Miguel 10%"
-    }
 ]
 
 
@@ -567,12 +516,13 @@ module.exports = {
     countries,
     initialState,
     initialClientState,
-    fees,
     accounts,
-    feeDistribution,
     loanInitialState,
     nationalIdType,
     ownership,
     txConstants,
-    txConcepts
+    txConcepts,
+    location,
+    totalConcepts,
+    periodicityData
 }

@@ -36,6 +36,9 @@ export default function Transaction(props) {
     ]
   })
 
+  useEffect(() => {
+    setTxData({ ...txData, _investor: props.investorId })
+  }, [props.investorId])
 
   useEffect(() => {
     if (cashAccounts.filterAccounts) {
