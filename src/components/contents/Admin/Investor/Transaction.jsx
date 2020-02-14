@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TransactionService from '../../../../services/TransactionService'
 import moment from 'moment'
+import Alert from '../../../notifications/Alert/Alert'
 import { txConcepts } from '../../../../constants'
 import {
   Card,
@@ -40,6 +41,11 @@ export default function Transaction(props) {
     setTxData({ ...txData, _investor: props.investorId })
   }, [props.investorId])
 
+
+  const resetStatus = (e) => {
+    setTxStatus({ status: null })
+  }
+
   useEffect(() => {
     if (cashAccounts.filterAccounts) {
       let locationCAs = []
@@ -72,9 +78,7 @@ export default function Transaction(props) {
       [name]: value
     });
   }
-  const resetStatus = (e) => {
-    setTxStatus({ status: null })
-  }
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
@@ -113,34 +117,7 @@ export default function Transaction(props) {
       spacing={2}
       style={{ marginTop: '10px' }}
     >
-      {
-        txStatus.status === 'success' ?
-          <Grid
-            item
-            lg={12}
-            md={12}
-            xl={12}
-            xs={12}
-          >
-            <div className="alert alert-success alert-dismissible">
-              <button href="#" className="close" onClick={(e) => { resetStatus(e) }} data-dismiss="alert" aria-label="close">&times;</button>
-              <strong>Exito!</strong> La solicitud se ha procesado correctamente.
-                            </div>
-          </Grid>
-          : txStatus.status === 'failure' ?
-            <Grid
-              item
-              lg={12}
-              md={12}
-              xl={12}
-              xs={12}
-            >
-              <div className="alert alert-danger alert-dismissible">
-                <button href="#" className="close" data-dismiss="alert" aria-label="close" onClick={(e) => { resetStatus(e) }}>&times;</button>
-                <strong>Fallo!</strong> La solicitud no se ha procesado correctamente
-                            </div>
-            </Grid> : ""
-      }
+      <Alert status={txStatus.status} resetStatus={resetStatus} />
       <Grid
         item
         lg={12}
