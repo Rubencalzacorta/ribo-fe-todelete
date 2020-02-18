@@ -8,7 +8,7 @@ import AccTransactionsTable from './AccTransactionsTable';
 import AccOptions from './AccOptions';
 import InvestorSummary from './InvestorSummary'
 import AccInvestmentsTable from './AccInvestmentsTable';
-import Transaction from './Transaction';
+import Transaction from './Transaction.tsx';
 import AccLoanSummaryTable from './AccLoanSummaryTable';
 import './detail-investor.scss'
 import '../Client/ClientList.scss'

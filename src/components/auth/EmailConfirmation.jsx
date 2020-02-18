@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import AuthService from "./AuthService";
-import PropTypes from "prop-types";
 import "./auth.scss";
 import { withStyles } from '@material-ui/core/styles';
 
@@ -97,8 +96,5 @@ class EmailConfirmation extends Component {
   }
 }
 
-EmailConfirmation.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default withRouter(withStyles(styles)(EmailConfirmation));

@@ -5,7 +5,7 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import AuthService from './components/auth/AuthService';
 import Signup from './components/auth/Signup.jsx';
 import Login from './components/auth/Login.jsx';
-import EmailConfirmation from './components/auth/EmailConfirmation';
+import EmailConfirmation from './components/auth/EmailConfirmation.jsx';
 import PendingConfirmation from './components/auth/PendingConfirmation';
 import Portfolio from './components/contents/Admin/Main/Portfolio/Portfolio'
 import Payments from './components/contents/Admin/Main/Payments.jsx'
