@@ -16,6 +16,7 @@ const columnsFormat = [
         }), type: 'numeric'
     },
     { title: 'Tipo', field: 'paymentType' },
+    { title: 'Registro', field: 'created_at', type: 'date' }
 ]
 
 function PaymentList() {
