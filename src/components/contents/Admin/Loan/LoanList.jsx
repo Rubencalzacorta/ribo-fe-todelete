@@ -146,8 +146,8 @@ function Index({ model }) {
                 pageSize: 10,
                 exportFileName: 'untitled.csv' // using custom this is not used anymore
             }}
-            toolbar={true}
-    );
+            toolbar={true} />
+    )
 }
 
 export default LoanList
