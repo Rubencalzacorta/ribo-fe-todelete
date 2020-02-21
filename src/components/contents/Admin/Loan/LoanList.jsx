@@ -27,15 +27,19 @@ const loanVars = {
     'interestEarned': 'Ingreso',
     'paidback': 'Repagado',
     'country': 'Pais',
-    'name': 'Nombre', 'period': 'Periodo',
+    'name': 'Nombre',
+    'period': 'Periodo',
     'isRestructured': 'Restructurado',
     'insurancePremium': 'Prima',
 }
 const tableColumns = [
     { title: loanVars['name'], field: 'name', render: rowData => <Link to={`/admin/client/${rowData._borrower}`}> {rowData.name}</Link > },
-    { title: loanVars['status'], field: 'status' },
+    { title: loanVars['status'], field: 'status', lookup: { OPEN: 'ABIERTO', CLOSED: 'CERRADO' } },
     {
-        title: loanVars['capital'], field: 'capital', render: rowData =>
+        title: loanVars['capital'],
+        field: 'capital',
+        customFilterAndSearch: (term, rowData) => term < rowData.capital,
+        render: rowData =>
             <Link to={`/admin/loan/${rowData._id}`}> {numbro(rowData.capital).format({
                 thousandSeparated: true,
                 mantissa: 2,
@@ -44,8 +48,8 @@ const tableColumns = [
 
     },
     { title: loanVars['startDate'], field: 'startDate', render: rowData => moment(rowData.startDate).format('YYYY/MM/DD') },
-    { title: loanVars['duration'], field: 'duration' },
-    { title: loanVars['interest'], field: 'interest' },
+    { title: loanVars['duration'], field: 'duration', customFilterAndSearch: (term, rowData) => term < rowData.duration },
+    { title: loanVars['interest'], field: 'interest', customFilterAndSearch: (term, rowData) => term < rowData.interest },
     { title: loanVars['loanType'], field: 'loanType' },
     { title: loanVars['period'], field: 'period' },
     { title: loanVars['isRestructured'], field: 'isRestructured' },
@@ -107,7 +111,7 @@ function LoanList() {
 
 
     return (
-        <div className='content'>
+        <div style={{ 'width': '1200px', 'padding': '20px' }}>
             <Index model={response.data} />
         </div>
     )
@@ -142,6 +146,7 @@ function Index({ model }) {
                 columnsButton: true,
                 exportButton: true,
                 actionsColumnIndex: -1,
+                filtering: true,
                 exportCsv: handleExportCsv,
                 pageSize: 10,
                 exportFileName: 'untitled.csv' // using custom this is not used anymore
