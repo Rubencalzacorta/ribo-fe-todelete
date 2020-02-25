@@ -1,5 +1,5 @@
 .one-loan-details-summary {
-    width: 1000px;
+    width: 1182px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -64,6 +64,10 @@
 
     .loan-detail-content {
         min-width: 230px;
+    }
+
+    .last-top {
+        min-width: 180px;
     }
 
     .center {

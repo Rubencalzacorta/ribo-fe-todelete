@@ -26,10 +26,18 @@ function LoanDetailHeader(props) {
                     </p>
                 </div>
             </div>
-            <div className="loan-detail-summary last loan-detail-content">
+
+            <div className="loan-detail-summary loan-detail-content">
                 <div>
                     <p className='title'>INGRESO</p>
                     <p className='total'>${(interestIncome).toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                </div>
+            </div>
+
+            <div className="loan-detail-summary last-top loan-detail-content">
+                <div>
+                    <p className='title'>RESTRUCTURADO</p>
+                    <p className='total'>{details.isRestructured ? 'Si' : 'No'}</p>
                 </div>
             </div>
             <div className="loan-detail-summary loan-detail-left">

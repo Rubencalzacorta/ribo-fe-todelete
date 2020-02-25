@@ -20,6 +20,7 @@ import Collateral from '../Collateral'
 const styles = theme => ({
     root: {
         flexGrow: 1,
+        display: 'flex'
     },
     tabsIndicator: {
         backgroundColor: '#1890ff',
@@ -310,7 +311,7 @@ class LoanDetails extends Component {
         return (
             (this.state.loan.details._borrower) ?
                 (
-                    <div className="content">
+                    <div style={{ width: 1200, marginTop: 10, marginLeft: 20 }}>
                         {status === 'success' ?
                             <div class="alert alert-success alert-dismissible">
                                 <button href="#" class="close" data-dismiss="alert" aria-label="close">&times;</button>
@@ -323,10 +324,14 @@ class LoanDetails extends Component {
                             </div> : ""
                         }
                         <Statistics details={details} interestIncome={interestIncome} interestProjected={interestProjected} />
-                        <div className="loan-content-holder">
+                        <div
+                            style={{ width: 1200, marginTop: 10 }}
+                        // className="loan-content-holder"
+                        >
                             <div className={classes.root}>
                                 <Tabs
                                     value={value}
+                                    orientation="vertical"
                                     onChange={this.handleChange}
                                     classes={{ root: classes.tabsRoot, indicator: classes.tabsIndicator }}
                                 >
@@ -361,64 +366,65 @@ class LoanDetails extends Component {
                                         label="DOCUMENTOS"
                                     />
                                 </Tabs>
-                            </div>
-                            {value === 0 &&
-                                <div>
-                                    {this.state.openPayment &&
-                                        <Payment
-                                            installment={installment}
-                                            loan={details}
-                                            receivePayment={this.paymentReceiver}
-                                            closePaymentOption={this.closePaymentOption}
-                                            fullPayment={fullPayment}
-                                        />}
-                                    <Schedule
-                                        loanSchedule={details.loanSchedule.sort(this.compare)}
-                                        openPaymentOption={this.openPaymentOption}
-                                        reversePayment={this.reversePayment}
-                                        deletePayments={this.deletePayments}
-                                        capitalRemaining={details.capitalRemaining}
-                                    />
-                                    <div className='loan-delete'>
-                                        <Grid item xs={12} md={6}>
-                                            <Grid container spacing={1} direction="column" alignItems="center">
-                                                <Grid item>
-                                                    <ButtonGroup
-                                                        variant="contained"
-                                                        color="primary"
-                                                        aria-label="full-width contained primary button group"
-                                                    >
-                                                        <Button onClick={() => this.handleClickOpen()}>REESTRUCTURAR</Button>
-                                                        <Button onClick={() => this.loanRemove(details._id)}>
-                                                            ELIMINAR PRESTAMO
+                                <div style={{ marginLeft: 20, marginTop: -20 }}>
+                                    {value === 0 &&
+                                        <div>
+                                            {this.state.openPayment &&
+                                                <Payment
+                                                    installment={installment}
+                                                    loan={details}
+                                                    receivePayment={this.paymentReceiver}
+                                                    closePaymentOption={this.closePaymentOption}
+                                                    fullPayment={fullPayment}
+                                                />}
+                                            <Schedule
+                                                loanSchedule={details.loanSchedule.sort(this.compare)}
+                                                openPaymentOption={this.openPaymentOption}
+                                                reversePayment={this.reversePayment}
+                                                deletePayments={this.deletePayments}
+                                                capitalRemaining={details.capitalRemaining}
+                                            />
+                                            <div className='loan-delete'>
+                                                <Grid item xs={12} md={6}>
+                                                    <Grid style={{ marginLeft: 100 }} container spacing={1} direction="column" alignItems="center">
+                                                        <Grid item>
+                                                            <ButtonGroup
+                                                                variant="contained"
+                                                                color="primary"
+                                                                aria-label="full-width contained primary button group"
+                                                            >
+                                                                <Button onClick={() => this.handleClickOpen()}>REESTRUCTURAR</Button>
+                                                                <Button onClick={() => this.loanRemove(details._id)}>
+                                                                    ELIMINAR PRESTAMO
                                                             <DeleteIcon />
-                                                        </Button>
-                                                    </ButtonGroup>
+                                                                </Button>
+                                                            </ButtonGroup>
+                                                        </Grid>
+                                                    </Grid>
                                                 </Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Dialog onClose={() => this.handleClose()} open={open}>
-                                            <RestructureForm
-                                                onChangeRestructuring={this.onChangeRestructuring}
-                                                loanRestructure={this.loanRestructure}
-                                                restructuringDetails={restructuringDetails} />
-                                        </Dialog>
-                                    </div>
+                                                <Dialog onClose={() => this.handleClose()} open={open}>
+                                                    <RestructureForm
+                                                        onChangeRestructuring={this.onChangeRestructuring}
+                                                        loanRestructure={this.loanRestructure}
+                                                        restructuringDetails={restructuringDetails} />
+                                                </Dialog>
+                                            </div>
+                                        </div>
+                                    }
+                                    {value === 1 && <Investors investors={investors} />}
+                                    {value === 2 && <Transactions transactions={transactions} />}
+                                    {value === 3 && <Commissions
+                                        commissions={commissions}
+                                        salesmen={salesmen}
+                                        newPct={newPct}
+                                        newSalesman={newSalesman}
+                                        handleNewCommission={this.handleNewCommission}
+                                        saveNewCommission={this.saveNewCommission}
+                                        deleteCommission={this.deleteCommission} />}
+                                    {value === 4 && <Collateral loanId={details._id} />}
+                                    {value === 5 && <Documents />}
                                 </div>
-                            }
-                            {value === 1 && <Investors investors={investors} />}
-                            {value === 2 && <Transactions transactions={transactions} />}
-                            {value === 3 && <Commissions
-                                commissions={commissions}
-                                salesmen={salesmen}
-                                newPct={newPct}
-                                newSalesman={newSalesman}
-                                handleNewCommission={this.handleNewCommission}
-                                saveNewCommission={this.saveNewCommission}
-                                deleteCommission={this.deleteCommission} />}
-                            {value === 4 && <Collateral loanId={details._id} />}
-                            {value === 5 && <Documents />}
-
+                            </div>
                         </div>
                     </div>
                 ) :
