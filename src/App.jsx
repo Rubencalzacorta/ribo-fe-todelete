@@ -109,7 +109,14 @@ class App extends Component {
                     location={this.state.loggedInUser.location}
                   />}
               />
-              <Route path='/admin/cash-account/:cashAccount' render={({ match }) => <CashAccounts getUser={this.getTheUser} cashAccount={match.params.cashAccount} />} />
+              <Route path='/admin/cash-account/:cashAccount/:totalCash'
+                render={({ match }) =>
+                  <CashAccounts
+                    getUser={this.getTheUser}
+                    totalCash={match.params.totalCash}
+                    cashAccount={match.params.cashAccount}
+                  />}
+              />
               <Route path='/admin/loan/:loanId' render={({ match }) => <LoanDetails loanId={match.params.loanId} />} />
               <Route path='/admin/client/:clientId' render={({ match }) => <ClientDetails clientId={match.params.clientId} />} />
               <Route path='/admin/create-loan/:clientId' render={({ match }) => <CreateLoan clientId={match.params.clientId} userLocation={this.state.loggedInUser.location} />} />
