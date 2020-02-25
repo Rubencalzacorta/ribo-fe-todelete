@@ -11,7 +11,13 @@ import numbro from 'numbro'
 const tableColumns = [
     { title: 'Fecha', field: 'date', render: rowData => moment(rowData.date).format('YYYY/MM/DD') },
     { title: 'Prestamo', field: '_loan', render: rowData => <Link to={`/admin/loan/${rowData._loan}`}>{rowData._loan}</Link > },
-    { title: 'Inversor', field: '_investor', render: rowData => <Link to={`/admin/investor/details/${rowData._investor}`}> {rowData._investor}</Link > },
+    {
+        title: 'Inversor', field: '_investor', render: rowData => {
+            if (rowData.concept !== 'INVESTMENT') {
+                return <Link to={`/admin/investor/details/${rowData._investor}`}> {rowData._investor}</Link >
+            }
+        }
+    },
     { title: 'Concepto', field: 'concept' },
     {
         title: 'Debito', field: 'debit', render: rowData => numbro(rowData.debit).format({
