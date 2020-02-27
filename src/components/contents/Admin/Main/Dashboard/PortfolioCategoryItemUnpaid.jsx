@@ -27,6 +27,7 @@ const PortfolioDueCategoryUnpaid = (props) => {
             })
     }
 
+    console.log(width)
     return (
         (width <= 375) ? (
             <div>

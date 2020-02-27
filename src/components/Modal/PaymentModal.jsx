@@ -24,6 +24,7 @@ const accounts = [
 ]
 
 const method = [
+    { value: "CASH", text: "Efectivo" },
     { value: "CHECK", text: "Cheque" },
     { value: "DEPOSIT", text: "Deposito" },
     { value: "TRANSFER", text: "Transfer" },
