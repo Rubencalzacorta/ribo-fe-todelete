@@ -10,6 +10,11 @@ class LoanService {
     });
   }
 
+  getInstallment = (scheduleId) => {
+    return this.service.get(`/schedule/${scheduleId}`)
+      .then(response => response.data)
+  }
+
   getLoanCommissions = (loanId) => {
     return this.service.get(`/commission/${loanId}`)
       .then(response => response.data)
