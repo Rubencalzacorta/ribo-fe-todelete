@@ -4,14 +4,12 @@ import moment from 'moment'
 import { Link } from 'react-router-dom'
 import PaymentModal from '../../../../Modal/PaymentModal'
 import PaymentService from '../../../../../services/PaymentService'
-import useWindowWidth from '../../../../../hooks/useWindowWidth'
 import Dialog from '../../../../Modal/Dialog'
 import { useMediaQuery } from 'react-responsive'
 
 const PortfolioDueCategoryUnpaid = (props) => {
     const [payment, setPayment] = useState(false)
     const paymentService = new PaymentService()
-    const width = useWindowWidth()
     const isMobile = useMediaQuery({ query: '(max-width: 450px' })
     const togglePaymentOption = () => {
         setPayment(!payment)
