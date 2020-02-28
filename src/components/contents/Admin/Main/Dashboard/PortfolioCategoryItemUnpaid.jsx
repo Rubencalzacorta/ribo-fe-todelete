@@ -6,13 +6,13 @@ import PaymentModal from '../../../../Modal/PaymentModal'
 import PaymentService from '../../../../../services/PaymentService'
 import useWindowWidth from '../../../../../hooks/useWindowWidth'
 import Dialog from '../../../../Modal/Dialog'
-
+import { useMediaQuery } from 'react-responsive'
 
 const PortfolioDueCategoryUnpaid = (props) => {
     const [payment, setPayment] = useState(false)
     const paymentService = new PaymentService()
     const width = useWindowWidth()
-
+    const isMobile = useMediaQuery({ query: '(max-width: 376px' })
     const togglePaymentOption = () => {
         setPayment(!payment)
     }
@@ -28,7 +28,7 @@ const PortfolioDueCategoryUnpaid = (props) => {
     }
 
     return (
-        (width <= 375) ? (
+        (isMobile) ? (
             <div>
                 <div className="item-cards">
                     <div className="item-content-unpaid">
