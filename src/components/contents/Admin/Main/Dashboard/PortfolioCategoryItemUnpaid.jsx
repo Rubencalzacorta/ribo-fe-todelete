@@ -20,8 +20,8 @@ const PortfolioDueCategoryUnpaid = (props) => {
     const paymentReceiver = (payment) => {
         paymentService.newPayment(payment)
             .then(response => {
-                props.loader()
                 setPayment(false)
+                props.loader()
             })
     }
 

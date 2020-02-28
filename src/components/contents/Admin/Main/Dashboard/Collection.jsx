@@ -6,13 +6,18 @@ import {
 import TreeMap from "react-d3-treemap";
 import { makeStyles } from '@material-ui/core/styles';
 import ReportingService from '../../../../../services/ReportingService'
-import { AppBar, Tabs, Tab } from '@material-ui/core';
+import { AppBar, Tabs, Tab, Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import MaterialTable from 'material-table'
+import PaymentService from '../../../../../services/PaymentService'
 import Box from '@material-ui/core/Box';
+import Dialog from '../../../../Modal/Dialog'
+import PaymentModal from '../../../../Modal/PaymentModal'
 import moment from 'moment'
 import numbro from 'numbro';
 import './collectionCard.scss'
+import CollectionTable from './CollectionTable';
+const paymentService = new PaymentService()
 
 
 const dataColumns = [
@@ -21,15 +26,10 @@ const dataColumns = [
             `/admin/loan/${rowData._id}`
         } >{rowData.name}</Link>
     },
-    { title: 'Fecha', field: 'date', type: 'date', render: rowData => moment(rowData.date).format('YYYY/MM/DD') },
     {
-        title: 'Monto', field: 'value', type: 'numeric',
-        render: rowData => numbro(rowData.value).format({
-            thousandSeparated: true,
-            mantissa: 2,
-        }),
+        title: 'Telefono', field: 'cellphoneNumber', type: 'string'
     },
-    { title: 'Clasificación', field: 'periodClassification' },
+    { title: 'Fecha', field: 'date', type: 'date', render: rowData => moment(rowData.date).format('YYYY/MM/DD') },
     {
         title: 'Dias', field: 'dayDiff', type: 'numeric',
         render: rowData => numbro(rowData.dayDiff).format({
@@ -37,15 +37,16 @@ const dataColumns = [
             mantissa: 0,
         })
     },
-    { title: 'Estatus', field: 'status' },
+    { title: 'Cuotas Vencidas', field: 'number_unpaid', type: 'numeric' },
     {
-        title: 'Cuota', field: 'oldest_payment',
-        render: rowData => numbro(rowData.oldest_payment).format({
+        title: 'Monto Total Vencido', field: 'value', type: 'numeric',
+        render: rowData => numbro(rowData.value).format({
             thousandSeparated: true,
             mantissa: 2,
-        }), type: 'numeric'
+        }),
     },
-    { title: '# de Cuotas', field: 'number_unpaid', type: 'numeric' },
+    { title: 'Clasificación', field: 'periodClassification' },
+    { title: 'Estatus', field: 'status' },
     {
         title: 'Capital', field: 'remainingCapital',
         render: rowData => numbro(rowData.remainingCapital).format({
@@ -101,26 +102,46 @@ const useStyles = makeStyles(theme => ({
 export default function SimpleTabs() {
     const classes = useStyles();
     const [value, setValue] = useState(0);
+    const [data, setData] = useState();
+    const [getInitialData, setGetInitialData] = useState(true)
     const [report, setReport] = useState(0);
     const [collection, setCollection] = useState(0);
     const reportingService = new ReportingService();
+    const [payment, setPayment] = useState(false)
 
+    const togglePaymentOption = (data) => {
+        setPayment(!payment)
+        setData(data)
+    }
+    const paymentReceiver = (payment) => {
+        paymentService.newPayment(payment)
+            .then(response => {
+                setPayment(false)
+                setGetInitialData(true)
+
+            })
+    }
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
     useEffect(() => {
-        const FetchData = async () => {
-            try {
-                const res = await reportingService.getCollection()
-                return setCollection(res);
-            } catch (error) {
-                console.log(error)
-            }
-        };
-        FetchData();
+        if (getInitialData) {
+
+            const FetchData = async () => {
+                try {
+                    const res = await reportingService.getCollection()
+                    setGetInitialData(false)
+                    return setCollection(res);
+
+                } catch (error) {
+                    console.log(error)
+                }
+            };
+            FetchData();
+        }
         // eslint-disable-next-line
-    }, []);
+    }, [getInitialData]);
 
     useEffect(() => {
         const FetchData = async () => {
@@ -135,9 +156,6 @@ export default function SimpleTabs() {
         // eslint-disable-next-line
     }, []);
 
-
-
-
     return (
         <div className="dashboard-content">
             <div className={classes.root}>
@@ -149,25 +167,26 @@ export default function SimpleTabs() {
                         {collection ? <Tab label='RESUMEN' {...a11yProps(collection.children.length)} /> : <Tab label='RESUMEN' {...a11yProps(0)} />}
                     </Tabs>
                 </AppBar>
+                {payment &&
+                    <Dialog
+                        toggle={togglePaymentOption}
+                        open={payment}
+                        title='Inserte detalles de pago'
+                    >
+                        <PaymentModal
+                            submitTitle={'Procesar Pago'}
+                            installment={data.oldest_installment}
+                            receivePayment={paymentReceiver}
+                            toggle={togglePaymentOption}
+                        />
+                    </Dialog>}
                 {collection ?
                     <>
                         {collection.children.map((e, i) => {
-                            console.log(e)
                             return (
                                 <TabPanel value={value} index={i} className='period-card'>
                                     {e.children.map(e => {
-                                        return (<MaterialTable
-                                            title="Cobranza"
-                                            columns={dataColumns}
-                                            data={e.children}
-                                            options={{
-                                                search: true,
-                                                sort: true,
-                                                showTitle: false,
-                                                toolbar: true,
-                                                pageSize: 10
-                                            }}
-                                        />)
+                                        return (<CollectionTable togglePaymentOption={togglePaymentOption} tableData={e.children} />)
                                     })}
                                 </TabPanel>
                             )
