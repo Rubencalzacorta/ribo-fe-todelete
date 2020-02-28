@@ -12,7 +12,7 @@ const PortfolioDueCategoryUnpaid = (props) => {
     const [payment, setPayment] = useState(false)
     const paymentService = new PaymentService()
     const width = useWindowWidth()
-    const isMobile = useMediaQuery({ query: '(max-width: 376px' })
+    const isMobile = useMediaQuery({ query: '(max-width: 450px' })
     const togglePaymentOption = () => {
         setPayment(!payment)
     }
