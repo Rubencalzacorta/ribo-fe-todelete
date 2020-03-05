@@ -11,6 +11,7 @@ import Statistics from './Statistics'
 import Commissions from './Commissions'
 import Documents from './Documents'
 import Payment from './Payment';
+import Comments from '../Comments';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -348,6 +349,11 @@ class LoanDetails extends Component {
                                     <Tab
                                         disableRipple
                                         classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
+                                        label="COMENTARIOS"
+                                    />
+                                    <Tab
+                                        disableRipple
+                                        classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
                                         label="MOVIMIENTOS"
                                     />
                                     <Tab
@@ -412,8 +418,9 @@ class LoanDetails extends Component {
                                         </div>
                                     }
                                     {value === 1 && <Investors investors={investors} />}
-                                    {value === 2 && <Transactions transactions={transactions} />}
-                                    {value === 3 && <Commissions
+                                    {value === 2 && <Comments loanId={details._id} />}
+                                    {value === 3 && <Transactions transactions={transactions} />}
+                                    {value === 4 && <Commissions
                                         commissions={commissions}
                                         salesmen={salesmen}
                                         newPct={newPct}
@@ -421,8 +428,8 @@ class LoanDetails extends Component {
                                         handleNewCommission={this.handleNewCommission}
                                         saveNewCommission={this.saveNewCommission}
                                         deleteCommission={this.deleteCommission} />}
-                                    {value === 4 && <Collateral loanId={details._id} />}
-                                    {value === 5 && <Documents />}
+                                    {value === 5 && <Collateral loanId={details._id} />}
+                                    {value === 6 && <Documents />}
                                 </div>
                             </div>
                         </div>
