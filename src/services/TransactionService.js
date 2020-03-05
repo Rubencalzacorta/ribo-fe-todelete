@@ -20,6 +20,11 @@ class TransactionService {
       .then(response => response.data)
   }
 
+  getAllTransactions = (_investor) => {
+    return this.service.get(`/all/investor/${_investor}`)
+      .then(response => response.data)
+  }
+
   getInvestorsAvailability = (country) => {
     return this.service.get(`/totals/${country}`, )
       .then(response => response.data)
