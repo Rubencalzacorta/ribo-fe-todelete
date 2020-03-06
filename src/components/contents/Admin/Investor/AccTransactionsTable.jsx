@@ -14,8 +14,8 @@ const tableColumns = [
   { title: 'Cliente', field: 'fullName' },
   { title: 'Concepto', field: 'concept' },
   {
-    title: 'Movimiento', field: 'debit',
-    render: rowData => numbro(rowData.debit - rowData.credit).format({
+    title: 'Movimiento', field: 'change',
+    render: rowData => numbro(rowData.change).format({
       thousandSeparated: true,
       mantissa: 2,
     }),
@@ -43,12 +43,6 @@ function AccTransacionsTable(props) {
       });
 
     const rawData = await transactionService.getAllTransactions(investorId)
-    rawData.map(e => {
-      return {
-        ...e,
-        debit: e.debit - e.credit
-      }
-    })
 
     const data = rawData.map(rowData =>
       csvColumns.map(columnDef => rowData[columnDef.field])
