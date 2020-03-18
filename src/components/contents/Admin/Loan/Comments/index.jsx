@@ -29,6 +29,16 @@ function Comments(props) {
         setComment(!comment)
     }
 
+
+    const insertComment = (comment) => {
+        commentService.newComment({ ...comment, _loan: props.loanId })
+            .then(newComment => {
+                setComment(false)
+                console.log(newComment)
+                response.data.push(newComment)
+            })
+    }
+
     return (
         <div style={{ 'padding': '20px' }}>
             {comment &&
@@ -38,8 +48,9 @@ function Comments(props) {
                     title='Inserte comentario'
                 >
                     <CommentModal
-                        submitTitle={'insertar'}
+                        submitTitle={'insertar comentario'}
                         toggle={toggleComment}
+                        handleCommentInsert={insertComment}
                     />
                 </Dialog>
             }

@@ -53,8 +53,10 @@ const CommentModal = ({ toggle, submitTitle, ...props }) => {
     const classes = useStyles();
     const [values, setValues] = React.useState({
         comment: '',
-        estimateDate: moment()
+        estimatePaymentDate: moment(),
+        contactDate: moment()
     })
+    const [loading, setLoading] = useState(false)
 
     const handleChange = prop => event => {
         setValues({ ...values, [prop]: event.target.value });
@@ -64,17 +66,16 @@ const CommentModal = ({ toggle, submitTitle, ...props }) => {
         <div className={classes.root} >
             <DialogContent dividers>
                 <Grid className={classes.content} container spacing={3}>
-
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                         <FormControl fullWidth>
                             <TextField
                                 id="date"
                                 required={true}
-                                label="Fecha estimada de pago"
+                                label="Fecha de contacto"
                                 type="date"
-                                name="estimateDate"
-                                onChange={handleChange('estimateDate')}
-                                value={new Date(values.estimateDate)
+                                name="contactDate"
+                                onChange={handleChange('contactDate')}
+                                value={new Date(values.contactDate)
                                     .toISOString()
                                     .substring(0, 10)}
                                 InputLabelProps={{
@@ -83,14 +84,32 @@ const CommentModal = ({ toggle, submitTitle, ...props }) => {
                             />
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
+                        <FormControl fullWidth>
+                            <TextField
+                                id="date"
+                                required={true}
+                                label="Fecha estimada de pago"
+                                type="date"
+                                name="estimatePaymentDate"
+                                onChange={handleChange('estimatePaymentDate')}
+                                value={new Date(values.estimatePaymentDate)
+                                    .toISOString()
+                                    .substring(0, 10)}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} md={12}>
                         <FormControl fullWidth>
                             <InputLabel htmlFor="standard-adornment-amount">Monto</InputLabel>
                             <Input
                                 required={true}
                                 id="standard-adornment-amount"
-                                value={values.amount}
-                                onChange={handleChange('amount')}
+                                value={values.estimateAmount}
+                                onChange={handleChange('estimateAmount')}
                                 startAdornment={<InputAdornment position="start">{values.currency}</InputAdornment>}
                             />
                         </FormControl>
@@ -101,7 +120,7 @@ const CommentModal = ({ toggle, submitTitle, ...props }) => {
                                 id="standard-multiline-static"
                                 label="Comentario"
                                 multiline
-                                rows="2"
+                                rows="3"
                                 value={values.comment}
                                 onChange={handleChange('comment')}
                                 InputLabelProps={{
@@ -122,17 +141,18 @@ const CommentModal = ({ toggle, submitTitle, ...props }) => {
                     <Button
                         variant="contained"
                         color="primary"
-                    // disabled={(loading || !enabled) ? true : false}
-                    // onClick={() => {
-                    //     setLoading(true)
-                    //     props.receivePayment(values)
-                    // }}
+                        // disabled={(loading || !enabled) ? true : false}
+                        onClick={() => {
+                            setLoading(true)
+                            props.handleCommentInsert(values)
+                        }}
                     >
+                        {submitTitle}
                         {/* {loading ?
                             <ClipLoader
                                 size={10}
                                 color='white'
-                                loading={!payment}
+                            // loading={!comment}
                             /> : submitTitle} */}
                     </Button>
                 </Grid>
