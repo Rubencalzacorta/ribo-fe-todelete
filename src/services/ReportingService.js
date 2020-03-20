@@ -1,5 +1,6 @@
 import axios from 'axios';
 import runtimeEnv from '@mars/heroku-js-runtime-env';
+const FileDownload = require('js-file-download');
 const env = runtimeEnv();
 
 class ReportingService {
@@ -13,6 +14,13 @@ class ReportingService {
     getCollection = () => {
         return this.service.get(`/collection`)
             .then(response => response.data)
+    }
+    collectionReport = (country) => {
+        return this.service.get(`/collection-xls/${country}`)
+            .then((response) => {
+                FileDownload(response.data, 'data.xlsx');
+            });
+
     }
 
     getCollectionReport = () => {

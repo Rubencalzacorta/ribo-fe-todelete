@@ -12,7 +12,7 @@ function Table({ model, toggleComment }) {
             actions={[
                 {
                     icon: 'add',
-                    tooltip: 'Add User',
+                    tooltip: 'Agregar comentario',
                     isFreeAction: true,
                     onClick: (event) => toggleComment()
                 }

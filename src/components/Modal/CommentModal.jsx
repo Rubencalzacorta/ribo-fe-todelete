@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import LoanService from '../../services/LoanService'
+import React, { useState } from 'react'
 import Button from '@material-ui/core/Button';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
-import { ClipLoader } from "react-spinners";
 import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -12,7 +10,6 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
 import moment from 'moment'
 
 
@@ -51,12 +48,11 @@ const DialogActions = withStyles(theme => ({
 
 const CommentModal = ({ toggle, submitTitle, ...props }) => {
     const classes = useStyles();
-    const [values, setValues] = React.useState({
+    const [values, setValues] = useState({
         comment: '',
         estimatePaymentDate: moment(),
         contactDate: moment()
     })
-    const [loading, setLoading] = useState(false)
 
     const handleChange = prop => event => {
         setValues({ ...values, [prop]: event.target.value });
@@ -143,28 +139,14 @@ const CommentModal = ({ toggle, submitTitle, ...props }) => {
                         color="primary"
                         // disabled={(loading || !enabled) ? true : false}
                         onClick={() => {
-                            setLoading(true)
                             props.handleCommentInsert(values)
                         }}
                     >
                         {submitTitle}
-                        {/* {loading ?
-                            <ClipLoader
-                                size={10}
-                                color='white'
-                            // loading={!comment}
-                            /> : submitTitle} */}
                     </Button>
                 </Grid>
             </DialogActions>
-            {/* : */}
-            {/* <Grid container className={classes.root} spacing={3} >
-                <ClipLoader
-                    size={50}
-                    color={"#123abc"}
-                    loading={!payment}
-                />
-            </Grid > */}
+
         </div >
     )
 }

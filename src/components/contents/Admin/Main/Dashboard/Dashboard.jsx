@@ -38,31 +38,31 @@ export default class Dashboard extends Component {
 
   componentDidMount = () => {
     this.fetchLoans()
-    this.fetchAccountsTotals()
+    // this.fetchAccountsTotals()
   }
 
   loader = async () => {
-    this.fetchAccountsTotals()
+    // this.fetchAccountsTotals()
     this.fetchLoans()
   }
 
-  fetchAccountsTotals() {
-    if (!this.state.accounts) {
-      let country = this.props.userLocation
-      this.TransactionService.getInvestorsAvailability(country)
-        .then(response => {
-          let total = response.reduce((acc, e) => { return acc + e.accumTotal }, 0)
-          this.setState({
-            total: total
-          })
-        })
-        .catch(err => {
-          this.setState({
-            total: false
-          })
-        })
-    }
-  }
+  // fetchAccountsTotals() {
+  //   if (!this.state.accounts) {
+  //     let country = this.props.userLocation
+  //     this.TransactionService.getInvestorsAvailability(country)
+  //       .then(response => {
+  //         let total = response.reduce((acc, e) => { return acc + e.accumTotal }, 0)
+  //         this.setState({
+  //           total: total
+  //         })
+  //       })
+  //       .catch(err => {
+  //         this.setState({
+  //           total: false
+  //         })
+  //       })
+  //   }
+  // }
 
 
   fetchLoans(e) {

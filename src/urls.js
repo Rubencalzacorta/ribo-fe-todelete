@@ -19,27 +19,34 @@ const adminUrls = [{
         link: false,
         text: 'General',
         links: [{
-            link: true,
-            url: 'activity',
-            text: 'Cobranzas'
-        }, {
-            link: true,
-            url: 'collection-late',
-            text: 'Cobranza (Días)'
-        }, {
-            link: true,
-            url: 'payments',
-            text: 'Pagos'
-        }, {
-            link: true,
-            url: 'portfolio',
-            text: 'Portafolio'
-        }, {
-            link: true,
-            super: true,
-            url: 'evolution',
-            text: 'Evolución'
-        }, ]
+                link: true,
+                url: 'activity',
+                text: 'Cobranzas'
+            }, {
+                link: true,
+                url: 'collection-late',
+                text: 'Cobranza (Días)'
+            },
+            {
+                link: true,
+                url: 'loan-collection',
+                text: 'new format'
+            },
+            {
+                link: true,
+                url: 'payments',
+                text: 'Pagos'
+            }, {
+                link: true,
+                url: 'portfolio',
+                text: 'Portafolio'
+            }, {
+                link: true,
+                super: true,
+                url: 'evolution',
+                text: 'Evolución'
+            },
+        ]
     }, {
         link: false,
         text: 'Finanzas',

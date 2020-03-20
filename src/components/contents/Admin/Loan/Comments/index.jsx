@@ -6,17 +6,14 @@ import CommentModal from '../../../../Modal/CommentModal'
 
 function Comments(props) {
     const commentService = new CommentService()
-    const [response, setResponse] = useState({ data: [] });
+    const [comments, setComments] = useState([]);
     const [comment, setComment] = useState()
     useEffect(() => {
         const FetchData = async () => {
             try {
-                const res = await commentService.getLoanComments(props.loanId);
-                const newRes = {
-                    ...response,
-                    data: res
-                }
-                return setResponse(newRes);
+                const comments = await commentService.getLoanComments(props.loanId);
+
+                return setComments(comments);
             } catch (error) {
                 console.log(error)
             }
@@ -34,10 +31,10 @@ function Comments(props) {
         commentService.newComment({ ...comment, _loan: props.loanId })
             .then(newComment => {
                 setComment(false)
-                console.log(newComment)
-                response.data.push(newComment)
+                setComments([...comments, newComment.response])
             })
     }
+
 
     return (
         <div style={{ 'padding': '20px' }}>
@@ -54,7 +51,7 @@ function Comments(props) {
                     />
                 </Dialog>
             }
-            <Table model={response.data} toggleComment={toggleComment} />
+            <Table model={comments} toggleComment={toggleComment} />
         </div>
     )
 }

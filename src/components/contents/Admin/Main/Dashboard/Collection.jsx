@@ -1,67 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {
-    Link
-} from "react-router-dom";
 import TreeMap from "react-d3-treemap";
 import { makeStyles } from '@material-ui/core/styles';
 import ReportingService from '../../../../../services/ReportingService'
-import { AppBar, Tabs, Tab, Button } from '@material-ui/core';
+import { AppBar, Tabs, Tab } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import MaterialTable from 'material-table'
 import PaymentService from '../../../../../services/PaymentService'
 import Box from '@material-ui/core/Box';
 import Dialog from '../../../../Modal/Dialog'
 import PaymentModal from '../../../../Modal/PaymentModal'
-import moment from 'moment'
-import numbro from 'numbro';
 import './collectionCard.scss'
 import CollectionTable from './CollectionTable';
 const paymentService = new PaymentService()
-
-
-const dataColumns = [
-    {
-        title: 'Name', field: 'name', render: rowData => <Link to={
-            `/admin/loan/${rowData._id}`
-        } >{rowData.name}</Link>
-    },
-    {
-        title: 'Telefono', field: 'cellphoneNumber', type: 'string'
-    },
-    { title: 'Fecha', field: 'date', type: 'date', render: rowData => moment(rowData.date).format('YYYY/MM/DD') },
-    {
-        title: 'Dias', field: 'dayDiff', type: 'numeric',
-        render: rowData => numbro(rowData.dayDiff).format({
-            thousandSeparated: true,
-            mantissa: 0,
-        })
-    },
-    { title: 'Cuotas Vencidas', field: 'number_unpaid', type: 'numeric' },
-    {
-        title: 'Monto Total Vencido', field: 'value', type: 'numeric',
-        render: rowData => numbro(rowData.value).format({
-            thousandSeparated: true,
-            mantissa: 2,
-        }),
-    },
-    { title: 'Clasificación', field: 'periodClassification' },
-    { title: 'Estatus', field: 'status' },
-    {
-        title: 'Capital', field: 'remainingCapital',
-        render: rowData => numbro(rowData.remainingCapital).format({
-            thousandSeparated: true,
-            mantissa: 2,
-        }), type: 'numeric'
-    },
-]
 
 const countries = {
     'DOMINICAN_REPUBLIC': 'República Dominicana',
     'VENEZUELA': 'Venezuela',
     'PERU': 'Perú'
 }
-
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -121,13 +77,20 @@ export default function SimpleTabs() {
 
             })
     }
+
+    const handleDownload = (event, country) => {
+        event.preventDefault()
+        console.log(country)
+        reportingService.collectionReport(country)
+        //     .then()
+    }
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
     useEffect(() => {
         if (getInitialData) {
-
             const FetchData = async () => {
                 try {
                     const res = await reportingService.getCollection()
@@ -155,6 +118,7 @@ export default function SimpleTabs() {
         FetchData();
         // eslint-disable-next-line
     }, []);
+
 
     return (
         <div className="dashboard-content">
@@ -185,8 +149,8 @@ export default function SimpleTabs() {
                         {collection.children.map((e, i) => {
                             return (
                                 <TabPanel value={value} index={i} className='period-card'>
-                                    {e.children.map(e => {
-                                        return (<CollectionTable togglePaymentOption={togglePaymentOption} tableData={e.children} />)
+                                    {e.children.map(j => {
+                                        return (<CollectionTable country={e.name} handleDownload={handleDownload} togglePaymentOption={togglePaymentOption} tableData={j.children} />)
                                     })}
                                 </TabPanel>
                             )

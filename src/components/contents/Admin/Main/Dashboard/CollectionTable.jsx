@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
     Link
 } from "react-router-dom";
 import { CsvBuilder } from 'filefy';
-import MaterialTable from 'material-table'
+import ReportingService from '../../../../../services/ReportingService'
+import MaterialTable from 'material-table';
 import moment from 'moment';
 import numbro from 'numbro';
 import './collectionCard.scss';
@@ -54,7 +55,7 @@ const dataColumns = [
 ]
 
 
-export default function CollectionTable({ tableData, togglePaymentOption }) {
+export default function CollectionTable({ tableData, togglePaymentOption, handleDownload, country }) {
 
     const handleExportCsv = (columns, renderData) => {
         const csvColumns = columns
@@ -75,14 +76,14 @@ export default function CollectionTable({ tableData, togglePaymentOption }) {
     }
 
     return (<MaterialTable
-        title="Cobranza"
+        title={`Cobranza`}
         columns={dataColumns}
         data={tableData}
         options={{
             search: true,
             sort: true,
             exportButton: true,
-            showTitle: false,
+            showTitle: true,
             toolbar: true,
             pageSize: 10,
             actionsColumnIndex: 4,
@@ -98,6 +99,11 @@ export default function CollectionTable({ tableData, togglePaymentOption }) {
             icon: "Check",
             tooltip: "Cuota",
             onClick: (event, rowData) => togglePaymentOption(rowData)
+        }, {
+            icon: 'Add',
+            tooltip: 'Excel',
+            isFreeAction: true,
+            onClick: (event) => handleDownload(event, country)
         }
         ]}
         components={{
