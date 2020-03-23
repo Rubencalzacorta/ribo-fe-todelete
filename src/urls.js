@@ -21,16 +21,12 @@ const adminUrls = [{
         links: [{
                 link: true,
                 url: 'activity',
-                text: 'Cobranzas'
-            }, {
-                link: true,
-                url: 'collection-late',
-                text: 'Cobranza (Días)'
+                text: 'Resumen'
             },
             {
                 link: true,
                 url: 'loan-collection',
-                text: 'new format'
+                text: 'Cobranza'
             },
             {
                 link: true,

@@ -19,20 +19,19 @@ const dataColumns = [
     {
         title: 'Telefono', field: 'cellphoneNumber', type: 'string'
     },
-    { title: 'Fecha', field: 'date', type: 'date', render: rowData => moment(rowData.date).format('YYYY/MM/DD') },
-
-    {
-        title: 'Dias', field: 'dayDiff', type: 'numeric',
-        render: rowData => numbro(rowData.dayDiff).format({
-            thousandSeparated: true,
-            mantissa: 0,
-        })
-    },
     {
         title: 'Cuota', field: 'oldest_payment', hidden: true, type: 'numeric',
         render: rowData => numbro(rowData.oldest_payment).format({
             thousandSeparated: true,
             mantissa: 2,
+        })
+    },
+    { title: 'Vencimiento', field: 'date', type: 'date', render: rowData => moment(rowData.date).format('YYYY/MM/DD') },
+    {
+        title: 'Dias', field: 'dayDiff', type: 'numeric',
+        render: rowData => numbro(rowData.dayDiff).format({
+            thousandSeparated: true,
+            mantissa: 0,
         })
     },
     { title: 'Cuotas Vencidas', field: 'number_unpaid', type: 'numeric' },
@@ -43,8 +42,12 @@ const dataColumns = [
             mantissa: 2,
         }),
     },
-    { title: 'Clasificación', field: 'periodClassification' },
-    { title: 'Estatus', field: 'status' },
+    {
+        title: 'Interes adeudados', field: 'interest_unpaid', render: rowData => numbro(rowData.interest_unpaid).format({
+            thousandSeparated: true,
+            mantissa: 2,
+        }), type: 'numeric'
+    },
     {
         title: 'Capital', field: 'remainingCapital',
         render: rowData => numbro(rowData.remainingCapital).format({
@@ -52,6 +55,14 @@ const dataColumns = [
             mantissa: 2,
         }), type: 'numeric'
     },
+    {
+        title: 'Pago total', field: 'remainingCapital',
+        render: rowData => numbro(rowData.interest_unpaid + rowData.remainingCapital).format({
+            thousandSeparated: true,
+            mantissa: 2,
+        }), type: 'numeric'
+    },
+    { title: 'Estatus', field: 'status' }
 ]
 
 
@@ -99,11 +110,6 @@ export default function CollectionTable({ tableData, togglePaymentOption, handle
             icon: "Check",
             tooltip: "Cuota",
             onClick: (event, rowData) => togglePaymentOption(rowData)
-        }, {
-            icon: 'Add',
-            tooltip: 'Excel',
-            isFreeAction: true,
-            onClick: (event) => handleDownload(event, country)
         }
         ]}
         components={{

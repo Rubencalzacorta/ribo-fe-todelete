@@ -78,13 +78,6 @@ export default function SimpleTabs() {
             })
     }
 
-    const handleDownload = (event, country) => {
-        event.preventDefault()
-        console.log(country)
-        reportingService.collectionReport(country)
-        //     .then()
-    }
-
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -150,7 +143,7 @@ export default function SimpleTabs() {
                             return (
                                 <TabPanel value={value} index={i} className='period-card'>
                                     {e.children.map(j => {
-                                        return (<CollectionTable country={e.name} handleDownload={handleDownload} togglePaymentOption={togglePaymentOption} tableData={j.children} />)
+                                        return (<CollectionTable country={e.name} togglePaymentOption={togglePaymentOption} tableData={j.children} />)
                                     })}
                                 </TabPanel>
                             )
