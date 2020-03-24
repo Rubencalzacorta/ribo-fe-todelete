@@ -306,6 +306,8 @@ class LoanDetails extends Component {
             newSalesman,
             fullPayment
         } = this.state
+
+        console.log("this is installment id", installment._id)
         const { classes } = this.props;
         let { details, investors, transactions } = this.state.loan
         let { open, restructuringDetails, status } = this.state
