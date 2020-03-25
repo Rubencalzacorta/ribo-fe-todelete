@@ -108,14 +108,14 @@ function ScheduleBody(props) {
                                                 <p className='itmt-options'>
                                                     <i className="material-icons" onClick={() => deletePayments(item._id)}>delete_box</i>
                                                     <i className="material-icons" onClick={() => {
-                                                        togglePaymentOption()
-                                                        openPaymentOption(item)
+                                                        togglePaymentOption(item)
+                                                        // openPaymentOption(item)
                                                     }}>add_box</i>
                                                 </p> : (!item.principal_pmt) ?
                                                     <p className='itmt-options'>
                                                         <i className="material-icons" onClick={() => {
-                                                            togglePaymentOption()
-                                                            openPaymentOption(item)
+                                                            togglePaymentOption(item)
+                                                            // openPaymentOption(item)
                                                         }}>add_box</i>
                                                     </p> : '')
                                         case 'OUTSTANDING':
@@ -123,14 +123,14 @@ function ScheduleBody(props) {
                                                 <p className='itmt-options'>
                                                     <i className="material-icons" onClick={() => deletePayments(item._id)}>delete_box</i>
                                                     <i className="material-icons" onClick={() => {
-                                                        togglePaymentOption()
-                                                        openPaymentOption(item)
+                                                        togglePaymentOption(item)
+                                                        // openPaymentOption(item)
                                                     }}>add_box</i>
                                                 </p> : (!item.principal_pmt) ?
                                                     <p className='itmt-options'>
                                                         <i className="material-icons" onClick={() => {
-                                                            togglePaymentOption()
-                                                            openPaymentOption(item)
+                                                            togglePaymentOption(item)
+                                                            // openPaymentOption(item)
                                                         }}>add_box</i>
                                                     </p> : '')
                                         case 'OVERDUE':
@@ -138,14 +138,14 @@ function ScheduleBody(props) {
                                                 <p className='itmt-options'>
                                                     <i className="material-icons" onClick={() => deletePayments(item._id)}>delete_box</i>
                                                     <i className="material-icons" onClick={() => {
-                                                        togglePaymentOption()
-                                                        openPaymentOption(item)
+                                                        togglePaymentOption(item)
+                                                        // openPaymentOption(item)
                                                     }}>add_box</i>
                                                 </p> : (!item.principal_pmt) ?
                                                     <p className='itmt-options'>
                                                         <i className="material-icons" onClick={() => {
-                                                            togglePaymentOption()
-                                                            openPaymentOption(item)
+                                                            togglePaymentOption(item)
+                                                            // openPaymentOption(item)
                                                         }}>add_box</i>
                                                     </p> : '')
                                         case 'PENDING':
@@ -153,14 +153,14 @@ function ScheduleBody(props) {
                                                 <p className='itmt-options'>
                                                     <i className="material-icons" onClick={() => deletePayments(item._id)}>delete_box</i>
                                                     <i className="material-icons" onClick={() => {
-                                                        togglePaymentOption()
-                                                        openPaymentOption(item)
+                                                        togglePaymentOption(item)
+                                                        // openPaymentOption(item)
                                                     }}>add_box</i>
                                                 </p> : (!item.principal_pmt) ?
                                                     <p className='itmt-options'>
                                                         <i className="material-icons" onClick={() => {
-                                                            togglePaymentOption()
-                                                            openPaymentOption(item)
+                                                            togglePaymentOption(item)
+                                                            // openPaymentOption(item)
                                                         }}>add_box</i>
                                                     </p> : '')
                                         case 'DISBURSTMENT':
@@ -198,7 +198,7 @@ function ScheduleBody(props) {
                             </div>
                             <div >
                                 <Button className="full-pmt-btn" variant="contained" onClick={() => {
-                                    togglePaymentOption(true)
+                                    togglePaymentOption(item, true)
                                     // openPaymentOption(item, true)
                                 }}> Pago Total</Button>
                             </div>

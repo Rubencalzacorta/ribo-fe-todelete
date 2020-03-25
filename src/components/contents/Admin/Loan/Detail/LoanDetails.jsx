@@ -85,8 +85,8 @@ class LoanDetails extends Component {
         this.setState({ value });
     };
 
-    togglePaymentOption = (isFullPayment = false) => {
-        this.setState({ ...this.state, payment: !this.state.payment, fullpayment: isFullPayment })
+    togglePaymentOption = (thisInstallment, isFullPayment = false) => {
+        this.setState({ ...this.state, payment: !this.state.payment, fullpayment: isFullPayment, installment: thisInstallment })
     }
 
 
@@ -261,7 +261,6 @@ class LoanDetails extends Component {
 
     paymentReceiver = (payment) => {
         let { fullPayment } = this.state
-
         if (fullPayment) {
             this.PaymentService.newFullPayment(payment)
                 .then(response => {
@@ -276,6 +275,7 @@ class LoanDetails extends Component {
             this.PaymentService.newPayment(payment)
                 .then(response => {
                     this.loader()
+                    this.setState({ openPayment: false })
                     this.setState({ openPayment: false })
                 })
                 .catch(error => {
