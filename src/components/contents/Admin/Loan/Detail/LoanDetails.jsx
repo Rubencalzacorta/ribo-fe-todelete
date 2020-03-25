@@ -17,6 +17,10 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Tabs, Tab, Grid, ButtonGroup, Dialog } from '@material-ui/core';
 import Collateral from '../Collateral'
+//for modal - Dialog ya esta importado de material UI
+import PaymentModal from '../../../../Modal/PaymentModal'
+import DialogBox from '../../../../Modal/Dialog'
+
 
 const styles = theme => ({
     root: {
@@ -63,6 +67,8 @@ class LoanDetails extends Component {
             openPayment: false,
             installment: null,
             value: 0,
+            payment: false,
+            fullpayment: false,
             restructuringDetails: {
 
             }
@@ -78,6 +84,10 @@ class LoanDetails extends Component {
     handleChange = (event, value) => {
         this.setState({ value });
     };
+
+    togglePaymentOption = (isFullPayment = false) => {
+        this.setState({ ...this.state, payment: !this.state.payment, fullpayment: isFullPayment })
+    }
 
 
     loader = async () => {
@@ -307,7 +317,6 @@ class LoanDetails extends Component {
             fullPayment
         } = this.state
 
-        console.log("this is installment id", installment._id)
         const { classes } = this.props;
         let { details, investors, transactions } = this.state.loan
         let { open, restructuringDetails, status } = this.state
@@ -377,17 +386,32 @@ class LoanDetails extends Component {
                                 <div style={{ marginLeft: 20, marginTop: -20 }}>
                                     {value === 0 &&
                                         <div>
-                                            {this.state.openPayment &&
+                                            {this.state.payment &&
+                                                <DialogBox
+                                                    toggle={this.togglePaymentOption}
+                                                    open={this.state.payment}
+                                                    title='Inserte detalles de pago'
+                                                >
+                                                    <PaymentModal
+                                                        submitTitle={'Procesar Pago'}
+                                                        installment={installment._id}
+                                                        receivePayment={this.paymentReceiver}
+                                                        toggle={this.togglePaymentOption}
+                                                    />
+                                                </DialogBox>}
+
+                                            {/* {this.state.openPayment &&
                                                 <Payment
                                                     installment={installment}
                                                     loan={details}
                                                     receivePayment={this.paymentReceiver}
                                                     closePaymentOption={this.closePaymentOption}
                                                     fullPayment={fullPayment}
-                                                />}
+                                                />} */}
                                             <Schedule
                                                 loanSchedule={details.loanSchedule.sort(this.compare)}
                                                 openPaymentOption={this.openPaymentOption}
+                                                togglePaymentOption={this.togglePaymentOption}
                                                 reversePayment={this.reversePayment}
                                                 deletePayments={this.deletePayments}
                                                 capitalRemaining={details.capitalRemaining}
