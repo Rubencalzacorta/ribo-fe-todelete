@@ -73,6 +73,7 @@ const PaymentModal = ({ toggle, submitTitle, fullPayment, loan, ...props }) => {
         cashAccount: '',
         method: '',
     });
+
     const [loading, setLoading] = useState(false)
     const [enabled, setEnable] = useState(false)
     const [payment, setPayment] = useState(false)

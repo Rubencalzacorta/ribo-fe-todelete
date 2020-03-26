@@ -86,6 +86,8 @@ export default function CollectionTable({ tableData, togglePaymentOption, handle
         return builder
     }
 
+    console.log(tableData)
+
     return (<MaterialTable
         title={`Cobranza`}
         columns={dataColumns}
