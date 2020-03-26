@@ -65,7 +65,7 @@ const DialogActions = withStyles(theme => ({
 
 
 
-const PaymentModal = ({ toggle, submitTitle, ...props }) => {
+const PaymentModal = ({ toggle, submitTitle, fullPayment, loan, ...props }) => {
     const classes = useStyles();
     const [values, setValues] = React.useState({
         date_pmt: moment(),
@@ -90,7 +90,7 @@ const PaymentModal = ({ toggle, submitTitle, ...props }) => {
                     ...values,
                     date_pmt: moment(),
                     currency: response.currency,
-                    amount: amount,
+                    amount: fullPayment ? loan.capitalRemaining : amount,
                     _loan: response._loan,
                     _loanSchedule: props.installment
                 })
@@ -106,6 +106,8 @@ const PaymentModal = ({ toggle, submitTitle, ...props }) => {
             setEnable(false)
         }
     }, [values])
+
+    console.log(props)
 
     return (
         <div className={classes.root}>

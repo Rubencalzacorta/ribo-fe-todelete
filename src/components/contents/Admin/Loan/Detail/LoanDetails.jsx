@@ -68,7 +68,7 @@ class LoanDetails extends Component {
             installment: null,
             value: 0,
             payment: false,
-            fullpayment: false,
+            fullPayment: false,
             restructuringDetails: {
 
             }
@@ -86,7 +86,7 @@ class LoanDetails extends Component {
     };
 
     togglePaymentOption = (thisInstallment, isFullPayment = false) => {
-        this.setState({ ...this.state, payment: !this.state.payment, fullpayment: isFullPayment, installment: thisInstallment })
+        this.setState({ ...this.state, fullPayment: isFullPayment, payment: !this.state.payment, installment: thisInstallment })
     }
 
 
@@ -265,7 +265,10 @@ class LoanDetails extends Component {
             this.PaymentService.newFullPayment(payment)
                 .then(response => {
                     this.loader()
-                    this.setState({ openPayment: false })
+                    this.setState({
+                        // openPayment: false,
+                        payment: false
+                    })
                 })
                 .catch(error => {
                     this.setState({ error })
@@ -275,8 +278,10 @@ class LoanDetails extends Component {
             this.PaymentService.newPayment(payment)
                 .then(response => {
                     this.loader()
-                    this.setState({ openPayment: false })
-                    this.setState({ openPayment: false })
+                    this.setState({
+                        // openPayment: false
+                        payment: false,
+                    })
                 })
                 .catch(error => {
                     this.setState({ error })
@@ -395,8 +400,10 @@ class LoanDetails extends Component {
                                                     <PaymentModal
                                                         submitTitle={'Procesar Pago'}
                                                         installment={installment._id}
+                                                        loan={details}
                                                         receivePayment={this.paymentReceiver}
                                                         toggle={this.togglePaymentOption}
+                                                        fullPayment={fullPayment}
                                                     />
                                                 </DialogBox>}
 
