@@ -108,7 +108,6 @@ export default function Collection({ userLocation }) {
     const theme = useTheme();
     const [filterCountries, setCountries] = useState(countries)
     const [payment, setPayment] = useState(false)
-    const [getInitialData, setGetInitialData] = useState(true)
     const [filter, setFilter] = useState({
         dayRange: [-30, 180],
         country: [],
@@ -124,10 +123,9 @@ export default function Collection({ userLocation }) {
     }
     const paymentReceiver = (payment) => {
         paymentService.newPayment(payment)
-            .then(response => {
+            .then(() => {
                 setPayment(false)
-                setGetInitialData(true)
-
+                searchCollection()
             })
     }
 
@@ -149,18 +147,37 @@ export default function Collection({ userLocation }) {
     }
 
     useEffect(() => {
-        try {
-            let fc = countries
-            if (userLocation !== 'GLOBAL') {
-                fc = countries.filter(e => {
-                    return e.value === userLocation
-                })
+
+        const setCountryOptions = () => {
+            try {
+                let fc = countries
+                if (userLocation !== 'GLOBAL') {
+                    fc = countries.filter(e => {
+                        return e.value === userLocation
+                    })
+                    setCountries(fc)
+                }
+            } catch (e) {
+                console.log(e)
             }
-            setCountries(fc)
-        } catch (e) {
-            console.log(e)
         }
-    }, [userLocation])
+
+        const setInitialfilter = () => {
+            try {
+                if (filter.country.length === 0 && filterCountries) {
+                    let initialCountries = countries.map(e => e.value)
+                    let countryOne = initialCountries[0]
+                    setFilter({ ...filter, country: [countryOne] })
+                }
+            } catch (e) {
+                console.log(e)
+            }
+        }
+
+        setCountryOptions()
+        setInitialfilter()
+    })
+
     return (
         <Grid container spacing={3}>
             {payment &&
@@ -200,7 +217,7 @@ export default function Collection({ userLocation }) {
                                     input={<Input id="select-multiple-chip" />}
                                     renderValue={selected => (
                                         <div className={classes.chips}>
-                                            {selected.map(value => (
+                                            {selected.map((value) => (
                                                 <Chip key={value} label={value} className={classes.chip} />
                                             ))}
                                         </div>

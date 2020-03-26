@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Link
 } from "react-router-dom";
 import { CsvBuilder } from 'filefy';
-import ReportingService from '../../../../../services/ReportingService'
 import MaterialTable from 'material-table';
 import moment from 'moment';
 import numbro from 'numbro';
@@ -12,9 +11,18 @@ import './collectionCard.scss';
 
 const dataColumns = [
     {
+        title: 'ID', field: '_id', hidden: true
+    },
+    {
         title: 'Name', field: 'name', render: rowData => <Link to={
             `/admin/loan/${rowData._id}`
-        } >{rowData.name}</Link>
+        } >{rowData.name}</Link>,
+        cellStyle: {
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+            maxWidth: 250,
+        },
     },
     {
         title: 'Telefono', field: 'cellphoneNumber', type: 'string'
@@ -32,9 +40,25 @@ const dataColumns = [
         render: rowData => numbro(rowData.dayDiff).format({
             thousandSeparated: true,
             mantissa: 0,
-        })
+        }),
+
+        cellStyle: {
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+            maxWidth: 40,
+        },
     },
-    { title: 'Cuotas Vencidas', field: 'number_unpaid', type: 'numeric' },
+    {
+        title: 'Cuotas Vencidas', field: 'number_unpaid', type: 'numeric',
+        cellStyle: {
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+            maxWidth: 40,
+        },
+    },
+
     {
         title: 'Monto Total Vencido', field: 'value', type: 'numeric',
         render: rowData => numbro(rowData.value).format({
@@ -62,12 +86,12 @@ const dataColumns = [
             mantissa: 2,
         }), type: 'numeric'
     },
-    { title: 'Estatus', field: 'status' }
+    { title: 'Estatus', field: 'status', hidden: true }
 ]
 
 
 export default function CollectionTable({ tableData, togglePaymentOption, handleDownload, country }) {
-
+    const [selectedRow, setSelectedRow] = useState(null)
     const handleExportCsv = (columns, renderData) => {
         const csvColumns = columns
             .filter(columnDef => {
@@ -92,6 +116,7 @@ export default function CollectionTable({ tableData, togglePaymentOption, handle
         title={`Cobranza`}
         columns={dataColumns}
         data={tableData}
+        onRowClick={((evt, selectedRow) => setSelectedRow({ selectedRow }))}
         options={{
             search: true,
             sort: true,
@@ -101,8 +126,12 @@ export default function CollectionTable({ tableData, togglePaymentOption, handle
             pageSize: 10,
             actionsColumnIndex: 4,
             exportCsv: handleExportCsv,
-            exportFileName: `${moment().format('YYYY-MM-DD')}-cobranza.csv`
+            exportFileName: `${moment().format('YYYY-MM-DD')}-cobranza.csv`,
+            rowStyle: rowData => ({
+                backgroundColor: (selectedRow && selectedRow.selectedRow.tableData.id === rowData.tableData.id) ? '#EEE' : '#FFF'
+            })
         }}
+
         localization={{
             header: {
                 actions: 'Cuota',
@@ -115,10 +144,10 @@ export default function CollectionTable({ tableData, togglePaymentOption, handle
         }
         ]}
         components={{
-            Action: props => <a onClick={(event) => props.action.onClick(event, props.data)}>{numbro(props.data.oldest_payment).format({
+            Action: props => <button style={{ all: "unset", fontWeight: "bold" }} onClick={(event) => props.action.onClick(event, props.data)}>{numbro(props.data.oldest_payment).format({
                 thousandSeparated: true,
                 mantissa: 2,
-            })}</a>
+            })}</button>
         }}
     />)
 
