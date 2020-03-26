@@ -1,6 +1,5 @@
 import axios from 'axios';
 import runtimeEnv from '@mars/heroku-js-runtime-env';
-import qs from 'qs'
 const FileDownload = require('js-file-download');
 const env = runtimeEnv();
 
@@ -25,7 +24,6 @@ class ReportingService {
     }
 
     getFilterCollection = (conditions) => {
-        let stringParams = qs.stringify(conditions)
         return this.service.get(`/collector`, {
             params: conditions
         }).then(response => response.data)
