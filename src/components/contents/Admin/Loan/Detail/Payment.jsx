@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-import { accounts, fees } from "../../../../../constants.js";
-import "./loan-tx-pmt.scss";
+import { accounts } from "../../../../../constants.js";
+import "./Payment.scss";
+import moment from "moment";
 
 class Payment extends Component {
   constructor(props) {
     super(props);
     this.state = {
       date_pmt: new Date().toISOString().substring(0, 10),
-      principal_pmt: undefined,
-      interest_pmt: undefined,
-      paymentId: undefined,
+      currentDate: new Date(moment().format('YYYY-MM-DD')).toISOString().substring(0, 10),
+      amount: undefined,
+      _loan: undefined,
+      _loanSchedule: undefined,
       cashAccount: undefined,
-      currency: undefined,
-      fee: []
     };
   }
 
@@ -23,37 +23,31 @@ class Payment extends Component {
 
   handleChangePayment = event => {
     let { name, value } = event.target;
-    if (name === "interest_pmt" || "principal_pmt") {
+    if (name === "amount") {
       value = parseFloat(value);
     }
     this.setState({ [name]: value });
   };
 
   componentDidMount = () => {
-    let { installment } = this.props;
+    let { installment, loan, fullPayment } = this.props;
+
     this.setState({
-      date_pmt: installment.date,
-      principal_pmt: installment.principal.toFixed(2),
-      interest_pmt: installment.interest.toFixed(2),
-      paymentId: installment._id,
-      currency: installment.currency,
+      date_pmt: new Date().toISOString().substring(0, 10),
+      amount: fullPayment ? loan.capitalRemaining : Math.round(installment.balanceDue * 100) / 100,
+      _loan: installment._loan,
+      _loanSchedule: installment._id,
       cashAccount: undefined,
-      fee: []
     });
   };
 
-  handleChangeFees = event => {
-    const { value } = event.target;
-    let fee = fees[value].fee;
-    this.setState({ fee: fee });
-  };
 
   render() {
-    let { receivePayment, closePaymentOption } = this.props;
+    let { receivePayment, closePaymentOption, fullPayment, loan } = this.props;
     return (
       <div className="loan-schedule-holder">
         <div className="loan-payment-holder">
-          <div className="detail-schedule details-date">
+          <div className="payment-date">
             <label className="acc-title">FECHA</label>
             <input
               type="date"
@@ -62,29 +56,22 @@ class Payment extends Component {
               value={new Date(this.state.date_pmt)
                 .toISOString()
                 .substring(0, 10)}
+              max={new Date(this.state.currentDate)
+                .toISOString()
+                .substring(0, 10)}
               onChange={this.handleChange}
             />
           </div>
           <div className="detail-schedule acc-fees">
-            <label className="acc-title">INTERESES</label>
+            <label className="acc-title">MONTO</label>
             <input
-              label="INTERESES"
-              name="interest_pmt"
+              label="Monto"
+              name="amount"
+              min={fullPayment ? loan.capitalRemaining : 0}
               className="form-control input-sm"
-              value={this.state.interest_pmt ? this.state.interest_pmt : 0}
+              value={this.state.amount ? this.state.amount : undefined}
               onChange={this.handleChangePayment}
               type="number"
-            />
-          </div>
-          <div className="detail-schedule acc-fees">
-            <label className="acc-title">CAPITAL</label>
-            <input
-              label="principal"
-              name="principal_pmt"
-              type="number"
-              className="form-control input-sm"
-              value={this.state.principal_pmt ? this.state.principal_pmt : 0}
-              onChange={this.handleChangePayment}
             />
           </div>
           <div className="detail-schedule acc-fees">
@@ -102,25 +89,6 @@ class Payment extends Component {
                   {e}
                 </option>
               ))}
-            </select>
-          </div>
-          <div className="detail-schedule acc-fees">
-            <label className="acc-title">FEE</label>
-            <select
-              className="form-control input-sm"
-              name="feeIndex"
-              id="feeIndex"
-              value={this.state.feeIndex}
-              onChange={e => this.handleChangeFees(e)}
-            >
-              <option />
-              {fees.map((e, i) => {
-                return (
-                  <option key={i} value={i} onChange={this.handleChangeFees}>
-                    {e.text}
-                  </option>
-                );
-              })}
             </select>
           </div>
           <div className="detail-schedule">

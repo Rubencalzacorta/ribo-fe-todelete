@@ -50,6 +50,23 @@
                 color: rgba(17, 34, 53, 0.87);
                 font-weight: 600;
             }
+
+            .number-content {
+                padding-right: 25px;
+                width: 150px;
+                text-align: right;
+            }
         }
     }
+}
+
+@media all and (max-width: 375px) {
+    .item-cards {
+        padding: 10px 20px;
+
+        .item-content-unpaid {
+            width: 100%;
+        }
+    }
+
 }

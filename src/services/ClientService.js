@@ -1,18 +1,20 @@
 import axios from 'axios';
-require('dotenv').config();
+import runtimeEnv from '@mars/heroku-js-runtime-env';
+const env = runtimeEnv();
 
 class ClientService {
   constructor() {
     this.service = axios.create({
-      baseURL: `${process.env.REACT_APP_API_URL}/api/test/client`,
+      baseURL: `${env.REACT_APP_API_URL}/api/client`,
       withCredentials: true,
     });
   }
 
+  //keep
   updateAccount = (_id, details) => {
     return this.service.patch(`/update/details/${_id}`, {
-      details
-    })
+        details
+      })
       .then(response => response.data)
   }
 
@@ -21,10 +23,10 @@ class ClientService {
     formData.append('photo', documentID)
 
     return this.service.post(`/update/documentID/${_id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      }
-    })
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      })
       .then(response => response.data)
   }
 
@@ -33,22 +35,24 @@ class ClientService {
     formData.append('photo', documentIncomeOrPayslip)
 
     return this.service.post(`/update/documentIncome/${_id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      }
-    })
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      })
       .then(response => response.data)
   }
+
+  //keep
 
   createAccount = (details) => {
     return this.service.post(`/create-account`, {
-      details
-    })
+        details
+      })
       .then(response => response.data)
   }
 
-  getClients = (country, firstName) => {
-    return this.service.get(`/all-clients/${country}/${firstName}`)
+  getClients = (query) => {
+    return this.service.get(`/search/${query}`)
       .then(response => response.data)
   }
 

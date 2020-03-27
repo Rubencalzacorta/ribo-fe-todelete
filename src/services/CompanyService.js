@@ -1,10 +1,11 @@
 import axios from 'axios';
-require('dotenv').config();
+import runtimeEnv from '@mars/heroku-js-runtime-env';
+const env = runtimeEnv();
 
 class ClientService {
   constructor() {
     this.service = axios.create({
-      baseURL: `${process.env.REACT_APP_API_URL}/api/company`,
+      baseURL: `${env.REACT_APP_API_URL}/api/company`,
       withCredentials: true,
     });
   }

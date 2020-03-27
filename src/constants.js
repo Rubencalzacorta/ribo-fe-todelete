@@ -1,88 +1,37 @@
-const fees = [{
-        text: "Ribo",
-        fee: [{
-            "admin": "5d3b2da39657b30017a9ed0c",
-            "fee": 0.70
-        }]
-    },
-    {
-        text: "Miguel 10%",
-        fee: [{
-            "admin": "5c80fd19a5b4b86c15c18b8c",
-            "fee": 0.1
-        }]
-    },
-    {
-        text: "Carrillo 15%, Castillo 15%, Miguel 10%",
-        fee: [{
-                "admin": "5cbded7d396ebf05b289cbbe",
-                "fee": 0.15
-            },
-            {
-                "admin": "5cd19be0821e200017b6fec2",
-                "fee": 0.15
-            },
-            {
-                "admin": "5cd19693821e200017b6fec1",
-                "fee": 0.1
-            }
-        ]
-    },
-    {
-        text: "Castillo 15%, Manuela 15%, Miguel 10%",
-        fee: [{
-                "admin": "5cd19be0821e200017b6fec2",
-                "fee": 0.15
-            },
-            {
-                "admin": "5cd19693821e200017b6fec1",
-                "fee": 0.1
-            },
-            {
-                "admin": "5cb642eda14a6d0017039aaa",
-                "fee": 0.15
-            }
-        ]
-    },
-    {
-        text: "Castillo 15%, Miguel 10%",
-        fee: [{
-                "admin": "5cd19be0821e200017b6fec2",
-                "fee": 0.15
-            },
-            {
-                "admin": "5cd19693821e200017b6fec1",
-                "fee": 0.1
-            }
-        ]
-    }
+const accounts = ["RBPERU", "GCUS", "GFUS", "GCDR"]
 
 
+const location = {
+    'DOMINICAN_REPUBLIC': 'República Dominicana',
+    'VENEZUELA': 'Venezuela',
+    'USA': 'USA',
+    'PERU': 'Perú'
+}
 
+const totalConcepts = [
+    'Fecha',
+    'Ingresos Financieros',
+    'Costos Financieros',
+    'Margen Financiero Bruto',
+    'Gastos por Servicios Financieros',
+    'Margen Operativo',
+    'Gasto General Administrativo y Servicios',
+    'Resultado Operativo',
+    'Dividendos',
 ]
 
-const accounts = ["PLPERU", "REMPERU", "GCUS", "GFUS", "GCDR"]
-
-const feeDistribution = [{
-        participants: "P",
-        text: "Patricia 33.33%"
+const periodicityData = [{
+        value: 'weekly',
+        label: 'Semanal'
     },
     {
-        participants: "PG",
-        text: "Patricia 50%"
+        value: 'monthly',
+        label: 'Mensual'
     },
     {
-        participants: "PM",
-        text: "Patricia 30%, Miguel 10%"
+        value: 'yearly',
+        label: 'Anual'
     },
-    {
-        participants: "GPM",
-        text: "Patricia 45%, Miguel 10%"
-    },
-    {
-        participants: "M",
-        text: "Miguel 10%"
-    }
 ]
 
 
@@ -160,6 +109,138 @@ let ownership = [{
     value: 'PUBLIC'
 }]
 
+
+let txConstants = [{
+        label: 'DEPOSIT',
+        value: 'Deposito'
+    },
+    {
+        label: 'WITHDRAWAL',
+        value: 'Retiro'
+    },
+    {
+        label: 'INTERNAL_TRANSFER_RECIPIENT',
+        value: 'Transfer interna - destinario'
+    },
+    {
+        label: 'INTERNAL_TRANSFER_SENDER',
+        value: 'Transfer interna - remitente'
+    },
+    {
+        label: 'INTERNATIONAL_TRANSFER_RECIPIENT',
+        value: 'Intl. transfer - destinatario'
+    },
+    {
+        label: 'INTERNATIONAL_TRANSFER_SENDER',
+        value: 'Intl. transfer - remitente'
+    },
+    {
+        label: 'COST',
+        value: 'Costo'
+    }, {
+        label: 'COMMISSION',
+        value: 'Comisión'
+    },
+    {
+        label: 'COST',
+        value: 'Costo'
+    },
+    {
+        label: 'COMMISSION',
+        value: 'Comisión'
+    },
+    {
+        label: 'INSURANCE_COST',
+        value: 'Costo de seguro'
+    },
+    {
+        label: 'BANKING_FEE',
+        value: 'Fee bancario general'
+    },
+    {
+        label: 'BANKING_TRANSFER_FEE',
+        value: 'Fee bancario por transferencias'
+    },
+    {
+        label: 'INCOME_ORIGINATION_FEE',
+        value: 'Ingreso por originación'
+    },
+    {
+        label: 'COST_ORIGINATION_LEGAL',
+        value: 'Costo legal por originación'
+    },
+    {
+        label: 'COST_ORIGINATION_TRANSPORT',
+        value: 'Costo de transporte por originación'
+    },
+    {
+        label: 'COST_ORIGINATION_EXPENSES',
+        value: 'Gastos por originación'
+    },
+    {
+        label: 'COST_ORIGINATION_SENTINEL',
+        value: 'Costo originación sentinel'
+    },
+    {
+        label: 'COST_SERVICING_LEGAL',
+        value: 'Costo legal servicio de deuda'
+    },
+    {
+        label: 'COST_SERVICING_TRANSPORT',
+        value: 'Costo de transporte servicio de deuda'
+    },
+    {
+        label: 'COST_SERVICING_EXPENSES',
+        value: 'Gastos de servicio de deuda'
+    },
+    {
+        label: 'SALARY',
+        value: 'Salarios'
+    }, {
+        label: 'SG&A_MARKETING',
+        value: 'General, Administración, Servicios - Marketing'
+    }, {
+        label: 'SG&A_MISCELLANEOUS',
+        value: 'General, Administración, Servicios - Miscelaneo'
+    },
+    {
+        label: 'SG&A_ACCOUNTING',
+        value: 'Contabilidad'
+    },
+    {
+        label: 'SG&A_TECH_SERVICES',
+        value: 'Tecnologia'
+    },
+    {
+        label: 'SG&A_LEGAL',
+        value: 'Legal'
+    },
+    {
+        label: 'SG&A_MAILING',
+        value: 'Correspondencia'
+    },
+    {
+        label: 'SG&A_OFFICE_RENT',
+        value: 'Renta de oficina'
+    },
+    {
+        label: 'SG&A_OFFICE_PRINT',
+        value: 'Servicios de impresión'
+    },
+    {
+        label: 'SG&A_OFFICE_STORAGE',
+        value: 'Deposito'
+    },
+    {
+        label: 'TRAVEL_EXPENSES',
+        value: 'Gastos de viaje'
+    },
+    {
+        label: 'TRANSPORT',
+        value: 'Transporte general'
+    }
+]
+
 let nationalIdType = [{
     label: 'Cédula o DNI',
     value: 'ID'
@@ -173,6 +254,156 @@ let nationalIdType = [{
     label: 'Licencia de Conducir',
     value: 'DRIVING_LICENSE'
 }]
+
+
+let txConcepts = [{
+        value: 'DEPOSIT',
+        label: 'Deposito'
+    },
+    {
+        value: 'WITHDRAWAL',
+        label: 'Retiro'
+    },
+    {
+        value: 'INTERNAL_TRANSFER_RECIPIENT',
+        label: 'Recepción Transferencia Interna'
+    },
+    {
+        value: 'INTERNAL_TRANSFER_SENDER',
+        label: 'Envio Transferencia Interna'
+    },
+    {
+        value: 'INTERNATIONAL_TRANSFER_RECIPIENT',
+        label: 'Recepción Transferencia Intl'
+    },
+    {
+        value: 'INTERNATIONAL_TRANSFER_SENDER',
+        label: 'Envio Transferencia Intl'
+    },
+    {
+        value: 'DIVIDENDS',
+        label: 'Distribución de Utilidades'
+    },
+    {
+        value: 'DIVIDEND_INCOME',
+        label: 'Dividendos'
+    },
+    {
+        value: 'INTEREST_COST',
+        label: 'Pago de Intereses'
+    },
+    {
+        value: 'FEE',
+        label: 'Fee'
+    },
+    {
+        value: 'COST',
+        label: 'Costo'
+    },
+    {
+        value: 'UNCLASSIFIED_COST',
+        label: 'Costo sin clasificar'
+    },
+    {
+        value: 'COMMISSION_INCOME',
+        label: 'Ingreso por comisiones'
+    },
+    {
+        value: 'COMMISSION_COST',
+        label: 'Egreso por comisiones'
+    },
+    {
+        value: 'INSURANCE_COST',
+        label: 'Costo de Seguro'
+    },
+    {
+        value: 'BANKING_FEE',
+        label: 'Fee Bancario'
+    },
+    {
+        value: 'BANKING_TRANSFER_FEE',
+        label: 'Fee Transferencia Bancario'
+    },
+    {
+        value: 'INCOME_ORIGINATION_FEE',
+        label: 'Ingreso por originación'
+    },
+    {
+        value: 'COST_ORIGINATION_LEGAL',
+        label: 'Costo de originación - Legal'
+    },
+    {
+        value: 'COST_ORIGINATION_TRANSPORT',
+        label: 'Costo de originación - Transporte'
+    },
+    {
+        value: 'COST_ORIGINATION_EXPENSES',
+        label: 'Costo de originación - Gastos'
+    },
+    {
+        value: 'COST_ORIGINATION_SENTINEL',
+        label: 'Costo de originación - Sentinel'
+    },
+    {
+        value: 'COST_SERVICING_LEGAL',
+        label: 'Costo de servicio - Legal'
+    },
+    {
+        value: 'COST_SERVICING_TRANSPORT',
+        label: 'Costo de servicio - Transporte'
+    },
+    {
+        value: 'COST_SERVICING_EXPENSES',
+        label: 'Costo de servicio - Gastos'
+    },
+    {
+        value: 'SALARY',
+        label: 'Salarios'
+    },
+    {
+        value: 'SG&A_MARKETING',
+        label: 'General, Administración, Servicios - Marketing'
+    }, {
+        value: 'SG&A_MISCELLANEOUS',
+        label: 'General, Administración, Servicios - Miscelaneo'
+    },
+    {
+        value: 'SG&A_ACCOUNTING',
+        label: 'General, Administracion, Servicios - Contabilidad'
+    },
+    {
+        value: 'SG&A_TECH_SERVICES',
+        label: 'General, Administracion, Servicios - Tecnologia'
+    },
+    {
+        value: 'SG&A_LEGAL',
+        label: 'General, Administracion, Servicios - Legal'
+    },
+    {
+        value: 'SG&A_MAILING',
+        label: 'General, Administracion, Servicios - Correspondencia'
+    },
+    {
+        value: 'SG&A_OFFICE_RENT',
+        label: 'General, Administracion, Servicios - Renta'
+    },
+    {
+        value: 'SG&A_OFFICE_PRINT',
+        label: 'General, Administracion, Servicios - Copias e Impresiones'
+    },
+    {
+        value: 'SG&A_OFFICE_STORAGE',
+        label: 'General, Administracion, Servicios - Almacenamiento'
+    },
+    {
+        value: 'TRAVEL_EXPENSES',
+        label: 'Gasto de viaje'
+    },
+    {
+        value: 'TRANSPORT',
+        label: 'Transporte'
+    },
+]
 
 const initialState = {
     client: {
@@ -190,6 +421,7 @@ const initialState = {
         nationalId: null,
         nationality: null,
         otherNationalities: null,
+        personalReference: null,
         placeOfBirth: null,
         immigrationCertificate: null,
         Occupation: null,
@@ -222,19 +454,21 @@ const loanInitialState = {
     open: false,
     loanDetails: {
         duration: 0,
-
+        investedCapital: 0,
         capital: 0,
         interest: 0,
+        startAmortPeriod: 0,
         loanType: "linear",
         period: "monthly",
         startDate: "",
         paymentDate: ""
     },
-    openPaymentDate: false,
+    investmentEqCapital: true,
+    // openPaymentDate: false,
     investor: "",
     currency: "USD",
     cashAccount: '',
-    useOfFunds: "",
+    useOfFunds: "vehicle",
     investmentAmount: 0,
     investors: [],
     autoInvest: true
@@ -282,10 +516,13 @@ module.exports = {
     countries,
     initialState,
     initialClientState,
-    fees,
     accounts,
-    feeDistribution,
     loanInitialState,
     nationalIdType,
-    ownership
+    ownership,
+    txConstants,
+    txConcepts,
+    location,
+    totalConcepts,
+    periodicityData
 }

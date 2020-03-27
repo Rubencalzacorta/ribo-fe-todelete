@@ -1,88 +1,95 @@
 import React from "react";
+import TransactionService from '../../../../services/TransactionService'
+import MaterialTable from 'material-table'
+import numbro from 'numbro'
 import moment from "moment";
 import "./acc-transactions.scss";
+import { CsvBuilder } from 'filefy';
+
+
+const tableColumns = [
+  {
+    title: 'Fecha', field: 'date', type: 'date', render: rowData => moment(rowData.date).format('YYYY/MM/DD')
+  },
+  { title: 'Cliente', field: 'fullName' },
+  { title: 'Concepto', field: 'concept' },
+  {
+    title: 'Movimiento', field: 'change',
+    render: rowData => numbro(rowData.change).format({
+      thousandSeparated: true,
+      mantissa: 2,
+    }),
+    type: 'numeric'
+  },
+  {
+    title: 'Saldo', field: 'balance',
+    render: rowData => numbro(rowData.balance).format({
+      thousandSeparated: true,
+      mantissa: 2,
+    }),
+    type: 'numeric'
+  },
+  { title: 'Comentario', field: 'comment' },
+]
 
 function AccTransacionsTable(props) {
-  const { data } = props;
-  let acc = 0;
+  const transactionService = new TransactionService();
+  const { investorId } = props;
+
+  const handleExportCsv = async (columns) => {
+    const csvColumns = columns
+      .filter(columnDef => {
+        return !columnDef.hidden && columnDef.field && columnDef.export !== false;
+      });
+
+    const rawData = await transactionService.getAllTransactions(investorId)
+
+    const data = rawData.map(rowData =>
+      csvColumns.map(columnDef => rowData[columnDef.field])
+    );
+
+    const builder = new CsvBuilder(`investor-account-${investorId}.csv`)
+      .setDelimeter(',')
+      .setColumns(csvColumns.map(columnDef => columnDef.title))
+      .addRows(data)
+      .exportFile();
+    return builder
+  }
 
   return (
     <div className="personal-transactions-holder">
-      <div className="loan-schedule-head ">
-        <div className="detail-schedule head-date">
-          <p className="title-date">FECHA</p>
-        </div>
-        <div className="detail-schedule head-name">
-          <p className="title-date">CLIENTE</p>
-        </div>
-        <div className="detail-schedule head-concept">
-          <p className="title-date">CONCEPTO</p>
-        </div>
-        <div className="detail-schedule last head-content">
-          <p className="title">DEBITO</p>
-        </div>
-        <div className="detail-schedule last head-content">
-          <p className="title">CREDITO</p>
-        </div>
-        <div className="detail-schedule last head-content">
-          <p className="title">SALDO</p>
-        </div>
-        <div className="detail-schedule last head-content">
-          <p className="title">CUENTA</p>
-        </div>
-        <div className="detail-schedule last head-comment">
-          <p className="title">COMENTARIO</p>
-        </div>
-      </div>
-      {data.map((row, i) => {
-        acc = acc + (row.debit - row.credit);
-        return (
-          <div key={i} className="loan-schedule-content">
-            <div className="detail-schedule details-date">
-              <p className="acc-date">
-                {moment(row.date).format("YYYY-MM-DD")}
-              </p>
-            </div>
-            <div className="detail-schedule details-name">
-              <p className="acc-date">
-                {row._loan
-                  ? row._loan._borrower.firstName +
-                    " " +
-                    row._loan._borrower.lastName
-                  : "PERSONAL"}
-              </p>
-            </div>
-            <div className="detail-schedule details-concept">
-              <p className="acc-date">{row.concept}</p>
-            </div>
-            <div className="detail-schedule details-content">
-              <p className="acc-total">
-                {row.debit.toLocaleString(undefined, {
-                  maximumFractionDigits: 2
-                })}
-              </p>
-            </div>
-            <div className="detail-schedule details-content">
-              <p className="acc-total">
-                {row.credit.toLocaleString(undefined, {
-                  maximumFractionDigits: 2
-                })}
-              </p>
-            </div>
-            <div className="detail-schedule details-content">
-              <p className="acc-total">
-                {acc.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-              </p>
-            </div>
-            <div className="detail-schedule details-content">
-              <p className="acc-total">{row.cashAccount}</p>
-            </div>
-            <div className="detail-schedule details-comment">
-              <p>{row.comment}</p>
-            </div>
-          </div>
-        );
-      })}
+
+      <MaterialTable
+        title="Movimientos"
+        columns={tableColumns}
+        data={query =>
+          new Promise((resolve, reject) => {
+            transactionService.getTransactions(investorId, query.page + 1, query.pageSize)
+              .then(result => {
+                resolve({
+                  data: result.data,
+                  page: result.page - 1,
+                  totalCount: result.total,
+                })
+              })
+          })
+        }
+        options={{
+          sort: false,
+          search: false,
+          showTitle: false,
+          toolbar: true,
+          exportButton: true,
+          exportCsv: handleExportCsv,
+          exportFileName: `transacciones.csv`,
+          pageSize: 20,
+          style: {
+            width: '100%'
+          }
+        }}
+      />
+
+
     </div>
   );
 }

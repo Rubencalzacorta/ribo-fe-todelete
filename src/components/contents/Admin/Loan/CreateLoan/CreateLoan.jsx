@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import ClientService from '../../../../../services/ClientService'
+import loanSelector from '../helpers/scheduleCalc.js'
 import TransactionService from "../../../../../services/TransactionService";
 import LoanService from "../../../../../services/LoanService";
 import Colateral from './Colateral'
 import LoanDetails from './LoanDetails'
-import { loanSelector } from "../helpers/scheduleCalc";
 import { loanInitialState } from '../../../../../constants'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -42,10 +42,11 @@ class CreateLoan extends Component {
     event.preventDefault();
 
     const _borrower = this.state._id;
-    const collateralType = this.state.collateralType;
-    const collateralValue = parseFloat(this.state.collateralValue);
-    const collateralDescription = this.state.collateralDescription;
+    const insurancePremium = this.state.insurancePremium
     const currency = this.state.currency;
+    const collateralType = this.state.collateralType
+    const collateralValue = this.state.collateralValue
+    const collateralDescription = this.state.collateralDescription
     const loanDetails = this.state.loanDetails;
     const useOfFunds = this.state.useOfFunds;
     const toInvest = this.state.investors;
@@ -55,6 +56,7 @@ class CreateLoan extends Component {
     (!autoInvest) ?
       this.LoanService.createLoan(
         _borrower,
+        insurancePremium,
         collateralType,
         collateralValue,
         collateralDescription,
@@ -64,7 +66,11 @@ class CreateLoan extends Component {
         currency
       )
         .then(response => {
-          this.props.history.push(`/admin/loan/${response._id}`);
+          if (response._id) {
+            this.props.history.push(`/admin/loan/${response._id}`);
+          } else {
+            console.log(response)
+          }
         })
         .catch(error => {
           this.setState({
@@ -74,6 +80,7 @@ class CreateLoan extends Component {
         }) :
       this.LoanService.createLoanAllActive(
         _borrower,
+        insurancePremium,
         collateralType,
         collateralValue,
         collateralDescription,
@@ -83,7 +90,14 @@ class CreateLoan extends Component {
         country
       )
         .then(response => {
-          this.props.history.push(`/admin/loan/${response._id}`);
+          if (response.status === 'success') {
+            this.props.history.push(`/admin/loan/${response.message._id}`);
+          } else {
+            this.setState({
+              error: true,
+              message: response.response.data.message
+            })
+          }
         })
         .catch(error => {
           this.setState({
@@ -111,33 +125,25 @@ class CreateLoan extends Component {
   }
 
   handleLoanDetailsChange = event => {
-    const { name, value } = event.target;
+    const { name, value, type } = event.target;
 
-    if (name === 'loanType' && (value === 'linearIntFirst' || 'monday')) {
-
+    if (this.state.investmentEqCapital && name === 'capital') {
+      console.log('aqui')
       this.setState(prevState => ({
         ...prevState,
         loanDetails: {
           ...prevState.loanDetails,
-          [name]: value
+          [name]: type === "number" ? parseFloat(value) : value,
+          investedCapital: type === "number" ? parseFloat(value) : value,
         },
-        openPaymentDate: true
-      }))
-    } else if (this.state.loanDetails.loanType === 'linearIntFirst' || 'monday') {
-      this.setState(prevState => ({
-        ...prevState,
-        loanDetails: {
-          ...prevState.loanDetails,
-          [name]: value
-        },
-        openPaymentDate: true
+        openPaymentDate: false
       }))
     } else {
       this.setState(prevState => ({
         ...prevState,
         loanDetails: {
           ...prevState.loanDetails,
-          [name]: value
+          [name]: type === "number" ? parseFloat(value) : value,
         },
         openPaymentDate: false
       }))
@@ -145,10 +151,20 @@ class CreateLoan extends Component {
   }
 
   handleChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-
+    const { name, value, type } = event.target;
+    if (name === 'insurancePremium') {
+      this.setState({ [name]: parseFloat(value) })
+    } else {
+      this.setState({ [name]: type === "number" ? parseFloat(value) : value });
+    }
   };
+
+  toggleInvestmentEqCapital = () => {
+    this.setState({
+      investmentEqCapital: !this.state.investmentEqCapital,
+      loanDetails: { ...this.state.loanDetails, investedCapital: this.state.loanDetails.capital }
+    })
+  }
 
   handleAutoInvest = () => {
     this.setState({ autoInvest: !this.state.autoInvest })
@@ -228,12 +244,12 @@ class CreateLoan extends Component {
 
   calcLoanSchedule = () => {
     let { loanDetails } = this.state;
-    let schedule = loanSelector(1, loanDetails)
+    let schedule = loanSelector(1, loanDetails);
     this.setState({ loanSchedule: schedule, open: true });
   };
 
   render() {
-    let { loanDetails, open, loanSchedule } = this.state
+    let { loanDetails, open, loanSchedule, investmentEqCapital } = this.state
     return (
       <div className="content">
         <form onSubmit={this.handleFormSubmit}>
@@ -242,10 +258,12 @@ class CreateLoan extends Component {
             loanDetails={loanDetails}
             handleLoanDetailsChange={this.handleLoanDetailsChange}
             openPaymentDate={this.state.openPaymentDate}
-            calcLoanSchedule={this.calcLoanSchedule}
             open={open}
             handleClose={this.handleClose}
             loanSchedule={loanSchedule}
+            investmentEqCapital={investmentEqCapital}
+            toggleInvestmentEqCapital={this.toggleInvestmentEqCapital}
+            calcLoanSchedule={this.calcLoanSchedule}
           />
           <div className="form-row  general-loan-details">
             <div className="card col-md-12">
@@ -271,11 +289,14 @@ class CreateLoan extends Component {
                       >
                         <option>Seleccionar Cuenta</option>
                         {this.state.accounts
-                          ? this.state.accounts.map((e, i) => (
-                            <option key={i} value={[e.investor[0]._id, e.cashAccount]}>
-                              {e.cashAccount + " - " + e.investor[0].firstName + " " + e.investor[0].lastName}
-                            </option>
-                          ))
+                          // eslint-disable-next-line
+                          ? this.state.accounts.map((e, i) => {
+                            if (e.investor[0] !== undefined) {
+                              return <option key={i} value={[e.investor[0]._id, e.cashAccount]}>
+                                {e.cashAccount + " - " + e.investor[0].firstName + " " + e.investor[0].lastName}
+                              </option>
+                            }
+                          })
                           : ""}
                       </select>
                     </div>
@@ -404,6 +425,7 @@ class CreateLoan extends Component {
                   <button type="submit" className="btn btn-info" id="submit_button">
                     Crear
                   </button>
+                  {(this.state.error) ? <div className="error">{this.state.message}</div> : ''}
                 </div>
               </div>
             </div>
@@ -413,5 +435,6 @@ class CreateLoan extends Component {
     );
   }
 }
+
 
 export default withRouter(CreateLoan);

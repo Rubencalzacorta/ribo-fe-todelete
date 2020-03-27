@@ -1,0 +1,247 @@
+.loan-schedule-holder {
+    max-width: 1000px;
+
+    .loan-payment-holder {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        // max-height: 100px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        border-bottom: 1px solid;
+        border-color: rgba(97, 97, 97, 0.336);
+        background-color: rgba(0, 86, 136, 1);
+
+        .detail-schedule:first-child {
+            padding-left: 25px;
+        }
+
+        .detail-schedule {
+
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            padding-left: 15px;
+            width: 112px;
+            min-width: 112px;
+            height: 120px;
+
+            .last {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                .button {
+                    width: 5px;
+                    height: 40px;
+                    padding: 0;
+                    margin-left: 5px;
+                }
+
+                .icon {
+                    height: 30px;
+                    width: 30px;
+                    padding: 0;
+                    margin: 0 auto;
+                }
+
+                .icon-s {
+                    height: 30px;
+                    width: 30px;
+                    padding: 0;
+                    margin: 0 auto;
+                    margin-top: 4px;
+                }
+            }
+        }
+
+        .payment-date {
+            padding-top: 5px;
+            padding-left: 20px;
+            color: rgba(40, 80, 112, 0.966);
+            width: 200px;
+            min-width: 90px;
+        }
+
+        .acc-total {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: rgba(244, 254, 255, 0.966)
+        }
+
+        .textField {
+            font-size: 0.8rem;
+
+        }
+
+        .acc-fees {
+            min-width: 160px;
+        }
+
+    }
+
+    .payment-operations {
+        display: flex;
+        flex-direction: row;
+
+        i {
+            font-size: 3em;
+            margin: 2px;
+        }
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .title {
+        text-align: right;
+        font-weight: 600;
+        letter-spacing: 0.1rem;
+        color: rgb(223, 223, 223)
+    }
+
+    .title-date {
+        font-weight: 600;
+        letter-spacing: 0.1rem;
+        color: rgb(223, 223, 223)
+    }
+
+    .total {
+        font-size: 1.5rem;
+        font-weight: 300;
+        color: rgba(206, 247, 252, 0.815)
+    }
+
+    .acc-title {
+        margin-top: 5px;
+        font-weight: 600;
+        letter-spacing: 0.1rem;
+        color: rgba(149, 222, 231, 0.952)
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .loan-schedule-holder {
+        max-width: 1000px;
+
+        .loan-payment-holder {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            border: 1px solid red;
+            border-color: rgba(97, 97, 97, 0.336);
+            background-color: rgba(0, 86, 136, 1);
+
+            .detail-schedule:first-child {
+                padding-left: 20px;
+            }
+
+            .detail-schedule {
+
+                padding: 5px 20px 5px 20px;
+                display: flex;
+                width: 100%;
+                flex-direction: column;
+                padding-left: 15px;
+                width: 112px;
+                min-width: 112px;
+                height: 80px;
+
+                .last {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+
+                    .button {
+                        width: 5px;
+                        height: 40px;
+                        padding: 0;
+                        margin-left: 5px;
+                    }
+
+                    .icon {
+                        height: 30px;
+                        width: 30px;
+                        padding: 0;
+                        margin: 0 auto;
+                    }
+
+                    .icon-s {
+                        height: 30px;
+                        width: 30px;
+                        padding: 0;
+                        margin: 0 auto;
+                        margin-top: 4px;
+                    }
+                }
+            }
+
+            .payment-date {
+                color: rgba(40, 80, 112, 0.966);
+                width: 100%;
+                padding: 20px;
+            }
+
+            .acc-total {
+                font-size: 0.75rem;
+                font-weight: 400;
+                color: rgba(244, 254, 255, 0.966)
+            }
+
+            .textField {
+                font-size: 0.8rem;
+
+            }
+
+            .acc-fees {
+                width: 100%;
+            }
+
+        }
+
+        .payment-operations {
+            display: flex;
+            flex-direction: row;
+
+            i {
+                font-size: 3em;
+                margin: 2px;
+            }
+        }
+
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .title {
+            text-align: right;
+            font-weight: 600;
+            letter-spacing: 0.1rem;
+            color: rgb(223, 223, 223)
+        }
+
+        .title-date {
+            font-weight: 600;
+            letter-spacing: 0.1rem;
+            color: rgb(223, 223, 223)
+        }
+
+        .total {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: rgba(206, 247, 252, 0.815)
+        }
+
+        .acc-title {
+            margin-top: 5px;
+            font-weight: 600;
+            letter-spacing: 0.1rem;
+            color: rgba(149, 222, 231, 0.952)
+        }
+    }
+}

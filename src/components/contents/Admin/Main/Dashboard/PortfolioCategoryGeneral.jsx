@@ -32,7 +32,7 @@ const PortfolioCategoryGeneral = (props) => {
             </div>
             <div className="category-items">
                 <div className="item-holder">
-                    <p className="category-title"># DE PRESTAMOS</p>
+                    <p className="category-title"># DE CUOTAS</p>
                     <p className="category-content">{(data.numberOfInstallments).toLocaleString()}</p>
                 </div>
             </div>

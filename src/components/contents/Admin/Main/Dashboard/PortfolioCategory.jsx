@@ -8,14 +8,14 @@ const PortfolioCategory = (props) => {
             <div className="category-header">{title.toUpperCase()}{(cash > 0) ? (<span> / EFECTIVO DISPONIBLE: {cash.toLocaleString()}</span>) : ""}</div>
             <div className="category-items-unpaid">
                 <div className="item-holder">
-                    <p className="category-title">CLIENTE</p>
                     <p className="category-content"></p>
+                    <p className="category-title">CLIENTE</p>
                 </div>
             </div>
             <div className="category-items-unpaid">
                 <div className="item-holder">
-                    <p className="category-title">FECHA DE PAGO</p>
                     <p className="category-content"></p>
+                    <p className="category-title">FECHA DE PAGO</p>
                 </div>
             </div>
             <div className="category-items-unpaid">
@@ -38,7 +38,7 @@ const PortfolioCategory = (props) => {
             </div>
             <div className="category-items-unpaid">
                 <div className="item-holder">
-                    <p className="category-title"># DE PRESTAMOS</p>
+                    <p className="category-title"># DE CUOTAS</p>
                     <p className="category-content">{(data.numberOfInstallments).toLocaleString()}</p>
                 </div>
             </div>

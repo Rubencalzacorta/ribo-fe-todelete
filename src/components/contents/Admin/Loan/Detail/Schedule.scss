@@ -1,0 +1,329 @@
+.loan-schedule-detail-holder {
+    .itmt-options {
+        padding-left: 30px;
+        font-size: 0.75rem;
+        font-weight: 400;
+        color: rgba(65, 65, 65, 0.966);
+        display: flex;
+        flex-direction: row;
+
+        .material-icons {
+            width: 25px
+        }
+    }
+
+    max-width: 1000px;
+    padding-left: 0;
+
+    .loan-schedule-head {
+        margin-top: 20px;
+        max-height: 40px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        background-color: #2E334E;
+
+        .detail-schedule {
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .head-content {
+            width: 3px;
+            min-width: 93px;
+
+            p {
+                text-align: center;
+            }
+        }
+
+        .head-content-status {
+            width: 105px;
+            min-width: 105px;
+
+            p {
+                text-align: center;
+            }
+        }
+
+        .head-date {
+            width: 85px;
+            min-width: 85px;
+            padding-left: 25px;
+        }
+    }
+
+
+
+    .loan-schedule-content {
+
+        max-height: 30px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        // border-bottom: 1px solid;
+        // border-color: #EBF4FD;
+        // background-color: #EBF4FD;
+
+        .detail-schedule {
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            padding-left: 0px;
+
+        }
+
+        .details-content-status {
+            width: 105px;
+            min-width: 105px;
+            padding: 5px;
+        }
+
+        .details-content {
+            width: 93px;
+            min-width: 93px;
+            padding: 5px;
+        }
+
+        .details-date {
+            width: 60px;
+            min-width: 60px;
+
+        }
+
+        .acc-date {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: rgba(54, 54, 54, 0.966)
+        }
+
+        .acc-total {
+            text-align: left;
+            font-size: 0.75rem;
+            padding-left: 15px;
+            font-weight: 400;
+            color: rgba(54, 54, 54, 0.966);
+        }
+
+        .acc-total-status {
+            text-align: left;
+            padding-left: 20px;
+            font-size: 0.65rem;
+            font-weight: 400;
+            color: rgba(54, 54, 54, 0.966);
+        }
+    }
+
+    // .loan-schedule-content:nth-child(odd) {
+    //     background-color: #EBF4FD;
+    // }
+
+    // .loan-schedule-content:nth-child(even) {
+    //     background-color: rgb(214, 235, 255);
+    // }
+
+
+
+    .loan-schedule-content-payment {
+        max-height: 30px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 90%;
+
+        .detail-schedule {
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            padding-left: 25px;
+        }
+
+        .details-content {
+            width: 80px;
+            min-width: 80px;
+            padding-left: 25px;
+        }
+
+        .details-date {
+            width: 85px;
+            min-width: 85px;
+            padding: 0px;
+        }
+
+        .acc-date {
+            font-size: 0.6rem;
+            font-weight: 400;
+            color: rgba(54, 54, 54, 0.966)
+        }
+
+        .acc-total {
+            text-align: right;
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: rgba(54, 54, 54, 0.966)
+        }
+    }
+
+
+    .loan-payment-content {
+        margin-top: 20px;
+        // margin-left: 20px;
+        max-height: 100px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        border-bottom: 1px solid;
+        border-color: rgba(97, 97, 97, 0.336);
+        background-color: #2E334E;
+        border-radius: 10px;
+
+        .detail-schedule:first-child {
+            padding-left: 25px;
+        }
+
+        .detail-schedule {
+
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            padding-left: 15px;
+            width: 112px;
+            min-width: 112px;
+            height: 120px;
+
+        }
+
+        .last {
+            .acc-total {
+                text-align: left;
+                font-size: 0.75rem;
+                font-weight: 400;
+                color: rgba(244, 254, 255, 0.966)
+            }
+
+            .icon {
+                height: 30px;
+                width: 30px;
+                padding: 0;
+                margin: 0 auto;
+            }
+
+            .icon-s {
+                height: 30px;
+                width: 30px;
+                padding: 0;
+                margin: 0 auto;
+                margin-top: 4px;
+            }
+        }
+
+        .details-date {
+            color: rgba(40, 80, 112, 0.966);
+            width: 200px;
+            min-width: 90px;
+        }
+
+        .acc-date {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: rgba(244, 254, 255, 0.966);
+        }
+
+        .acc-total {
+            text-align: right;
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: rgba(244, 254, 255, 0.966)
+        }
+
+        .textField {
+            font-size: 0.8rem;
+
+        }
+
+    }
+
+    .payment-operations {
+        display: flex;
+        flex-direction: row;
+
+        i {
+            font-size: 3em;
+            margin: 2px;
+        }
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .title {
+        text-align: center;
+        font-weight: 600;
+        letter-spacing: 0.1rem;
+        color: rgb(223, 223, 223)
+    }
+
+    .title-date {
+        font-weight: 600;
+        letter-spacing: 0.1rem;
+        color: rgb(223, 223, 223)
+    }
+
+    .total {
+        font-size: 1.5rem;
+        font-weight: 300;
+        color: rgba(206, 247, 252, 0.815)
+    }
+
+    .acc-title {
+        margin-top: 5px;
+        font-weight: 600;
+        letter-spacing: 0.1rem;
+        color: rgba(149, 222, 231, 0.952)
+    }
+
+}
+
+.expansion {
+    padding-left: 0px;
+
+}
+
+.payment-summary {
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+
+    p {
+        font-weight: 600;
+    }
+
+    .full-pmt-btn {
+        margin-top: 20px;
+        background-color: #1A76D2;
+        color: white;
+        font-weight: 600;
+        // padding-left: 20px;
+    }
+
+    .full-pmt-btn:hover {
+        background-color: rgb(10, 73, 136);
+    }
+
+    .payment-holder {
+        padding-top: 20px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .chip {
+            display: flex;
+            align-content: flex-start;
+            margin: 0px 5px 10px 5px;
+
+        }
+    }
+}

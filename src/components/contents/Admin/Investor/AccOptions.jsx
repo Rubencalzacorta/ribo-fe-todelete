@@ -12,6 +12,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Modal from '@material-ui/core/Modal';
 import NewFee from './NewFeeModal'
 import useModal from '../../../../hooks/useModal'
+import numbro from 'numbro'
 
 const AccOptions = (props) => {
     const { isShowing, toggle } = useModal()
@@ -29,7 +30,6 @@ const AccOptions = (props) => {
         saveNewFee,
         deleteFee
     } = props
-
 
     return (
         <div className="account-options">
@@ -77,7 +77,10 @@ const AccOptions = (props) => {
                                     {e._managementAccount.firstName + ' ' + e._managementAccount.lastName}
                                 </div>
                                 <div className="mg-fee">
-                                    {e.pct * 100 + "%"}
+                                    {numbro(e.pct).format({
+                                        output: "percent",
+                                        mantissa: 2
+                                    })}
                                 </div>
                                 <div className="mg-icon" onClick={() => deleteFee(e._id)}>
                                     <i className="material-icons">

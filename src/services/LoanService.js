@@ -1,14 +1,44 @@
 import axios from 'axios';
-require('dotenv').config();
+import runtimeEnv from '@mars/heroku-js-runtime-env';
+const env = runtimeEnv();
 
 class LoanService {
   constructor() {
     this.service = axios.create({
-      baseURL: `${process.env.REACT_APP_API_URL}/api/test/loan`,
+      baseURL: `${env.REACT_APP_API_URL}/api/loan`,
       withCredentials: true,
     });
   }
 
+  getInstallment = (scheduleId) => {
+    return this.service.get(`/schedule/${scheduleId}`)
+      .then(response => response.data)
+  }
+
+  getLoanCommissions = (loanId) => {
+    return this.service.get(`/commission/${loanId}`)
+      .then(response => response.data)
+  }
+
+  getSalesmen = () => {
+    return this.service.get('/commission/salesmen')
+      .then(response => response.data)
+  }
+
+  addCommission = (salesmanCommission) => {
+    return this.service.post('commission', {
+      ...salesmanCommission
+    }).then(response => {
+      return response.data
+    })
+  }
+
+  deleteCommission = (id) => {
+    return this.service.delete(`commission/${id}`)
+      .then(response => {
+        return response.data
+      })
+  }
 
   getLoanDetails = () => {
     return this.service.get('/')
@@ -47,11 +77,17 @@ class LoanService {
       .then(response => response.data)
   }
 
+  restructure = (loanId, restructuringDetails) => {
+    return this.service.post(`/restructure/${loanId}`, restructuringDetails)
+      .then(response => response.data)
+  }
 
-  createLoan = (_borrower, collateralType, collateralValue, collateralDescription, loanDetails, useOfFunds, toInvest, currency) => {
+
+  createLoan = (_borrower, insurancePremium, collateralType, collateralValue, collateralDescription, loanDetails, useOfFunds, toInvest, currency) => {
 
     return this.service.post('/create', {
         _borrower,
+        insurancePremium,
         collateralType,
         collateralValue,
         collateralDescription,
@@ -64,15 +100,16 @@ class LoanService {
         return response.data
       })
       .catch(error => {
-        return error
+        return error.response
       })
 
   }
 
-  createLoanAllActive = (_borrower, collateralType, collateralValue, collateralDescription, loanDetails, useOfFunds, currency, country) => {
+  createLoanAllActive = (_borrower, insurancePremium, collateralType, collateralValue, collateralDescription, loanDetails, useOfFunds, currency, country) => {
 
     return this.service.post('/create/all-active-invest', {
         _borrower,
+        insurancePremium,
         collateralType,
         collateralValue,
         collateralDescription,
@@ -95,7 +132,7 @@ class LoanService {
     }).then(response => response.data)
   }
 
-  deletePayment = (id) => {
+  deletePayments = (id) => {
     return this.service.delete(`/deletepmt/${id}`)
       .then(response => response.data)
   }

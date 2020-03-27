@@ -1,0 +1,63 @@
+.modal-col {
+    width: 1080px;
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+
+
+    .modal-title {
+        text-align: left;
+        font-weight: 600;
+    }
+
+    .textField {
+        margin-left: 10px;
+        margin-right: 10px;
+        width: 300px;
+    }
+
+    .optionHolder {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        padding: 0 80px;
+    }
+
+}
+
+.colateralHolder {
+    margin-top: 20px;
+}
+
+.collateralHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    // justify-content: space-between;
+}
+
+.collateralContent {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    // padding-left: 35px;
+    // justify-content: space-between;
+}
+
+.collateralType {
+    width: 150px;
+}
+
+.collateralValue {
+    width: 150px;
+}
+
+.collateralDateNumb {
+    width: 140px;
+}
+
+.collateralStatus {
+    width: 200px;
+}

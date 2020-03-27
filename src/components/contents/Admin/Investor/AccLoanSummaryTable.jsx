@@ -1,5 +1,6 @@
 import React from "react";
 import "./acc-loan-summary.scss";
+import numbro from 'numbro'
 
 function AccLoanSummaryTable(props) {
   const { loanDetails } = props;
@@ -31,7 +32,7 @@ function AccLoanSummaryTable(props) {
           <p className="title">INGRESO </p>
         </div>
       </div>
-      {loanDetails.map((row, i) => {
+      {loanDetails ? loanDetails.map((row, i) => {
         return (
           <div key={i} className="loan-schedule-content">
             <div className="detail-schedule details-name">
@@ -39,12 +40,10 @@ function AccLoanSummaryTable(props) {
             </div>
             <div className="detail-schedule details-pct">
               <p className="acc-total">
-                {parseFloat(
-                  row.ownership.toLocaleString(undefined, {
-                    maximumFractionDigits: 2
-                  })
-                ) * 100}
-                %
+                {numbro(row.ownership).format({
+                  output: "percent",
+                  mantissa: 2
+                })}
               </p>
             </div>
             <div className="detail-schedule details-content">
@@ -92,7 +91,7 @@ function AccLoanSummaryTable(props) {
             </div>
           </div>
         );
-      })}
+      }) : ""}
     </div>
   );
 }

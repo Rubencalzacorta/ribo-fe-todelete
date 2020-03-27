@@ -1,0 +1,129 @@
+.root {
+  padding: 2px 4px 2px;
+  display: flex;
+  align-items: center;
+
+  .MuiBadge-root {
+    width: 100%
+  }
+
+  .button-client-search {
+    width: 100%;
+    height: 40px;
+  }
+
+}
+
+.root>* {
+  margin: 10px;
+}
+
+.input {
+  margin-left: 2px;
+  flex: 1;
+}
+
+.iconButton {
+  padding: 15;
+}
+
+.createButton {
+  margin-right: 10px;
+}
+
+.divider {
+  height: 28;
+  margin: 4;
+}
+
+.payment-modal {
+  padding: 20px;
+  min-width: 300px;
+  width: 30vw;
+
+  h6 {
+    font-weight: 600;
+  }
+
+  .input-date-cash {
+    margin: 30px 0 40px 0;
+    display: flex;
+    flex-direction: row;
+
+    .paymentDate {
+      margin-left: 20px;
+    }
+  }
+
+  .input-date-cash * {
+    width: 150px;
+  }
+
+  table {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  // th {}
+
+  .head {
+    padding-left: 10px;
+  }
+
+  .content {
+    padding-left: 15px;
+    width: 600px;
+  }
+
+  .date {
+    max-width: 100px;
+  }
+
+  .table-amount {
+    text-align: right;
+  }
+
+  .totals {
+    font-weight: 600;
+  }
+
+  .table-client {
+    width: 270px;
+  }
+}
+
+
+
+.MuiButton-contained {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+
+
+.MuiButton-label {
+  font-weight: 600;
+  font-size: 11px;
+  font-family: 'roboto'
+}
+
+.download-table-xls-button {
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
+.download-table-xls-button:hover {
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
