@@ -10,7 +10,6 @@ import Transactions from './Transactions'
 import Statistics from './Statistics'
 import Commissions from './Commissions'
 import Documents from './Documents'
-import Payment from './Payment';
 import Comments from '../Comments';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
@@ -407,14 +406,6 @@ class LoanDetails extends Component {
                                                     />
                                                 </DialogBox>}
 
-                                            {/* {this.state.openPayment &&
-                                                <Payment
-                                                    installment={installment}
-                                                    loan={details}
-                                                    receivePayment={this.paymentReceiver}
-                                                    closePaymentOption={this.closePaymentOption}
-                                                    fullPayment={fullPayment}
-                                                />} */}
                                             <Schedule
                                                 loanSchedule={details.loanSchedule.sort(this.compare)}
                                                 openPaymentOption={this.openPaymentOption}

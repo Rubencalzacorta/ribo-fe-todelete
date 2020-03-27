@@ -50,7 +50,7 @@ function ScheduleBody(props) {
     }
 
     let { scheduleDetails } = props
-    let { loanSchedule, openPaymentOption, reversePayment, deletePayments, togglePaymentOption } = scheduleDetails
+    let { loanSchedule, reversePayment, deletePayments, togglePaymentOption } = scheduleDetails
 
     return (
         loanSchedule.map((item, i) => {
@@ -107,61 +107,37 @@ function ScheduleBody(props) {
                                             return ((item.principal_pmt > 0) ?
                                                 <p className='itmt-options'>
                                                     <i className="material-icons" onClick={() => deletePayments(item._id)}>delete_box</i>
-                                                    <i className="material-icons" onClick={() => {
-                                                        togglePaymentOption(item)
-                                                        // openPaymentOption(item)
-                                                    }}>add_box</i>
+                                                    <i className="material-icons" onClick={() => togglePaymentOption(item)}>add_box</i>
                                                 </p> : (!item.principal_pmt) ?
                                                     <p className='itmt-options'>
-                                                        <i className="material-icons" onClick={() => {
-                                                            togglePaymentOption(item)
-                                                            // openPaymentOption(item)
-                                                        }}>add_box</i>
+                                                        <i className="material-icons" onClick={() => togglePaymentOption(item)}>add_box</i>
                                                     </p> : '')
                                         case 'OUTSTANDING':
                                             return ((item.principal_pmt > 0) ?
                                                 <p className='itmt-options'>
                                                     <i className="material-icons" onClick={() => deletePayments(item._id)}>delete_box</i>
-                                                    <i className="material-icons" onClick={() => {
-                                                        togglePaymentOption(item)
-                                                        // openPaymentOption(item)
-                                                    }}>add_box</i>
+                                                    <i className="material-icons" onClick={() => togglePaymentOption(item)}>add_box</i>
                                                 </p> : (!item.principal_pmt) ?
                                                     <p className='itmt-options'>
-                                                        <i className="material-icons" onClick={() => {
-                                                            togglePaymentOption(item)
-                                                            // openPaymentOption(item)
-                                                        }}>add_box</i>
+                                                        <i className="material-icons" onClick={() => togglePaymentOption(item)}>add_box</i>
                                                     </p> : '')
                                         case 'OVERDUE':
                                             return ((item.principal_pmt > 0) ?
                                                 <p className='itmt-options'>
                                                     <i className="material-icons" onClick={() => deletePayments(item._id)}>delete_box</i>
-                                                    <i className="material-icons" onClick={() => {
-                                                        togglePaymentOption(item)
-                                                        // openPaymentOption(item)
-                                                    }}>add_box</i>
+                                                    <i className="material-icons" onClick={() => togglePaymentOption(item)}>add_box</i>
                                                 </p> : (!item.principal_pmt) ?
                                                     <p className='itmt-options'>
-                                                        <i className="material-icons" onClick={() => {
-                                                            togglePaymentOption(item)
-                                                            // openPaymentOption(item)
-                                                        }}>add_box</i>
+                                                        <i className="material-icons" onClick={() => togglePaymentOption(item)}>add_box</i>
                                                     </p> : '')
                                         case 'PENDING':
                                             return ((item.principal_pmt > 0) ?
                                                 <p className='itmt-options'>
                                                     <i className="material-icons" onClick={() => deletePayments(item._id)}>delete_box</i>
-                                                    <i className="material-icons" onClick={() => {
-                                                        togglePaymentOption(item)
-                                                        // openPaymentOption(item)
-                                                    }}>add_box</i>
+                                                    <i className="material-icons" onClick={() => togglePaymentOption(item)}>add_box</i>
                                                 </p> : (!item.principal_pmt) ?
                                                     <p className='itmt-options'>
-                                                        <i className="material-icons" onClick={() => {
-                                                            togglePaymentOption(item)
-                                                            // openPaymentOption(item)
-                                                        }}>add_box</i>
+                                                        <i className="material-icons" onClick={() => togglePaymentOption(item)}>add_box</i>
                                                     </p> : '')
                                         case 'DISBURSTMENT':
                                             return null;
@@ -197,10 +173,7 @@ function ScheduleBody(props) {
                                 }) : ""}
                             </div>
                             <div >
-                                <Button className="full-pmt-btn" variant="contained" onClick={() => {
-                                    togglePaymentOption(item, true)
-                                    // openPaymentOption(item, true)
-                                }}> Pago Total</Button>
+                                <Button className="full-pmt-btn" variant="contained" onClick={() => togglePaymentOption(item, true)}> Pago Total</Button>
                             </div>
                         </div>
                     </ExpansionPanelDetails>

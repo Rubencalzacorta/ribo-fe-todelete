@@ -143,7 +143,10 @@ export default function Collection({ userLocation }) {
 
     const searchCollection = () => {
         reportingService.getFilterCollection(filter)
-            .then(response => setData(response))
+            .then(response => {
+                console.log(response)
+                setData(response)
+            })
     }
 
     useEffect(() => {
